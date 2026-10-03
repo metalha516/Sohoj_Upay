@@ -1,24 +1,28 @@
-"""Pure deterministic financial calculation engine using Decimal arithmetic.
+"""Backwards-compatible convenience helpers for deterministic financial calculations.
 
-Zero external dependencies (no DB, no ORM, no ML, no LLM).
+Delegates core calculation algorithms to app.financial.engine.
 """
 
-from decimal import ROUND_HALF_UP, Decimal
+from __future__ import annotations
+
+from decimal import Decimal
+
+from app.financial.engine import (
+    calculate_future_value as _engine_fv,
+)
+from app.financial.engine import (
+    calculate_savings_rate as _engine_sr,
+)
 
 
 def calculate_savings_rate(income: Decimal, savings: Decimal) -> Decimal:
-    """Calculate the savings rate as a percentage of total income.
-
-    Formula: (savings / income) * 100
-    Returns Decimal rounded to 2 decimal places.
-    """
-    if income <= Decimal("0"):
+    """Calculate savings rate, returning Decimal('0.00') if income is zero or negative."""
+    if income <= Decimal("0") or savings < Decimal("0"):
         return Decimal("0.00")
-    if savings < Decimal("0"):
+    res = _engine_sr(income, savings)
+    if res is None:
         return Decimal("0.00")
-
-    rate = (savings / income) * Decimal("100")
-    return rate.quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
+    return res
 
 
 def calculate_future_value(
@@ -26,14 +30,11 @@ def calculate_future_value(
     annual_rate: Decimal,
     months: int,
 ) -> Decimal:
-    """Calculate compound interest future value with monthly compounding.
-
-    Formula: FV = P * (1 + r/12)^n
-    """
+    """Calculate compound future value with monthly compounding over month count."""
     if principal < Decimal("0") or months <= 0:
-        return max(principal, Decimal("0.00")).quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
-
-    monthly_rate = annual_rate / Decimal("12")
-    factor = (Decimal("1") + monthly_rate) ** months
-    fv = principal * factor
-    return fv.quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
+        return max(principal, Decimal("0.00"))
+    years = Decimal(months) / Decimal("12")
+    res = _engine_fv(
+        principal=principal, annual_rate=annual_rate, years=years, compounding_per_year=12
+    )
+    return res.future_value

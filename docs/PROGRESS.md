@@ -14,9 +14,32 @@
 | **Phase 8** | ML Model A: Behavior Classification | **Completed** | 2026-10-03 |
 | **Phase 9** | ML Model B: Anomaly Detection | **Completed** | 2026-10-03 |
 | **Phase 10** | ML Model C: Expense Forecasting + Model Registry & Serving | **Completed** | 2026-10-03 |
-| **Phase 11** | Core Financial API, Services & Outbox Processing | Pending | - |
+| **Phase 11** | Financial Engine (Deterministic) | **Completed** | 2026-10-03 |
 | **Phase 12** | Grounded Conversational AI & RAG Engine | Pending | - |
 | **Phase 13** | Next.js Frontend Dashboard & Coach Interface | Pending | - |
+
+---
+
+## Phase 11 Checklist (Completed)
+- [x] Pure deterministic financial engine implemented in `backend/app/financial/engine.py` adhering to `design.md` §6
+- [x] Absolute boundary isolation: 0 dependencies on DB, ORM, ML, AI, FastAPI, or SQLAlchemy (enforced by AST import test)
+- [x] Strict Decimal arithmetic and centralized rounding policy in `backend/app/financial/rounding.py` (`ROUND_HALF_UP`, currency to 2 decimals, rates to 4, ratios to 6)
+- [x] Typed return dataclasses in `backend/app/financial/schemas.py` with mandatory `AssumptionsBlock` (`rate_type: "assumed" | "historical" | "contractual"`)
+- [x] Strongly typed exception hierarchy in `backend/app/financial/exceptions.py` (`NegativeValueError`, `ZeroPeriodError`, `InvalidRateError`, `InvalidCompoundingFrequencyError`, `InvalidTimingError`, `InvalidTargetDateError`)
+- [x] Future Value engine (`calculate_future_value`) supporting lump sum, monthly annuity, ordinary/due timing, compounding frequencies (1, 2, 4, 12, 365), and $r=0$ special case
+- [x] Doubling time engine (`calculate_doubling_time`) with exact continuous/compound closed form and Rule of 72 approximation
+- [x] Required saving engine (`calculate_monthly_required_saving`) solving annuity accumulation equation with zero-rate and growth-sufficiency branches
+- [x] Goal progress engine (`calculate_goal_progress`) with calendar month interval and velocity feasibility status (`completed`, `on_track`, `at_risk`, `behind`)
+- [x] Data contract compliance for `calculate_savings_rate` and `calculate_expense_ratio` (returns `Decimal | None`, correctly preserving `None` for zero/negative income)
+- [x] Emergency fund evaluation (`calculate_emergency_fund`) categorizing coverage into 4 tiers (`critical`, `vulnerable`, `adequate`, `optimal`)
+- [x] Affordability engine (`calculate_affordability`) evaluating liquid buffers, goal impacts, and 3-month surplus absorption
+- [x] Multi-year comparative scenario simulation (`run_scenario`) with yearly trajectory points and net monetary delta
+- [x] Backwards-compatible facade in `backend/app/financial/calculator.py`
+- [x] Golden reference fixtures cross-checked against independent spreadsheet formulas
+- [x] Property-based tests via Hypothesis (monotonicity in rate, monotonicity in time, lower bound guarantee, doubling time identity, scale invariance)
+- [x] 99% test coverage on `app.financial` (39/39 tests passing, 108/108 passing across repository)
+- [x] Full `mypy --strict` compliance (`[mypy-app.financial.*] strict = true` clean with 0 issues)
+- [x] Comprehensive technical report written in `docs/phase-reports/phase-11.md`
 
 ---
 
