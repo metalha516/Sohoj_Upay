@@ -11,9 +11,29 @@
 | **Phase 5** | Data Generation Run, Load & Realism Validation | **Completed** | 2026-10-03 |
 | **Phase 6** | EDA & Data Quality Analysis | **Completed** | 2026-10-03 |
 | **Phase 7** | Feature Engineering & ML Pipeline | **Completed** | 2026-10-03 |
-| **Phase 8** | Core Financial API, Services & Outbox Processing | Pending | - |
-| **Phase 9** | Grounded Conversational AI & RAG Engine | Pending | - |
-| **Phase 10** | Next.js Frontend Dashboard & Coach Interface | Pending | - |
+| **Phase 8** | ML Model A: Behavior Classification | **Completed** | 2026-10-03 |
+| **Phase 9** | ML Model B & C: Anomaly Detection & Expense Forecasting | Pending | - |
+| **Phase 10** | Core Financial API, Services & Outbox Processing | Pending | - |
+| **Phase 11** | Grounded Conversational AI & RAG Engine | Pending | - |
+| **Phase 12** | Next.js Frontend Dashboard & Coach Interface | Pending | - |
+
+---
+
+## Phase 8 Checklist (Completed)
+- [x] Model ladder benchmarked via 5-Fold Stratified Group CV on `user_id` (Rule Baseline $0.3001 \to$ Logistic Regression $0.6071 \to$ Random Forest $0.6647 \to$ HistGradientBoosting $0.6894$)
+- [x] Probability calibration via `CalibratedClassifierCV(method='sigmoid')` achieving ECE = $0.0867$ ($< 0.10$)
+- [x] Rigorous held-out seed cohort evaluation ($N=200$ users, $2,256$ months): Macro-F1 = $0.7148$, Accuracy = $74.47\%$, ROC-AUC OvR = $0.9427$
+- [x] Acceptance criteria verified: beats rule baseline by $+138\%$ relative gain, strong but not suspiciously perfect ($< 0.99$, no target leakage)
+- [x] Permutation feature importance and Tree SHAP explainability extracted (`cashout_frequency`, `rolling_sr_mean`, `discretionary_rate` as top drivers)
+- [x] Non-judgmental, purely descriptive explainability factor generator implemented
+- [x] Robustness checks passing: 100% scale invariance ($2\times$ scaling), 92% noise perturbation tolerance, cold start $< 2$ months returns `insufficient_data`, drifting users handled gracefully
+- [x] Cryptographic artifact serialization (`ml/artifacts/behavior_classifier_v1.joblib` + metadata) with SHA-256 tamper-detection verification
+- [x] Backend adapter (`backend/app/ml/behavior.py`) exposing verified singleton for FastAPI and workers
+- [x] Diagnostic plots generated in `docs/ml/figures/model_a/` (confusion matrix, calibration curve, ROC-AUC, feature importance)
+- [x] Unit test suite (`backend/tests/unit/test_behavior_classifier.py`) passing with 51/51 tests passing across repository
+- [x] Comprehensive report in `docs/ml/model-a-report.md` completed and verified
+
+---
 
 ---
 

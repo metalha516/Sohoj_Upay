@@ -1,0 +1,130 @@
+{
+  "model_name": "behavior_classifier",
+  "model_version": "v1.0.0",
+  "feature_schema_version": "v1.0.0",
+  "feature_names": [
+    "savings_rate",
+    "necessity_rate",
+    "discretionary_rate",
+    "income_expense_ratio",
+    "cashout_frequency",
+    "rolling_sr_mean",
+    "rolling_sr_std",
+    "savings_consistency",
+    "category_entropy",
+    "discretionary_volatility",
+    "deficit_months",
+    "spending_growth",
+    "expense_cv",
+    "spending_trend_pct"
+  ],
+  "classes": [
+    "balanced_spender",
+    "cash_dominant_transactor",
+    "consistent_saver",
+    "discretionary_spender",
+    "tight_budgeter",
+    "volatile_earner"
+  ],
+  "dataset_hash": "5aa9f776fef4a7a1aff95b2a40aa2cf7b8d57bfa390bf9e0e0a52e1ed0cf9a55",
+  "git_sha": "992eb48bc96c7cd94aa1c1f8a7f8788d661ae902",
+  "created_at": "2026-10-03T09:12:38.722626+00:00",
+  "sha256_checksum": "8fbbf51ea1a975278f5ac1b4f8d711e260b7675a8ae4e470e142fe7f6d220352",
+  "cv_benchmarks": {
+    "rule_baseline": {
+      "macro_f1_mean": 0.3001,
+      "macro_f1_std": 0.0188,
+      "accuracy_mean": 0.393,
+      "accuracy_std": 0.0131
+    },
+    "logistic_regression": {
+      "macro_f1_mean": 0.6071,
+      "macro_f1_std": 0.024,
+      "accuracy_mean": 0.6427,
+      "accuracy_std": 0.0191
+    },
+    "random_forest": {
+      "macro_f1_mean": 0.6647,
+      "macro_f1_std": 0.0369,
+      "accuracy_mean": 0.7094,
+      "accuracy_std": 0.0292
+    },
+    "hist_gradient_boosting": {
+      "macro_f1_mean": 0.6928,
+      "macro_f1_std": 0.0241,
+      "accuracy_mean": 0.7289,
+      "accuracy_std": 0.0196
+    },
+    "calibrated_gradient_boosting": {
+      "macro_f1_mean": 0.6894,
+      "macro_f1_std": 0.0198,
+      "accuracy_mean": 0.7272,
+      "accuracy_std": 0.0166
+    }
+  },
+  "heldout_metrics": {
+    "accuracy": 0.7446808510638298,
+    "macro_f1": 0.7148461432024303,
+    "weighted_f1": 0.7478435934399349,
+    "roc_auc_ovr": 0.942748502816849,
+    "ece": 0.0867
+  },
+  "feature_importances": [
+    {
+      "feature": "cashout_frequency",
+      "importance": 0.4032
+    },
+    {
+      "feature": "rolling_sr_mean",
+      "importance": 0.221
+    },
+    {
+      "feature": "discretionary_rate",
+      "importance": 0.2156
+    },
+    {
+      "feature": "income_expense_ratio",
+      "importance": 0.1596
+    },
+    {
+      "feature": "expense_cv",
+      "importance": 0.1274
+    },
+    {
+      "feature": "category_entropy",
+      "importance": 0.1252
+    },
+    {
+      "feature": "discretionary_volatility",
+      "importance": 0.0756
+    },
+    {
+      "feature": "necessity_rate",
+      "importance": 0.058
+    },
+    {
+      "feature": "spending_growth",
+      "importance": 0.055
+    },
+    {
+      "feature": "spending_trend_pct",
+      "importance": 0.0458
+    },
+    {
+      "feature": "deficit_months",
+      "importance": 0.0424
+    },
+    {
+      "feature": "rolling_sr_std",
+      "importance": 0.0206
+    },
+    {
+      "feature": "savings_rate",
+      "importance": 0.0014
+    },
+    {
+      "feature": "savings_consistency",
+      "importance": 0.0
+    }
+  ]
+}
