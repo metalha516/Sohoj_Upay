@@ -1,0 +1,8 @@
+{
+  "active_version": "v1.0.0",
+  "model_name": "expense_forecaster",
+  "sha256_checksum": "86151ca0ffdcbe6dacd7eded6f38f679322371e1b033e145a91a7034ca7a8eb1",
+  "promoted_at": "2026-10-03T12:43:04.862228+00:00",
+  "git_commit_sha": "2d0bd8e9ab0055cf9f7af29670a9a023ad379c79",
+  "status": "production"
+}

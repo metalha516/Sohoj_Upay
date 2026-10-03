@@ -1,0 +1,8 @@
+{
+  "active_version": "v1.0.0",
+  "model_name": "behavior_classifier",
+  "sha256_checksum": "8fbbf51ea1a975278f5ac1b4f8d711e260b7675a8ae4e470e142fe7f6d220352",
+  "promoted_at": "2026-10-03T12:43:30.539104+00:00",
+  "previous_version": null,
+  "status": "production"
+}

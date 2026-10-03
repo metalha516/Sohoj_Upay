@@ -1,0 +1,61 @@
+{
+  "model_version": "v1.0.0",
+  "sha256_checksum": "66b2c23c5b9df81602d2e84cea0fe7b469423557f0791522519877d7cd53b990",
+  "file_name": "anomaly_detector_v1.joblib",
+  "file_size_bytes": 14454877,
+  "saved_at": "2026-10-03T09:59:28.136018",
+  "dataset_hash_primary_tx": "ec09ca385c31d7923650665d906559948facd4de093ee74e277f27f8e3aece2b",
+  "dataset_hash_primary_gt": "2471679f5a9ef200aa366c5fc59a05585a782de81608fde28b67b46e91566afb",
+  "git_commit_sha": "6cbb6a77293df39ff3bca11f591345fab89f32f4",
+  "optimal_z_threshold": 3.5,
+  "alert_budget_max_per_user_month": 3.0,
+  "primary_metrics": {
+    "alerts_per_user_month": 1.7413888888888889,
+    "precision": 0.12051363853884192,
+    "recall": 0.19396662387676508,
+    "f1": 0.14866194411648956,
+    "fpr": 0.04359807689266341
+  },
+  "held_out_metrics": {
+    "alerts_per_user_month": 1.3925,
+    "precision": 0.13255535607420707,
+    "recall": 0.16310751104565538,
+    "f1": 0.14625288874215914,
+    "fpr": 0.03368893227350904
+  },
+  "per_type_recall": {
+    "burst_frequency": {
+      "count": 4936,
+      "detected": 42,
+      "recall": 0.008508914100486223
+    },
+    "category_spike": {
+      "count": 1504,
+      "detected": 952,
+      "recall": 0.6329787234042553
+    },
+    "odd_hour_activity": {
+      "count": 550,
+      "detected": 399,
+      "recall": 0.7254545454545455
+    },
+    "unusual_cash_out": {
+      "count": 800,
+      "detected": 118,
+      "recall": 0.1475
+    }
+  },
+  "benchmark_summary_cat_month": {
+    "n_samples": 61875,
+    "if_anomaly_count": 1857,
+    "if_anomaly_pct": 3.001212121212121,
+    "lof_anomaly_count": 1546,
+    "lof_anomaly_pct": 2.4985858585858587,
+    "concordance": 95.0270707070707,
+    "if_mean_score": 0.43861698927355813,
+    "lof_mean_score": 1.054673284787125
+  },
+  "festival_fp_reduction_pct": 46.41388761991777,
+  "model_name": "anomaly_detector",
+  "registered_at": "2026-10-03T12:43:30.577340+00:00"
+}

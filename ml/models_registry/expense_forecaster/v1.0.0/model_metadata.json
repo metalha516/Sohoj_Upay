@@ -1,0 +1,63 @@
+{
+  "model_name": "expense_forecaster",
+  "model_version": "v1.0.0",
+  "sha256_checksum": "86151ca0ffdcbe6dacd7eded6f38f679322371e1b033e145a91a7034ca7a8eb1",
+  "file_name": "model.joblib",
+  "file_size_bytes": 681655,
+  "saved_at": "2026-10-03T12:43:04.860877+00:00",
+  "dataset_hash_primary_mf": "5aa9f776fef4a7a1aff95b2a40aa2cf7b8d57bfa390bf9e0e0a52e1ed0cf9a55",
+  "dataset_hash_held_out_mf": "48f773d925a4656d64508da8bcf5facf2a8050ef312ca35fabd042736eaf7764",
+  "git_commit_sha": "2d0bd8e9ab0055cf9f7af29670a9a023ad379c79",
+  "primary_metrics": {
+    "mae": 6016.761669962502,
+    "rmse": 9839.068249357098,
+    "smape": 13.220824111522456
+  },
+  "held_out_metrics": {
+    "mae": 6370.668934356398,
+    "rmse": 10166.230115404054,
+    "smape": 12.967109921019704,
+    "mape": 13.07767779685757,
+    "coverage_80": 0.7472727272727273,
+    "pinball_loss_50": 3185.334467178199,
+    "naive_mae": 9701.944981818182
+  },
+  "ladder_benchmark": {
+    "naive": {
+      "mae": 7042.85926,
+      "rmse": 11611.210452110336,
+      "smape": 15.273063129936585
+    },
+    "moving_average_3m": {
+      "mae": 6187.60368,
+      "rmse": 9844.127524777467,
+      "smape": 13.571755969815754
+    },
+    "ridge": {
+      "mae": 6566.334679076461,
+      "rmse": 10243.115195339666,
+      "smape": 15.759015635757134
+    },
+    "gbdt_quantile": {
+      "mae": 6016.761669962502,
+      "rmse": 9839.068249357098,
+      "smape": 13.220824111522456
+    }
+  },
+  "feature_names": [
+    "expense",
+    "lag2_expense",
+    "lag3_expense",
+    "rolling_expense_3m_mean",
+    "rolling_expense_3m_std",
+    "spending_trend_3m",
+    "income",
+    "savings_rate",
+    "necessity_rate",
+    "discretionary_rate",
+    "txn_count",
+    "cashout_count",
+    "target_month_num",
+    "is_target_eid"
+  ]
+}

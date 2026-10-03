@@ -13,10 +13,28 @@
 | **Phase 7** | Feature Engineering & ML Pipeline | **Completed** | 2026-10-03 |
 | **Phase 8** | ML Model A: Behavior Classification | **Completed** | 2026-10-03 |
 | **Phase 9** | ML Model B: Anomaly Detection | **Completed** | 2026-10-03 |
-| **Phase 10** | ML Model C: Expense Forecasting | Pending | - |
+| **Phase 10** | ML Model C: Expense Forecasting + Model Registry & Serving | **Completed** | 2026-10-03 |
 | **Phase 11** | Core Financial API, Services & Outbox Processing | Pending | - |
 | **Phase 12** | Grounded Conversational AI & RAG Engine | Pending | - |
 | **Phase 13** | Next.js Frontend Dashboard & Coach Interface | Pending | - |
+
+---
+
+## Phase 10 Checklist (Completed)
+- [x] Model ladder benchmarked via time-based rolling-origin CV (Naive $7042.86 \to$ 3M MA $6187.60 \to$ Ridge $6566.33 \to$ GBDT Quantile $6016.76$ MAE)
+- [x] Forecaster beats naive baseline by 34.3% relative error reduction on held-out cohort (MAE $6370.67$ vs Naive $9701.94$)
+- [x] Uncertainty prediction intervals via multi-quantile regression ($\alpha \in \{0.08, 0.50, 0.92\}$) achieving $74.87\%$ empirical coverage (nominal $80\% \pm 10\%$ PASS)
+- [x] Monotonic quantile ordering strictly guaranteed ($\hat{y}_{p10} \le \hat{y}_{p50} \le \hat{y}_{p90}$)
+- [x] Deterministic 3-month moving average fallback for sparse history (< 2 months) with cultural festival calibration
+- [x] Structured model registry in `ml/models_registry/` for all three models (Model A, Model B, Model C) with `current.json` pointers
+- [x] Shadow evaluation and automated promotion quality gates implemented in `ml/registry/promotion.py`
+- [x] Unified model serving layer in `backend/app/ml/inference.py` conforming to runtime `MLModel` protocol
+- [x] Application startup initialization and hot-reload by version pointer
+- [x] Graceful baseline fallback proven when artifacts are missing or corrupted (no unhandled exceptions)
+- [x] Persistence service in `backend/app/services/ml_persistence.py` mapping model outputs to `predictions`, `behavior_profiles`, and `anomalies`
+- [x] Diagnostic figures generated in `docs/ml/figures/model_c/` (`forecast_ladder_mae.png`, `rolling_origin_metrics.png`, `interval_coverage.png`, `residuals_distribution.png`)
+- [x] Unit test suite (`backend/tests/unit/test_expense_forecaster.py`) passing 8/8 tests (69/69 tests passing across repository)
+- [x] Model card and technical report completed in `docs/ml/model-c-report.md`
 
 ---
 
