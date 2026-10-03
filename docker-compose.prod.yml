@@ -1,0 +1,30 @@
+# Hardened production-grade docker-compose configuration
+# Enforces read-only rootfs, dropped Linux capabilities, and non-root users.
+
+services:
+  backend-api:
+    read_only: true
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=64m
+    cap_drop:
+      - ALL
+    security_opt:
+      - "no-new-privileges:true"
+
+  backend-worker:
+    read_only: true
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=64m
+    cap_drop:
+      - ALL
+    security_opt:
+      - "no-new-privileges:true"
+
+  frontend:
+    read_only: true
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=64m
+    cap_drop:
+      - ALL
+    security_opt:
+      - "no-new-privileges:true"
