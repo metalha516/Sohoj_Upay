@@ -34,10 +34,10 @@ format:
 	python -m ruff format .
 
 typecheck:
-	python -m mypy --config-file mypy.ini backend/app
+	python -m mypy --config-file mypy.ini backend/app data/synthetic
 
 seed:
-	@echo "Synthetic data seeding will be enabled in Phase 4."
+	python -m data.synthetic.cli generate --users 600 --seed 42
 
 clean:
 	python -c "import pathlib, shutil; [shutil.rmtree(p) for p in pathlib.Path('.').rglob('__pycache__')]" || true

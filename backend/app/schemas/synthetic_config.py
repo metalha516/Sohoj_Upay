@@ -218,3 +218,51 @@ class AnomaliesConfig(BaseModel):
         if abs(total_prob - Decimal("1.00")) > Decimal("0.001"):
             raise ValueError(f"Anomaly type probabilities must sum to 1.00 (got {total_prob})")
         return self
+
+
+# =============================================================================
+# 5. Calendar Configuration Models
+# =============================================================================
+
+
+class FestivalDef(BaseModel):
+    name: str
+    start_date: str | None = None
+    end_date: str | None = None
+    date: str | None = None
+    festival_start: str | None = None
+    festival_end: str | None = None
+    shopping_start: str | None = None
+    shopping_end: str | None = None
+    bonus_window_start: str | None = None
+    bonus_window_end: str | None = None
+    qurbani_window_start: str | None = None
+    qurbani_window_end: str | None = None
+    effects: dict[str, Decimal | bool | int | float] = Field(default_factory=dict)
+
+
+class SalaryCycleDef(BaseModel):
+    cluster: str
+    start_day: int
+    end_day: int
+
+
+class BillDaysDef(BaseModel):
+    rent: dict[str, int]
+    utilities: dict[str, int]
+    education_terms: list[int]
+
+
+class CyclesDef(BaseModel):
+    salary_days: dict[str, SalaryCycleDef]
+    bill_days: BillDaysDef
+
+
+class CalendarConfig(BaseModel):
+    timezone: str = "Asia/Dhaka"
+    year: int = 2026
+    start_date: str = "2026-01-01"
+    end_date: str = "2026-12-31"
+    weekend_days: list[int] = Field(default_factory=lambda: [4, 5])
+    festivals: dict[str, FestivalDef]
+    cycles: CyclesDef

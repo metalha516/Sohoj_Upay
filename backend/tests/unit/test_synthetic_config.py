@@ -99,3 +99,22 @@ def test_anomalies_yaml_validates() -> None:
             assert event.category in valid_category_codes, (
                 f"Life event '{event.code}' references unknown category '{event.category}'"
             )
+
+
+def test_calendar_yaml_validates() -> None:
+    """Verify that calendar.yaml conforms to CalendarConfig."""
+    from app.schemas.synthetic_config import CalendarConfig
+
+    file_path = CONFIG_DIR / "calendar.yaml"
+    assert file_path.exists(), f"Missing config file: {file_path}"
+
+    with open(file_path, encoding="utf-8") as f:
+        data = yaml.safe_load(f)
+
+    config = CalendarConfig.model_validate(data)
+    assert config.timezone == "Asia/Dhaka"
+    assert config.year == 2026
+    assert 4 in config.weekend_days and 5 in config.weekend_days  # Friday & Saturday
+    assert "ramadan_2026" in config.festivals
+    assert "eid_ul_fitr_2026" in config.festivals
+    assert "eid_ul_adha_2026" in config.festivals

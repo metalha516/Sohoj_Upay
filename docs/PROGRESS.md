@@ -7,13 +7,28 @@
 | **Phase 1** | Repository Bootstrap, Tooling & Environment | **Completed** | 2026-10-03 |
 | **Phase 2** | Domain Definitions, Data Contract & Persona Specification | **Completed** | 2026-10-03 |
 | **Phase 3** | Database Schema, Migrations & Row-Level Security | **Completed** | 2026-10-03 |
-| **Phase 4** | High-Fidelity Synthetic Data Generator | Pending | - |
+| **Phase 4** | High-Fidelity Synthetic Data Generator | **Completed** | 2026-10-03 |
 | **Phase 5** | Analytics, Feature Engineering & ML Pipeline | Pending | - |
 | **Phase 6** | Core Financial API, Services & Outbox Processing | Pending | - |
 | **Phase 7** | Grounded Conversational AI & RAG Engine | Pending | - |
 | **Phase 8** | Next.js Frontend Dashboard & Coach Interface | Pending | - |
 | **Phase 9** | End-to-End Testing, Security Hardening & DAST | Pending | - |
 | **Phase 10** | Observability, Production Packaging & Handover | Pending | - |
+
+---
+
+## Phase 4 Checklist (Completed)
+- [x] Generator architecture implemented under `data/synthetic/generator/` (`calendar.py`, `population.py`, `income.py`, `behavior.py`, `life_events.py`, `anomalies.py`, `wallet.py`, `writer.py`, `engine.py`)
+- [x] Calendar engine configured in `data/synthetic/config/calendar.yaml` with Dhaka timezone, Friday/Saturday weekends, Ramadan/Eid dates, and bill cycles
+- [x] Demographic generator (`population.py`) producing 600 realistic Bangladeshi identities with lognormal incomes across 8 occupations
+- [x] Spending behavior engine implementing Engel's law, bill cycles, bazaar cadences, and separate MFS cash-out fee charges
+- [x] Chronological wallet simulation guaranteeing strictly non-negative balances ($\ge 0$) and $100\%$ accounting invariant verification
+- [x] Anomaly injection engine producing $2.50\%$ ground-truth anomalies (spikes, bursts, large cash-outs, odd hours)
+- [x] Full dataset generated ($N=600$ users, $296,195$ transactions, $549$ goals, $2,326$ contributions, $7,402$ anomalies) in $19.46$ seconds
+- [x] Parquet and CSV files exported to `data/exports/` (git-ignored)
+- [x] Committed 5-user sample exported to `data/synthetic/sample/`
+- [x] Unit, property, and determinism tests passing in `backend/tests/unit/test_synthetic_generator.py` (28/28 tests passing)
+- [x] `docs/phase-reports/phase-04.md` written with distribution tables
 
 ---
 
@@ -61,9 +76,9 @@
 ---
 
 ## Known Gaps & Deferred Items
-- Phase 4: High-fidelity synthetic data generator ($N=600$ users, 12 months, $\ge 100\text{k}$ transactions, calibrated to Bangladeshi MFS patterns).
-- Phase 5: Analytics, feature engineering, and ML pipeline (LightGBM, SHAP, persona classifier).
+- Phase 5: Analytics, feature engineering, and ML pipeline (Monthly aggregations, LightGBM persona classifier, SHAP explainability).
 - Phase 6: Core Financial API, authentication endpoints (Argon2id + JWT rotation), and outbox processing.
+- Phase 7: Grounded Conversational AI & RAG Engine (pgvector embeddings, mock/live LLM interface).
 
 ---
 

@@ -1,0 +1,98 @@
+# Bangladeshi Calendar Configuration for 2026 Synthetic Simulation
+timezone: "Asia/Dhaka"
+year: 2026
+start_date: "2026-01-01"
+end_date: "2026-12-31"
+
+# Weekend days: in Python datetime, Monday=0, Tuesday=1, Wednesday=2, Thursday=3, Friday=4, Saturday=5, Sunday=6
+# In Bangladesh, official public and banking weekends are Friday (4) and Saturday (5)
+weekend_days:
+  - 4  # Friday (Jumma, family time, weekly bazaar)
+  - 5  # Saturday (Weekend leisure)
+
+festivals:
+  ramadan_2026:
+    name: "Ramadan"
+    start_date: "2026-02-18"
+    end_date: "2026-03-19"
+    effects:
+      groceries_multiplier: 1.35
+      charity_multiplier: 2.50
+      daytime_dining_multiplier: 0.15
+      evening_dining_multiplier: 1.80
+
+  eid_ul_fitr_2026:
+    name: "Eid-ul-Fitr"
+    festival_start: "2026-03-20"
+    festival_end: "2026-03-23"
+    shopping_start: "2026-03-01"
+    shopping_end: "2026-03-19"
+    bonus_window_start: "2026-03-10"
+    bonus_window_end: "2026-03-17"
+    effects:
+      shopping_multiplier: 3.20
+      travel_multiplier: 2.50
+      send_money_multiplier: 2.00
+      post_eid_slump_days: 7
+      post_eid_spend_multiplier: 0.60
+
+  pohela_boishakh_2026:
+    name: "Pohela Boishakh (Bengali New Year)"
+    date: "2026-04-14"
+    shopping_start: "2026-04-05"
+    shopping_end: "2026-04-13"
+    effects:
+      shopping_multiplier: 1.60
+      dining_multiplier: 1.80
+      entertainment_multiplier: 1.70
+
+  eid_ul_adha_2026:
+    name: "Eid-ul-Adha"
+    festival_start: "2026-05-27"
+    festival_end: "2026-05-30"
+    qurbani_window_start: "2026-05-20"
+    qurbani_window_end: "2026-05-26"
+    bonus_window_start: "2026-05-18"
+    bonus_window_end: "2026-05-24"
+    effects:
+      cash_out_spike_multiplier: 2.80
+      travel_multiplier: 2.20
+      qurbani_livestock_expense: true
+      post_eid_slump_days: 7
+      post_eid_spend_multiplier: 0.65
+
+  durga_puja_2026:
+    name: "Durga Puja"
+    start_date: "2026-10-18"
+    end_date: "2026-10-21"
+    effects:
+      shopping_multiplier: 1.50
+      dining_multiplier: 1.60
+
+  victory_day_2026:
+    name: "Victory Day"
+    date: "2026-12-16"
+    effects:
+      entertainment_multiplier: 1.40
+
+cycles:
+  salary_days:
+    corporate_govt:
+      cluster: "month_end"
+      start_day: 28
+      end_day: 2
+    garment_factory:
+      cluster: "mid_month"
+      start_day: 7
+      end_day: 10
+  bill_days:
+    rent:
+      start_day: 1
+      end_day: 7
+    utilities:
+      start_day: 10
+      end_day: 20
+    education_terms:
+      - 1  # January (term start / admissions)
+      - 5  # May (mid-year fees)
+      - 9  # September (term fees)

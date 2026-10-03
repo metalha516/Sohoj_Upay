@@ -1,0 +1,346 @@
+[
+  {
+    "anomaly_id": "46f6ed82-e9dc-b2b9-b4e3-67e1022e7792",
+    "transaction_id": "73ee0d5d-c33f-343c-80ff-c67cde7f8727",
+    "user_id": "7e8e07e1-2ed3-3d7a-f2a9-19fc943eedc2",
+    "anomaly_type": "unusual_cash_out",
+    "severity_score": "0.90",
+    "description": "Sudden abnormal cash-out of \u09f35000.00 exceeding 85% of average balance"
+  },
+  {
+    "anomaly_id": "0613c87f-4d30-7fc6-69c5-1f0e04b2a89f",
+    "transaction_id": "2ce9a77b-c106-5978-725c-ea59a16e9642",
+    "user_id": "7e8e07e1-2ed3-3d7a-f2a9-19fc943eedc2",
+    "anomaly_type": "unusual_cash_out",
+    "severity_score": "0.90",
+    "description": "Sudden abnormal cash-out of \u09f35000.00 exceeding 85% of average balance"
+  },
+  {
+    "anomaly_id": "c1d1f8ba-9e21-25c9-752c-041156df5dee",
+    "transaction_id": "41147414-0db8-9aab-1aeb-39ae65860150",
+    "user_id": "7e8e07e1-2ed3-3d7a-f2a9-19fc943eedc2",
+    "anomaly_type": "unusual_cash_out",
+    "severity_score": "0.90",
+    "description": "Sudden abnormal cash-out of \u09f35000.00 exceeding 85% of average balance"
+  },
+  {
+    "anomaly_id": "3e28e51a-069b-27df-bf6f-6e408a7da852",
+    "transaction_id": "48fc3b49-06ad-125e-bd9b-03db9d7d79b6",
+    "user_id": "7e8e07e1-2ed3-3d7a-f2a9-19fc943eedc2",
+    "anomaly_type": "category_spike",
+    "severity_score": "0.64",
+    "description": "Transaction amount \u09f32680.88 is 3.8x higher than baseline groceries spend"
+  },
+  {
+    "anomaly_id": "b0c6a953-bce5-370e-d989-d0f48812dcbb",
+    "transaction_id": "29a422be-69a0-a28b-fb9f-1581f8f676f1",
+    "user_id": "ea44d7bb-b122-69f8-cfeb-febf0bfd12a3",
+    "anomaly_type": "unusual_cash_out",
+    "severity_score": "0.90",
+    "description": "Sudden abnormal cash-out of \u09f35880.00 exceeding 85% of average balance"
+  },
+  {
+    "anomaly_id": "e8902fb1-2b85-66e6-bbda-13d1a83f389f",
+    "transaction_id": "70a1bf16-4c3b-335a-2145-def471c3c780",
+    "user_id": "ea44d7bb-b122-69f8-cfeb-febf0bfd12a3",
+    "anomaly_type": "unusual_cash_out",
+    "severity_score": "0.90",
+    "description": "Sudden abnormal cash-out of \u09f35000.00 exceeding 85% of average balance"
+  },
+  {
+    "anomaly_id": "58fa3f86-fa4d-77b8-5831-d028a04e080b",
+    "transaction_id": "0ba8d5cf-09c0-df7b-5300-86299ee769a9",
+    "user_id": "ea44d7bb-b122-69f8-cfeb-febf0bfd12a3",
+    "anomaly_type": "odd_hour_activity",
+    "severity_score": "0.75",
+    "description": "Odd-hour transaction activity recorded at 03:29 AM"
+  },
+  {
+    "anomaly_id": "23b05dc6-924e-928b-f694-6163da7fbc72",
+    "transaction_id": "5935b78b-0053-efed-e7aa-bdb8e882a2cc",
+    "user_id": "ea44d7bb-b122-69f8-cfeb-febf0bfd12a3",
+    "anomaly_type": "category_spike",
+    "severity_score": "0.57",
+    "description": "Transaction amount \u09f31715.00 is 3.4x higher than baseline utilities spend"
+  },
+  {
+    "anomaly_id": "6a262930-65cf-c621-622a-8374196f8573",
+    "transaction_id": "d9e65e78-7e95-670f-a82b-c5471d9608db",
+    "user_id": "ea44d7bb-b122-69f8-cfeb-febf0bfd12a3",
+    "anomaly_type": "category_spike",
+    "severity_score": "0.69",
+    "description": "Transaction amount \u09f3624.00 is 4.2x higher than baseline transport spend"
+  },
+  {
+    "anomaly_id": "7e7d9c93-d3a7-c3e2-50f0-b87d0a4d6597",
+    "transaction_id": "129be685-9de6-5f83-cf10-8ffbaac54819",
+    "user_id": "0d047bee-65d4-e0ac-bfc1-3fc3d21698b6",
+    "anomaly_type": "category_spike",
+    "severity_score": "0.54",
+    "description": "Transaction amount \u09f397.50 is 3.2x higher than baseline transport spend"
+  },
+  {
+    "anomaly_id": "325b2922-1625-207e-89c6-a89dee3d1b41",
+    "transaction_id": "27ef43e1-8e4f-3649-a230-959dbeb35dd8",
+    "user_id": "0d047bee-65d4-e0ac-bfc1-3fc3d21698b6",
+    "anomaly_type": "unusual_cash_out",
+    "severity_score": "0.90",
+    "description": "Sudden abnormal cash-out of \u09f310616.58 exceeding 85% of average balance"
+  },
+  {
+    "anomaly_id": "2ed63d77-c385-203a-7674-bbf1ab17ba62",
+    "transaction_id": "8725cac9-8c18-79d4-93f5-8c0f0bd3c906",
+    "user_id": "0d047bee-65d4-e0ac-bfc1-3fc3d21698b6",
+    "anomaly_type": "category_spike",
+    "severity_score": "0.67",
+    "description": "Transaction amount \u09f32714.12 is 4.0x higher than baseline groceries spend"
+  },
+  {
+    "anomaly_id": "2e4decaf-1cb7-3baa-10e0-b026654832fd",
+    "transaction_id": "2073ab07-2336-4a75-4b7e-f73cf15cafb6",
+    "user_id": "0d047bee-65d4-e0ac-bfc1-3fc3d21698b6",
+    "anomaly_type": "unusual_cash_out",
+    "severity_score": "0.90",
+    "description": "Sudden abnormal cash-out of \u09f36600.00 exceeding 85% of average balance"
+  },
+  {
+    "anomaly_id": "fd2929f8-4e41-3fad-9292-e260beed824e",
+    "transaction_id": "141484be-7cc2-7c6e-4316-ef7dd9b18b3d",
+    "user_id": "0d047bee-65d4-e0ac-bfc1-3fc3d21698b6",
+    "anomaly_type": "category_spike",
+    "severity_score": "0.66",
+    "description": "Transaction amount \u09f3275.80 is 3.9x higher than baseline transport spend"
+  },
+  {
+    "anomaly_id": "f0e67719-b55b-debb-4af0-93441da9b6db",
+    "transaction_id": "803a2b37-ee24-b3c8-3229-7fe344cf0afa",
+    "user_id": "0d047bee-65d4-e0ac-bfc1-3fc3d21698b6",
+    "anomaly_type": "unusual_cash_out",
+    "severity_score": "0.90",
+    "description": "Sudden abnormal cash-out of \u09f35000.00 exceeding 85% of average balance"
+  },
+  {
+    "anomaly_id": "8bff5f22-2949-0a74-d53e-b55513024be7",
+    "transaction_id": "0c79a607-1aaa-667c-bd33-d7b4da554b39",
+    "user_id": "29d1eeab-48c1-3041-b22d-d73cf78b3d6a",
+    "anomaly_type": "category_spike",
+    "severity_score": "0.76",
+    "description": "Transaction amount \u09f35111.02 is 4.5x higher than baseline groceries spend"
+  },
+  {
+    "anomaly_id": "bced0937-5981-ea9f-3c96-57daccfa35b1",
+    "transaction_id": "87b6dfb4-63d9-fe59-9793-1b516d8a3ba6",
+    "user_id": "29d1eeab-48c1-3041-b22d-d73cf78b3d6a",
+    "anomaly_type": "category_spike",
+    "severity_score": "0.72",
+    "description": "Transaction amount \u09f3302.40 is 4.3x higher than baseline transport spend"
+  },
+  {
+    "anomaly_id": "439ca3b6-2164-d548-29e0-ba07891b1905",
+    "transaction_id": "a985a242-eb0c-519e-d77b-5fda66c84816",
+    "user_id": "29d1eeab-48c1-3041-b22d-d73cf78b3d6a",
+    "anomaly_type": "category_spike",
+    "severity_score": "0.75",
+    "description": "Transaction amount \u09f3676.50 is 4.5x higher than baseline transport spend"
+  },
+  {
+    "anomaly_id": "24e25859-12ea-8c55-4d63-741f9f1dae03",
+    "transaction_id": "a753771e-90f7-caad-6bc4-4e1236710cc7",
+    "user_id": "29d1eeab-48c1-3041-b22d-d73cf78b3d6a",
+    "anomaly_type": "odd_hour_activity",
+    "severity_score": "0.75",
+    "description": "Odd-hour transaction activity recorded at 03:41 AM"
+  },
+  {
+    "anomaly_id": "fd13fea6-ab79-f671-5dd4-1e6c86340294",
+    "transaction_id": "10bd1a12-d0b1-3600-d1b6-420deff294b3",
+    "user_id": "29d1eeab-48c1-3041-b22d-d73cf78b3d6a",
+    "anomaly_type": "burst_frequency",
+    "severity_score": "0.85",
+    "description": "Rapid high-frequency transaction burst within 20 minutes"
+  },
+  {
+    "anomaly_id": "5a310874-2b0f-0c84-81cd-deadc3a5fa31",
+    "transaction_id": "7a4b3772-8719-b7bd-23b8-f509f32c65ad",
+    "user_id": "29d1eeab-48c1-3041-b22d-d73cf78b3d6a",
+    "anomaly_type": "burst_frequency",
+    "severity_score": "0.85",
+    "description": "Part of rapid high-frequency transaction burst cluster"
+  },
+  {
+    "anomaly_id": "00630dde-4137-2793-f59f-d366223a033c",
+    "transaction_id": "afcb4e0b-ad4d-3cda-6b84-145f1758f3c3",
+    "user_id": "29d1eeab-48c1-3041-b22d-d73cf78b3d6a",
+    "anomaly_type": "burst_frequency",
+    "severity_score": "0.85",
+    "description": "Part of rapid high-frequency transaction burst cluster"
+  },
+  {
+    "anomaly_id": "4aafd2ff-7ddd-423d-4e92-231fea7414bf",
+    "transaction_id": "fa1a2e1d-c933-666d-104c-1798ecb8a895",
+    "user_id": "29d1eeab-48c1-3041-b22d-d73cf78b3d6a",
+    "anomaly_type": "burst_frequency",
+    "severity_score": "0.85",
+    "description": "Part of rapid high-frequency transaction burst cluster"
+  },
+  {
+    "anomaly_id": "af3f6db4-6373-9f0e-e4ef-7e1b3cea7c20",
+    "transaction_id": "5b576bea-b95c-88fc-ba5c-9df622088bdb",
+    "user_id": "29d1eeab-48c1-3041-b22d-d73cf78b3d6a",
+    "anomaly_type": "category_spike",
+    "severity_score": "0.87",
+    "description": "Transaction amount \u09f37072.00 is 5.2x higher than baseline utilities spend"
+  },
+  {
+    "anomaly_id": "f6211c2a-d0e6-128a-2e6d-ceb723eec278",
+    "transaction_id": "2753e32d-5bff-2375-eee2-2abf4520cc24",
+    "user_id": "29d1eeab-48c1-3041-b22d-d73cf78b3d6a",
+    "anomaly_type": "burst_frequency",
+    "severity_score": "0.85",
+    "description": "Rapid high-frequency transaction burst within 20 minutes"
+  },
+  {
+    "anomaly_id": "4a6ffad4-3498-0596-d700-a91871e9f181",
+    "transaction_id": "dcd4f58e-a2b1-d52d-4119-7f878c7a8239",
+    "user_id": "29d1eeab-48c1-3041-b22d-d73cf78b3d6a",
+    "anomaly_type": "burst_frequency",
+    "severity_score": "0.85",
+    "description": "Part of rapid high-frequency transaction burst cluster"
+  },
+  {
+    "anomaly_id": "125f4f30-e68e-7ffd-e36a-0ab7be647d7c",
+    "transaction_id": "118073b1-69eb-d7cb-6597-ec52456a4e87",
+    "user_id": "29d1eeab-48c1-3041-b22d-d73cf78b3d6a",
+    "anomaly_type": "burst_frequency",
+    "severity_score": "0.85",
+    "description": "Part of rapid high-frequency transaction burst cluster"
+  },
+  {
+    "anomaly_id": "2a320952-2dfc-98c5-eb17-f59c79330bc6",
+    "transaction_id": "6074591a-c6bd-d0c0-7596-0b446071f1a4",
+    "user_id": "29d1eeab-48c1-3041-b22d-d73cf78b3d6a",
+    "anomaly_type": "burst_frequency",
+    "severity_score": "0.85",
+    "description": "Part of rapid high-frequency transaction burst cluster"
+  },
+  {
+    "anomaly_id": "211c976a-2886-7ad6-d9a7-3323738c5afa",
+    "transaction_id": "98eaf667-5559-4b4c-4a18-134282487965",
+    "user_id": "29d1eeab-48c1-3041-b22d-d73cf78b3d6a",
+    "anomaly_type": "burst_frequency",
+    "severity_score": "0.85",
+    "description": "Part of rapid high-frequency transaction burst cluster"
+  },
+  {
+    "anomaly_id": "5cae1118-3d36-7770-668e-a62840273dd5",
+    "transaction_id": "cc39b009-10fb-53db-c000-0fbb2368f81c",
+    "user_id": "29d1eeab-48c1-3041-b22d-d73cf78b3d6a",
+    "anomaly_type": "burst_frequency",
+    "severity_score": "0.85",
+    "description": "Rapid high-frequency transaction burst within 20 minutes"
+  },
+  {
+    "anomaly_id": "6c3b78fa-d852-8123-a6e5-33ad6caf708b",
+    "transaction_id": "b46a9e37-b978-d92f-09eb-e35c81dc3f52",
+    "user_id": "29d1eeab-48c1-3041-b22d-d73cf78b3d6a",
+    "anomaly_type": "burst_frequency",
+    "severity_score": "0.85",
+    "description": "Part of rapid high-frequency transaction burst cluster"
+  },
+  {
+    "anomaly_id": "3aa17dea-8223-fc13-612b-13c4a66069f6",
+    "transaction_id": "1e343d49-5d05-3204-fd1c-0677cb85f6bc",
+    "user_id": "29d1eeab-48c1-3041-b22d-d73cf78b3d6a",
+    "anomaly_type": "burst_frequency",
+    "severity_score": "0.85",
+    "description": "Part of rapid high-frequency transaction burst cluster"
+  },
+  {
+    "anomaly_id": "6cb9d207-3dd8-a28b-246f-8ec2d0872166",
+    "transaction_id": "b57bf2b7-ee8b-1f27-0435-673c3f7e3dd6",
+    "user_id": "29d1eeab-48c1-3041-b22d-d73cf78b3d6a",
+    "anomaly_type": "burst_frequency",
+    "severity_score": "0.85",
+    "description": "Part of rapid high-frequency transaction burst cluster"
+  },
+  {
+    "anomaly_id": "ce936b8d-46f1-2b79-a1ec-c9c13420b5fe",
+    "transaction_id": "0e80674b-92f6-41d5-5613-d51ee62e2778",
+    "user_id": "07c063a3-3e62-de4b-5a3d-79c63ae26e68",
+    "anomaly_type": "category_spike",
+    "severity_score": "0.59",
+    "description": "Transaction amount \u09f3385.86 is 3.5x higher than baseline mobile_recharge spend"
+  },
+  {
+    "anomaly_id": "f1fadaf1-a3fa-bdf2-6250-5abc77649436",
+    "transaction_id": "71d395dc-321e-39ca-bb8c-cfdb6cef24ac",
+    "user_id": "07c063a3-3e62-de4b-5a3d-79c63ae26e68",
+    "anomaly_type": "category_spike",
+    "severity_score": "0.79",
+    "description": "Transaction amount \u09f3231.77 is 4.7x higher than baseline mobile_recharge spend"
+  },
+  {
+    "anomaly_id": "c6b47ea9-c8f4-a998-b19a-cffeade3c01c",
+    "transaction_id": "95c040f9-0e23-4026-cf27-d2b6dc9a3779",
+    "user_id": "07c063a3-3e62-de4b-5a3d-79c63ae26e68",
+    "anomaly_type": "category_spike",
+    "severity_score": "0.8",
+    "description": "Transaction amount \u09f32105.09 is 4.8x higher than baseline groceries spend"
+  },
+  {
+    "anomaly_id": "d36d4a5c-e3a0-6d4a-6e26-d59ab799fc2b",
+    "transaction_id": "a003cf33-c123-e5ae-850c-4517669b5c1d",
+    "user_id": "07c063a3-3e62-de4b-5a3d-79c63ae26e68",
+    "anomaly_type": "category_spike",
+    "severity_score": "0.57",
+    "description": "Transaction amount \u09f3167.58 is 3.4x higher than baseline mobile_recharge spend"
+  },
+  {
+    "anomaly_id": "8cee9d29-90a2-849b-fcaa-00800accae6a",
+    "transaction_id": "297f1ba6-f51b-baeb-09aa-989edfd9f5da",
+    "user_id": "07c063a3-3e62-de4b-5a3d-79c63ae26e68",
+    "anomaly_type": "category_spike",
+    "severity_score": "0.74",
+    "description": "Transaction amount \u09f3308.70 is 4.4x higher than baseline transport spend"
+  },
+  {
+    "anomaly_id": "2b05a1cd-7ab7-cd0c-fae1-836cb9cb1f7d",
+    "transaction_id": "a6fcd1a3-c24f-c54f-c33e-da92f710e19e",
+    "user_id": "07c063a3-3e62-de4b-5a3d-79c63ae26e68",
+    "anomaly_type": "burst_frequency",
+    "severity_score": "0.85",
+    "description": "Rapid high-frequency transaction burst within 20 minutes"
+  },
+  {
+    "anomaly_id": "49a3e55c-9b0a-4ca9-65a3-171ae4279bdb",
+    "transaction_id": "90b63cf1-1f30-4774-f943-4177402e439f",
+    "user_id": "07c063a3-3e62-de4b-5a3d-79c63ae26e68",
+    "anomaly_type": "burst_frequency",
+    "severity_score": "0.85",
+    "description": "Part of rapid high-frequency transaction burst cluster"
+  },
+  {
+    "anomaly_id": "cad9ad63-dfdd-6d91-534d-84bcbfe5c11e",
+    "transaction_id": "021738a8-9a64-2ed9-426a-af43c552ee65",
+    "user_id": "07c063a3-3e62-de4b-5a3d-79c63ae26e68",
+    "anomaly_type": "burst_frequency",
+    "severity_score": "0.85",
+    "description": "Part of rapid high-frequency transaction burst cluster"
+  },
+  {
+    "anomaly_id": "ab0ccb37-3a99-6cf4-354d-615551a5c52e",
+    "transaction_id": "35a6334a-3ad1-aae0-3de2-e3d87c41d59b",
+    "user_id": "07c063a3-3e62-de4b-5a3d-79c63ae26e68",
+    "anomaly_type": "burst_frequency",
+    "severity_score": "0.85",
+    "description": "Part of rapid high-frequency transaction burst cluster"
+  },
+  {
+    "anomaly_id": "672ba51b-2c1c-1834-5e8f-bc0ab23fa121",
+    "transaction_id": "4222c315-1568-ffe1-af52-31613256a3d0",
+    "user_id": "07c063a3-3e62-de4b-5a3d-79c63ae26e68",
+    "anomaly_type": "burst_frequency",
+    "severity_score": "0.85",
+    "description": "Part of rapid high-frequency transaction burst cluster"
+  }
+]
