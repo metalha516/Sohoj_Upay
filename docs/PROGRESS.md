@@ -6,7 +6,7 @@
 |---|---|---|---|
 | **Phase 1** | Repository Bootstrap, Tooling & Environment | **Completed** | 2026-10-03 |
 | **Phase 2** | Domain Definitions, Data Contract & Persona Specification | **Completed** | 2026-10-03 |
-| **Phase 3** | Authentication, Users & Security Baseline | Pending | - |
+| **Phase 3** | Database Schema, Migrations & Row-Level Security | **Completed** | 2026-10-03 |
 | **Phase 4** | High-Fidelity Synthetic Data Generator | Pending | - |
 | **Phase 5** | Analytics, Feature Engineering & ML Pipeline | Pending | - |
 | **Phase 6** | Core Financial API, Services & Outbox Processing | Pending | - |
@@ -14,6 +14,19 @@
 | **Phase 8** | Next.js Frontend Dashboard & Coach Interface | Pending | - |
 | **Phase 9** | End-to-End Testing, Security Hardening & DAST | Pending | - |
 | **Phase 10** | Observability, Production Packaging & Handover | Pending | - |
+
+---
+
+## Phase 3 Checklist (Completed)
+- [x] 17 SQLAlchemy 2.x declarative models in `backend/app/models/` (`NUMERIC(14,2)`, enums, composite keys)
+- [x] Alembic migration `0001_initial_schema` (pgcrypto, citext, vector, CHECK constraints, idempotency constraint, HNSW index)
+- [x] Alembic migration `0002_row_level_security` (ENABLE & FORCE RLS on all user tables with `app.user_id` session policy)
+- [x] Database roles provisioned (`migrator`, `app_rw`, `worker_rw`, `readonly_analytics`) with `NOBYPASSRLS`
+- [x] Cryptographic append-only protection on `audit_log` (`REVOKE UPDATE, DELETE, TRUNCATE`)
+- [x] Defense-in-depth repository layer (`BaseRepository`, `UserRepository`, `TransactionRepository`, `GoalRepository`, `AuditLogRepository`)
+- [x] Comprehensive Mermaid ERD exported to `docs/data/erd.md`
+- [x] Automated unit and static Alembic SQL generation test coverage (`22 passed in 4.71s`)
+- [x] `docs/phase-reports/phase-03.md` written and verified
 
 ---
 
@@ -48,10 +61,9 @@
 ---
 
 ## Known Gaps & Deferred Items
-- Phase 2: Full database tables and Alembic migrations to be scaffolded.
-- Phase 2: Pure deterministic financial calculation engine with $\ge 95\%$ test coverage.
-- Phase 3: Argon2id password hashing and JWT rotation implementation.
-- Phase 4: Full synthetic data generation engine ($N=600$ users, 12 months, $\ge 100\text{k}$ transactions).
+- Phase 4: High-fidelity synthetic data generator ($N=600$ users, 12 months, $\ge 100\text{k}$ transactions, calibrated to Bangladeshi MFS patterns).
+- Phase 5: Analytics, feature engineering, and ML pipeline (LightGBM, SHAP, persona classifier).
+- Phase 6: Core Financial API, authentication endpoints (Argon2id + JWT rotation), and outbox processing.
 
 ---
 
