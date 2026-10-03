@@ -3,12 +3,13 @@
 from dataclasses import dataclass, field
 from decimal import Decimal
 from typing import Any
-import numpy as np
 
+import numpy as np
 
 # =============================================================================
 # 1. Behavior Classification Baseline (Threshold Rules)
 # =============================================================================
+
 
 @dataclass
 class BehaviorPrediction:
@@ -40,7 +41,9 @@ class RuleBasedBehaviorClassifier:
             return BehaviorPrediction(
                 profile="insufficient_data",
                 confidence=0.0,
-                top_factors=[{"feature": "months_active", "value": months_active, "status": "cold_start"}],
+                top_factors=[
+                    {"feature": "months_active", "value": months_active, "status": "cold_start"}
+                ],
                 is_cold_start=True,
             )
 
@@ -51,8 +54,16 @@ class RuleBasedBehaviorClassifier:
                 profile="cash_dominant_transactor",
                 confidence=0.78,
                 top_factors=[
-                    {"feature": "cashout_ratio", "value": round(cashout_ratio, 2), "direction": "high"},
-                    {"feature": "cashout_count", "value": round(cashout_count, 1), "direction": "high"},
+                    {
+                        "feature": "cashout_ratio",
+                        "value": round(cashout_ratio, 2),
+                        "direction": "high",
+                    },
+                    {
+                        "feature": "cashout_count",
+                        "value": round(cashout_count, 1),
+                        "direction": "high",
+                    },
                 ],
             )
 
@@ -62,8 +73,16 @@ class RuleBasedBehaviorClassifier:
                 profile="consistent_saver",
                 confidence=0.82,
                 top_factors=[
-                    {"feature": "savings_rate", "value": round(savings_rate, 2), "direction": "high"},
-                    {"feature": "necessity_share", "value": round(necessity_share, 2), "direction": "moderate"},
+                    {
+                        "feature": "savings_rate",
+                        "value": round(savings_rate, 2),
+                        "direction": "high",
+                    },
+                    {
+                        "feature": "necessity_share",
+                        "value": round(necessity_share, 2),
+                        "direction": "moderate",
+                    },
                 ],
             )
 
@@ -73,8 +92,16 @@ class RuleBasedBehaviorClassifier:
                 profile="tight_budgeter",
                 confidence=0.80,
                 top_factors=[
-                    {"feature": "necessity_share", "value": round(necessity_share, 2), "direction": "high"},
-                    {"feature": "savings_rate", "value": round(savings_rate, 2), "direction": "low"},
+                    {
+                        "feature": "necessity_share",
+                        "value": round(necessity_share, 2),
+                        "direction": "high",
+                    },
+                    {
+                        "feature": "savings_rate",
+                        "value": round(savings_rate, 2),
+                        "direction": "low",
+                    },
                 ],
             )
 
@@ -84,8 +111,16 @@ class RuleBasedBehaviorClassifier:
                 profile="discretionary_spender",
                 confidence=0.75,
                 top_factors=[
-                    {"feature": "discretionary_share", "value": round(discretionary_share, 2), "direction": "high"},
-                    {"feature": "savings_rate", "value": round(savings_rate, 2), "direction": "low"},
+                    {
+                        "feature": "discretionary_share",
+                        "value": round(discretionary_share, 2),
+                        "direction": "high",
+                    },
+                    {
+                        "feature": "savings_rate",
+                        "value": round(savings_rate, 2),
+                        "direction": "low",
+                    },
                 ],
             )
 
@@ -95,7 +130,11 @@ class RuleBasedBehaviorClassifier:
                 profile="volatile_earner",
                 confidence=0.72,
                 top_factors=[
-                    {"feature": "volatility_cv", "value": round(volatility_cv, 2), "direction": "high"}
+                    {
+                        "feature": "volatility_cv",
+                        "value": round(volatility_cv, 2),
+                        "direction": "high",
+                    }
                 ],
             )
 
@@ -104,8 +143,16 @@ class RuleBasedBehaviorClassifier:
             profile="balanced_spender",
             confidence=0.65,
             top_factors=[
-                {"feature": "savings_rate", "value": round(savings_rate, 2), "direction": "balanced"},
-                {"feature": "necessity_share", "value": round(necessity_share, 2), "direction": "balanced"},
+                {
+                    "feature": "savings_rate",
+                    "value": round(savings_rate, 2),
+                    "direction": "balanced",
+                },
+                {
+                    "feature": "necessity_share",
+                    "value": round(necessity_share, 2),
+                    "direction": "balanced",
+                },
             ],
         )
 
@@ -113,6 +160,7 @@ class RuleBasedBehaviorClassifier:
 # =============================================================================
 # 2. Anomaly Detection Baseline (Robust Z-Score / MAD)
 # =============================================================================
+
 
 @dataclass
 class AnomalyDetectionResult:
@@ -183,6 +231,7 @@ class RobustZScoreAnomalyDetector:
 # 3. Expense Forecasting Baselines (Naive + 3-Month Moving Average)
 # =============================================================================
 
+
 @dataclass
 class ForecastResult:
     forecast: float
@@ -202,7 +251,13 @@ class ExpenseForecasterBaseline:
         """Naive forecast: Next month equals last observed month."""
         h = np.asarray(history, dtype=np.float64)
         if len(h) == 0:
-            return ForecastResult(forecast=0.0, lower_bound=0.0, upper_bound=0.0, method="naive", historical_points_used=0)
+            return ForecastResult(
+                forecast=0.0,
+                lower_bound=0.0,
+                upper_bound=0.0,
+                method="naive",
+                historical_points_used=0,
+            )
 
         last_val = float(h[-1])
         # Simple heuristic bounds (+/- 25%)
@@ -223,7 +278,13 @@ class ExpenseForecasterBaseline:
         """3-Month Simple Moving Average forecast with standard error bounds."""
         h = np.asarray(history, dtype=np.float64)
         if len(h) == 0:
-            return ForecastResult(forecast=0.0, lower_bound=0.0, upper_bound=0.0, method="sma_3m", historical_points_used=0)
+            return ForecastResult(
+                forecast=0.0,
+                lower_bound=0.0,
+                upper_bound=0.0,
+                method="sma_3m",
+                historical_points_used=0,
+            )
 
         pts = min(len(h), window)
         window_slice = h[-pts:]

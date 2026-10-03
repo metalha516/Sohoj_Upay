@@ -10,10 +10,25 @@
 | **Phase 4** | High-Fidelity Synthetic Data Generator | **Completed** | 2026-10-03 |
 | **Phase 5** | Data Generation Run, Load & Realism Validation | **Completed** | 2026-10-03 |
 | **Phase 6** | EDA & Data Quality Analysis | **Completed** | 2026-10-03 |
-| **Phase 7** | Feature Engineering & ML Pipeline | Pending | - |
+| **Phase 7** | Feature Engineering & ML Pipeline | **Completed** | 2026-10-03 |
 | **Phase 8** | Core Financial API, Services & Outbox Processing | Pending | - |
 | **Phase 9** | Grounded Conversational AI & RAG Engine | Pending | - |
 | **Phase 10** | Next.js Frontend Dashboard & Coach Interface | Pending | - |
+
+---
+
+## Phase 7 Checklist (Completed)
+- [x] Single shared feature pipeline implemented in `ml/features/engine.py` and exposed via `backend/app/ml/features.py`
+- [x] Strongly typed, versioned `MonthlyFeatureRecord` in `ml/features/schema.py` (`feature_schema_version = "v1.0.0"`)
+- [x] All base monthly aggregates computed matching `design.md` §4.2 `monthly_features` schema
+- [x] Rolling 3-month features implemented (rolling SR mean/std, savings consistency, expense mean/std, spending trend slope, category Shannon entropy, discretionary volatility, deficit months)
+- [x] Asia/Dhaka (UTC+6) month-boundary partitioning guaranteed
+- [x] Anti-double-counting verified: self cash-in excluded from income, transfer fees isolated, zero-income null savings rate
+- [x] Incremental recomputation function (`engine.recompute_user_month_features`) with property testing against full batch recompute
+- [x] Cohort backfill CLI (`python -m ml.features.cli backfill`) executed: 314,863 transactions across 600 users backfilled in 8.75s
+- [x] Anti-leakage audit: 0 ground-truth columns present in feature store; null rates documented
+- [x] 7 unit & property tests passing in `backend/tests/unit/test_feature_pipeline.py` (44/44 total repository tests passing)
+- [x] `docs/phase-reports/phase-07.md` completed and verified
 
 ---
 
