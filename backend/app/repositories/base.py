@@ -18,8 +18,17 @@ class BaseRepository[T: Base]:
         self.model_cls = model_cls
         self.session = session
 
+    async def create(self, entity: T) -> T:
+        """Persist a new entity to the database session."""
+        self.session.add(entity)
+        await self.session.flush()
+        return entity
+
     async def set_app_user_context(self, user_id: uuid.UUID) -> None:
         """Set the PostgreSQL app.user_id session variable for Row-Level Security (RLS)."""
+        bind = self.session.bind
+        if bind and "sqlite" in bind.dialect.name:
+            return
         await self.session.execute(
             text("SET LOCAL app.user_id = :user_id"),
             {"user_id": str(user_id)},

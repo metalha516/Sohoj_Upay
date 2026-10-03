@@ -12,14 +12,26 @@ from starlette.exceptions import HTTPException as StarletteHTTPException
 
 from app.api.v1.endpoints.health import router as health_router
 from app.api.v1.router import api_router
+from app.ai.safety.circuit_breaker import DailyTokenBudgetExceededError
+from app.ai.safety.consent_gate import ConsentRequiredError
 from app.core.config import get_settings
 from app.core.errors import (
+    InsufficientDataError,
+    consent_required_exception_handler,
     http_exception_handler,
+    insufficient_data_exception_handler,
+    token_budget_exception_handler,
     unhandled_exception_handler,
     validation_exception_handler,
 )
 from app.core.logging import setup_logging
-from app.core.middleware import RequestCorrelationMiddleware
+from app.core.metrics import prometheus_metrics_middleware
+from app.core.middleware import (
+    GlobalRateLimiterMiddleware,
+    RequestCorrelationMiddleware,
+    RequestSizeLimitMiddleware,
+    SecurityHeadersMiddleware,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -52,10 +64,12 @@ def create_app() -> FastAPI:
         lifespan=lifespan,
     )
 
-    # 1. Register Custom Middlewares
-    app.add_middleware(RequestCorrelationMiddleware)
-
-    # 2. CORS Middleware
+    # 1. Register Custom Middlewares (LIFO order: outermost added last)
+    app.add_middleware(SecurityHeadersMiddleware)
+    app.add_middleware(RequestSizeLimitMiddleware, max_size=settings.max_request_body_size)
+    app.add_middleware(
+        GlobalRateLimiterMiddleware, max_requests=settings.rate_limit_per_minute_general
+    )
     app.add_middleware(
         CORSMiddleware,
         allow_origins=settings.cors_origins,
@@ -63,8 +77,13 @@ def create_app() -> FastAPI:
         allow_methods=["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
         allow_headers=["*"],
     )
+    app.add_middleware(RequestCorrelationMiddleware)
+    app.middleware("http")(prometheus_metrics_middleware)
 
     # 3. Register RFC 7807 Error Handlers
+    app.add_exception_handler(ConsentRequiredError, consent_required_exception_handler)  # type: ignore[arg-type]
+    app.add_exception_handler(DailyTokenBudgetExceededError, token_budget_exception_handler)  # type: ignore[arg-type]
+    app.add_exception_handler(InsufficientDataError, insufficient_data_exception_handler)  # type: ignore[arg-type]
     app.add_exception_handler(StarletteHTTPException, http_exception_handler)  # type: ignore[arg-type]
     app.add_exception_handler(RequestValidationError, validation_exception_handler)  # type: ignore[arg-type]
     app.add_exception_handler(Exception, unhandled_exception_handler)

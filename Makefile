@@ -39,6 +39,15 @@ typecheck:
 seed:
 	python -m data.synthetic.cli generate --users 600 --seed 42
 
+drill:
+	python scripts/drill_backup_restore.py
+
+loadtest:
+	python tests/load/run_load_test.py
+
+prod-up:
+	docker compose -f docker-compose.prod.yml up -d --build
+
 clean:
 	python -c "import pathlib, shutil; [shutil.rmtree(p) for p in pathlib.Path('.').rglob('__pycache__')]" || true
 	python -c "import pathlib, shutil; [shutil.rmtree(p) for p in pathlib.Path('.').rglob('.pytest_cache')]" || true

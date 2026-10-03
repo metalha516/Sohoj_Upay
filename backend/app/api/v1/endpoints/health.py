@@ -55,7 +55,7 @@ async def readiness_check(request: Request) -> JSONResponse:
     try:
         import redis.asyncio as aioredis
 
-        r = aioredis.from_url(
+        r = aioredis.from_url(  # type: ignore[no-untyped-call]
             settings.redis_url,
             socket_timeout=2.0,
             socket_connect_timeout=2.0,

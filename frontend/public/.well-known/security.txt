@@ -1,0 +1,8 @@
+# RFC 9116 Security Contact Information for Sohoj Financial Coach
+Contact: mailto:security@sohoj.app
+Expires: 2027-12-31T23:59:59.000Z
+Preferred-Languages: en, bn
+Canonical: https://sohoj.app/.well-known/security.txt
+Policy: https://sohoj.app/security
+Acknowledgments: https://sohoj.app/security/hall-of-fame
+Hiring: https://sohoj.app/careers

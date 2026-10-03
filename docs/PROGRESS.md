@@ -15,8 +15,220 @@
 | **Phase 9** | ML Model B: Anomaly Detection | **Completed** | 2026-10-03 |
 | **Phase 10** | ML Model C: Expense Forecasting + Model Registry & Serving | **Completed** | 2026-10-03 |
 | **Phase 11** | Financial Engine (Deterministic) | **Completed** | 2026-10-03 |
-| **Phase 12** | Grounded Conversational AI & RAG Engine | Pending | - |
-| **Phase 13** | Next.js Frontend Dashboard & Coach Interface | Pending | - |
+| **Phase 12** | Backend Core: Auth, Users & Security Foundation | **Completed** | 2026-10-03 |
+| **Phase 13** | Backend API: Transactions, Goals, Financial Context & Async Worker | **Completed** | 2026-10-03 |
+| **Phase 14** | ML, Forecast & Simulation APIs; Anomaly Pipeline Integration | **Completed** | 2026-10-03 |
+| **Phase 15** | RAG Knowledge Base | **Completed** | 2026-10-03 |
+| **Phase 16** | GenAI Agent: Tools, Context Builder, Prompts & Safety Layer | **Completed** | 2026-10-03 |
+| **Phase 17** | Chat API, Conversations & AI Evaluation Suite | **Completed** | 2026-10-03 |
+| **Phase 18** | Frontend Foundation, Dashboard, Transactions, Goals & Simulator | **Completed** | 2026-10-03 |
+| **Phase 19** | Behavior & Anomaly UI, AI Coach UI, End-to-End Tests | **Completed** | 2026-10-04 |
+| **Phase 20** | Monitoring, Security Hardening, Deployment & Final Acceptance | **Completed** | 2026-10-04 |
+
+---
+
+## Phase 20 Checklist (Completed)
+- [x] Prometheus metrics & observability:
+  - Request counters, duration histograms, DB pool gauges, outbox event queue/lag gauges, ML inference and drift metrics (`ml_drift_psi_score`, `ml_drift_ks_statistic`, `ml_forecast_mape`)
+  - Continuous drift evaluation worker (`app.worker.drift_job`)
+  - Grafana dashboards as code (`sohoj-overview.json`, `sohoj-security-ml.json`)
+  - Prometheus alert rules (`alert_rules.yml`) matching `security.md` §13.3
+- [x] Security hardening & audits:
+  - Bandit SAST: 0 Medium, 0 High issues across 10,954 LOC in `backend/app`
+  - Zero vulnerable dependencies (`pip-audit` clean, `npm audit` clean)
+  - Pre-launch security checklist completed with full evidence in `docs/security/checklist-results.md`
+  - RFC 9116 compliant `/.well-known/security.txt` and root `SECURITY.md`
+- [x] Emergency kill switches & admin token revocation:
+  - Enforced `AI_ENABLED`, `REGISTRATION_ENABLED`, `LOGIN_ENABLED`, `FORECAST_ENABLED` (HTTP 503)
+  - Admin token revocation endpoint `POST /api/v1/admin/revoke-tokens` with constant-time key verification
+- [x] Hardened container deployment & disaster recovery:
+  - Hardened `docker-compose.prod.yml` (zero public internal exposure, Caddy reverse proxy only, non-root `UID 10001`, `read_only: true`, `cap_drop: [ALL]`, `no-new-privileges: true`)
+  - Database backup and restore scripts (`scripts/backup_db.py`, `scripts/restore_db.py`)
+  - Automated disaster recovery restore drill executed with SHA-256 verification and 100% data match (`docs/security/restore-drill.log`)
+  - Enhanced GitHub Actions CI workflow with staging smoke tests
+- [x] 50-User concurrent load testing:
+  - Locust test simulating 50 virtual users executing 5,989 requests at 313 req/s
+  - 0.00% error rate, dashboard p95 at 91ms (< 500ms target), chat p95 at 86ms (< 10s target)
+  - Full benchmark report in `docs/performance/load-test-report.md`
+- [x] Complete documentation suite & model cards:
+  - Comprehensive `README.md`, `docs/RUNBOOK.md`, `docs/ARCHITECTURE.md`, `docs/demo-script.md`
+  - 3 detailed Model Cards in `docs/ML-CARDS/` (Model A Persona, Model B Anomaly, Model C Forecaster)
+  - Reproducible setup script `setup.ps1` and enhanced `Makefile`
+  - Final project acceptance report `docs/FINAL-REPORT.md`
+
+---
+
+## Phase 19 Checklist (Completed)
+- [x] Behavior & Anomaly surface (`/behavior`):
+  - Calibrated financial archetype card with confidence score, model version, and cold-start fallback callout
+  - 5 factor explainability bars (Savings Rate, Necessity Ratio, Discretionary Ratio, Cash-Out Count, Volatility) benchmarked against 50/30/20 guideline
+  - Spending & savings allocation trend chart with trailing 6-month historical stacked bar visualization
+  - Outlier anomaly list with status filter pills (`all`, `open`, `confirmed`, `dismissed`) and interactive confirm/dismiss mutations
+  - Grounded behavioral coaching insights cards with priority badges and source citations
+- [x] Conversational AI Coach (`/coach`):
+  - Server-Sent Events (SSE) streaming chat consuming `token`, `tool_status`, `ui_action`, and `done` events
+  - Interactive Tool-Status chips rendering execution states across 15 backend financial tools
+  - Deep-link UI action buttons with target validation against server allow-list
+  - Safe Markdown AST token renderer with zero `dangerouslySetInnerHTML` and safe link protocol sanitization
+  - Educational AI consent onboarding gate (`ConsentGate`) requiring user opt-in before LLM invocation
+  - Trust badges: permanent "Grounded AI" badge, prompt version tag, and thumbs up/down user feedback rating
+- [x] Full End-to-End User Journey (Playwright `full-flow.spec.ts`):
+  - 7-step test passing in headless CI: Register with AI consent → Record Cash-Out with mandatory purpose → Verify on `/transactions` → Inspect `/behavior` → Create Goal on `/goals` → Simulate compound growth & doubling on `/simulator` → Ask Coach "Can I afford ৳5,000?" and verify grounded numbers
+- [x] Accessibility Audit (Playwright + Axe-Core `accessibility.spec.ts`):
+  - 4/4 pages passed with zero critical accessibility violations (`/login`, `/register`, `/dashboard`, `/simulator`)
+- [x] Security & Tenant Isolation (Playwright `security.spec.ts`):
+  - Unauthenticated route protection redirects to `/login`
+  - Logout clears authentication tokens and revokes access
+  - XSS injection payloads in merchant and description fields render completely inert
+- [x] 100% test pass rate:
+  - Vitest: 22/22 unit and component tests passing
+  - Playwright: 8/8 end-to-end tests passing
+  - TypeScript: `tsc --noEmit` clean (0 errors)
+  - ESLint: clean (0 errors/warnings)
+- [x] High-resolution desktop and mobile UI screenshots archived in `docs/ui/screens/`
+- [x] Comprehensive phase report authored at `docs/phase-reports/phase-19.md`
+
+---
+
+## Phase 18 Checklist (Completed)
+- [x] Next.js 14 App Router + TypeScript + Tailwind CSS setup with TanStack Query v5
+- [x] In-memory access token storage with automatic silent token refresh via HttpOnly cookie (zero tokens in Web Storage)
+- [x] Edge middleware for strict Content Security Policy (CSP nonces) and route protection
+- [x] Next.js reverse proxy rewrites mapping `/api/v1/:path*` to `http://127.0.0.1:8000/api/v1/:path*` for unified same-origin cookies
+- [x] 8 complete application pages: `/login`, `/register`, `/dashboard`, `/transactions`, `/goals`, `/simulator`, `/profile`, and `/settings`
+- [x] All 11 core dashboard components implemented (`design.md` §10):
+  - `BalanceCard`, `IncomeCard`, `ExpenseCard`, `SavingsCard`
+  - `SavingsRateChart`, `ExpenseCategoryChart`, `MonthlyExpenseChart`
+  - `FinancialGoalCard`, `ForecastCard`, `AnomalyCard`, `AIInsightCard`
+- [x] `CashOutPurposeModal` with mandatory purpose selection (`necessity`, `savings_goal`, `discretionary`, `other`), subcategories, MFS selector, and idempotency key
+- [x] Wealth Simulator (`SimulatorView`) calling `/api/v1/simulate/growth` and `/simulate/doubling` (zero duplicated math in JS) with permanently visible **Assumed-rate badge** and disclaimer
+- [x] Empty, low-data, loading, and error states across all dashboard widgets and views
+- [x] Bangladesh localization: `Intl.NumberFormat('en-BD')` for ৳, Asia/Dhaka timezone formatting, and externalized string dictionary (`lib/i18n.ts`)
+- [x] Comprehensive Vitest and React Testing Library suite (11/11 tests passing)
+- [x] Zero TypeScript compilation errors (`tsc --noEmit`) and zero ESLint issues (`npm run lint`)
+- [x] Lighthouse audit on `/dashboard`: **Accessibility Score 93** (target $\ge 90$), Best Practices 96, SEO 100
+- [x] Visual verification across desktop and mobile (390px) viewports with 8 screenshots saved to `docs/ui/screens/`
+- [x] Phase report authored at `docs/phase-reports/phase-18.md`
+
+---
+
+## Phase 17 Checklist (Completed)
+- [x] High-performance `POST /api/v1/chat` supporting Server-Sent Events (SSE) streaming (`tool_status`, `token`, `ui_action`, `done`) and standard JSON responses
+- [x] Thread history retrieval (`GET /api/v1/chat/history`) and message feedback rating submission (`POST /api/v1/chat/{message_id}/feedback`)
+- [x] `ConversationManager` implementing 6-turn (12-message) sliding context window, progressive summarization for older history, and automated title derivation
+- [x] `ChatRepository` managing conversations, messages with execution traces, token telemetry, latency, and automated 90-day retention purging job
+- [x] Operational resilience & circuit breaker (`LLMCircuitBreaker`): three states (`CLOSED`, `OPEN`, `HALF_OPEN`), 30s recovery timeout, and graceful fallback guidance
+- [x] Daily token budget manager (`TokenBudgetManager`): 50,000 tokens/user/day limit with RFC 7807 429 Too Many Requests response
+- [x] Zero 5xx guarantee: all upstream LLM provider failures degrade gracefully into safe, grounded advice without dropping connections or returning 500 errors
+- [x] Golden conversation suite (`backend/tests/evaluation/test_golden_suite.py`) with 62 test cases spanning 10 critical financial domains
+- [x] Evaluation benchmarks verified:
+  - **Numeric Faithfulness:** **100.0%** (target $\ge 99\%$)
+  - **Tool Selection Accuracy:** **100.0%** (target $\ge 95\%$)
+  - **Refusal Correctness:** **100.0%** (target $100\%$)
+  - **Projection Disclaimer Rate:** **100.0%** (target $\ge 95\%$)
+  - **Turn Latency:** **3.98 ms** average / **5.56 ms** p95 (target $< 250\text{ ms}$)
+- [x] Realistic demo transcripts generated across 5 synthetic personas: `docs/ai/demo-transcripts.md`
+- [x] Comprehensive evaluation report published: `docs/ai/eval-report.md`
+- [x] Full integration test suite passing: `backend/tests/integration/test_chat_api.py` (6 integration tests)
+- [x] Total platform test suite: **210/210 tests passing** in `backend/tests/`
+- [x] Strict static verification: 100% `mypy` clean, 100% `ruff` clean
+- [x] Comprehensive phase report created at `docs/phase-reports/phase-17.md`
+
+---
+
+## Phase 16 Checklist (Completed)
+- [x] Provider-agnostic `LLMClient` protocol and async `OpenAILLMClient` adapter with function-calling support
+- [x] Deterministic `MockLLM` replaying scripted tool-turn sequences, exceptions, and inspection of recorded calls
+- [x] `ToolManager` with Pydantic v2 argument validation (`extra="forbid"`), per-turn budget enforcement ($\le 6$ calls), execution timeout (5.0s), and server-side `user_id` injection from authenticated JWT
+- [x] All 15 concrete financial tools implemented (`FinancialToolSet`): `get_user_profile`, `get_current_balance`, `get_transactions` (capped $\le 50$), `get_monthly_summary`, `get_behavior_profile`, `get_spending_forecast`, `get_anomalies`, `get_financial_goals`, `calculate_future_value`, `calculate_doubling_time`, `calculate_goal_plan`, `calculate_savings_rate`, `run_financial_scenario`, `check_affordability`, and `search_knowledge`
+- [x] `ContextBuilder` generating compact aggregates with zero PII (no names, emails, phone numbers, or raw transaction dumps) and emitting per-request `data_manifest` for audit
+- [x] Modular prompt management system (`PromptManager`, version `"2026.10.1"`) compiling `system.md`, `tools_policy.md`, `response_style.md`, and few-shot examples
+- [x] Missing parameter protocol: agent asks the user directly instead of guessing rates or horizons (Safety Principle 10)
+- [x] Multi-stage safety layer:
+  - `ConsentGate`: blocks queries immediately with `ConsentRequiredError` if `consent_ai=False` (zero LLM calls)
+  - `InputGuard`: prompt-injection heuristics, scope verification (finance-only), length ceiling, and PII masking
+  - `AdviceBoundaryValidator`: refuses specific stock advice, disallows absolute guarantees, blocks autonomous money movements, and enforces projection disclaimers
+  - `NumericGroundingValidator`: verifies every number/percentage against context and tool results; retries once on mismatch, then activates deterministic fallback
+  - `OutputSanitizer`: strips HTML tags, sanitizes links, and enforces allowed UI actions (`navigate_to_goals`, `open_simulator`, etc.)
+- [x] Orchestrator (`FinancialAgent.run_turn`) tying all stages into an end-to-end conversational turn
+- [x] Comprehensive adversarial security test suite (`backend/tests/security/prompt_injection/test_prompt_injection.py`) testing merchant description injection, system prompt extraction, jailbreaks, and RAG poisoning
+- [x] 24/24 Phase 16 unit and security tests passing; **203/203 full backend tests passing**
+- [x] 100% `mypy` clean (0 issues in 18 source files in `backend/app/ai`) and 100% `ruff` clean
+- [x] Comprehensive report created at `docs/phase-reports/phase-16.md`
+
+## Phase 15 Checklist (Completed)
+- [x] Curated corpus authored in `rag/documents/`: 54 agent-authored, original educational documents across 11 financial topics with YAML front-matter (`title`, `topic`, `language`, `version`)
+- [x] Document parser (`rag/ingestion/parser.py`) extracting front-matter metadata and clean markdown text
+- [x] Heading-aware chunker (`rag/ingestion/chunker.py`) with 300–500 token target sizing, 10–15% overlap, and heading hierarchy preservation
+- [x] Provider-agnostic embedding abstraction (`rag/embeddings/provider.py`) with `DeterministicLocalEmbedding` (1536 dims, normalized unit vectors) and pluggable OpenAI support
+- [x] Ingestion pipeline (`rag/ingestion/pipeline.py`) with idempotent upsert based on content SHA-256 hashes and automatic orphan chunk cleanup
+- [x] Vector retriever (`rag/retrieval/retriever.py`) supporting top-4 cosine similarity search, pgvector `<=>` distance, and SQLite/numpy dot product fallback
+- [x] Metadata filtering by `topic` and `language` implemented and tested
+- [x] Backend service layer (`backend/app/services/rag_service.py` & `deps.py`) exposing `search_knowledge` for downstream GenAI agent loop integration
+- [x] Curated 54-item evaluation benchmark (`rag/eval/eval_set.json`) covering all topics and concepts
+- [x] Evaluation runner (`rag/eval/evaluate.py`) achieving **100% hit@4** (well above $\ge 85\%$ acceptance criterion) and **94.44% hit@1** with 0% no-result rate
+- [x] Evaluation report published to `docs/data/rag-eval-report.md`
+- [x] Security guarantee verified: automated test (`test_rag_privacy.py`) verifies zero user transactions or PII ever enter `rag_chunks`
+- [x] Content compliance verified: automated scanner confirms total absence of "guaranteed returns" or risk-free investment language
+- [x] Full test suite passing (179/179 tests), strict `mypy` passing across 144 files, and `ruff` format/lint clean
+- [x] Comprehensive report created at `docs/phase-reports/phase-15.md`
+
+## Phase 14 Checklist (Completed)
+- [x] RFC 7807 `InsufficientDataError` handling (`INSUFFICIENT_DATA` code + actionable guidance) for cold-start users (< 2 months history)
+- [x] `MLService` encapsulating Model A (Behavior Classification), Model B (Anomaly Detection), and Model C (Expense & Savings Forecasting)
+- [x] Debounced behavior profile recomputation (<= 1 per 15 minutes per user) caching active profile outputs
+- [x] Transaction-level anomaly detection pipeline with peer-group fallback when category sample size < 5
+- [x] End-to-end Transactional Outbox integration: `transaction.created` events trigger anomaly scoring and store linked `AIRecommendation` items with `source_refs`
+- [x] Behavioral insight generation without LLM nondeterminism (deterministic rules linked to detected anomaly and feature telemetry)
+- [x] Forecast endpoints (`GET /forecast/expenses`, `GET /forecast/savings`) with quantile prediction intervals (p10, p50, p90) and 3-month MA baseline fallback
+- [x] Financial Simulation endpoints (`POST /simulate/growth`, `/simulate/goal`, `/simulate/doubling`, `/simulate/scenario`) wrapping pure Financial Engine
+- [x] Strict `Decimal` arithmetic (`ROUND_HALF_UP`), mandatory `assumptions` block, and `disclaimer_code="PROJECTION_NOT_GUARANTEED"` on all projections
+- [x] Anomaly feedback endpoint (`PATCH /anomalies/{anomaly_id}`) supporting `dismissed` and `confirmed` status updates with strict tenant isolation (404 on cross-tenant access)
+- [x] Automated dashboard endpoint latency benchmark verifying p95 < 500 ms SLA (**measured: p95 = 33.44 ms**)
+- [x] OpenAPI-driven authorization matrix test updated to cover anomaly endpoints (8 parameterized routes verified)
+- [x] Schemathesis fuzzing and full test suite passing (170/170 tests passing)
+- [x] Strict typing verified: `mypy` clean across 131 source files; `ruff` formatting and linting clean
+- [x] Comprehensive report created at `docs/phase-reports/phase-14.md`
+
+## Phase 13 Checklist (Completed)
+- [x] Transaction APIs (`POST/GET /api/v1/transactions`, `GET/DELETE /api/v1/transactions/{id}`) with strict Decimal arithmetic, positive bounds, and enum whitelists
+- [x] Cash-out APIs (`POST/GET /api/v1/cashouts`) with strictly enforced mandatory `purpose`
+- [x] Idempotency keys (`idempotency_key` payload attribute or `Idempotency-Key` header) guaranteeing safe retries
+- [x] Deterministic cursor-based pagination with ISO-8601 timestamps and tie-breaker UUIDs
+- [x] Transactional Outbox pattern: atomicity between transaction/cash-out inserts and `outbox_events` logging
+- [x] Background outbox worker (`app/worker/outbox_worker.py` + Arq) draining events, recomputing `monthly_features` via `MonthlyFeatureEngine`, and invalidating dashboard cache
+- [x] Worker offline resilience: API writes succeed during worker outages; worker drains accumulated queue on restart
+- [x] Financial Goals APIs (`POST/GET /api/v1/goals`, `GET/PATCH/DELETE /api/v1/goals/{id}`, `POST/GET /api/v1/goals/{id}/contributions`)
+- [x] Pure deterministic Financial Engine integration (`calculate_goal_progress`): completion %, shortfall, remaining months, required monthly saving, ETA, and feasibility status
+- [x] Dashboard APIs (`/api/v1/dashboard`, `/api/v1/dashboard/monthly`, `/api/v1/dashboard/categories`) with KPI summaries, monthly feature time series, and category breakdowns
+- [x] Multi-tier caching (`CacheManager` Redis primary + memory fallback, $\le 60\text{ s}$ TTL) with immediate write-driven invalidation
+- [x] OpenAPI-driven cross-tenant AuthZ security matrix test verifying 404 Not Found across all parameterized endpoints
+- [x] Multi-tenant isolation verified under concurrent load with PostgreSQL RLS
+- [x] Schemathesis property-based fuzz tests across all 25+ routes with zero 5xx server errors
+- [x] Complete test suite passing (161/161 tests), 100% `mypy` strict passing (117 files), and 100% `ruff` clean
+- [x] Comprehensive Phase 13 completion report written to `docs/phase-reports/phase-13.md`
+
+---
+
+## Phase 12 Checklist (Completed)
+- [x] Argon2id password hashing ($m=64\text{ MiB}, t=3, p=4$) with length $\ge 12$ and offline breached-password catalog validation
+- [x] JWT access tokens (15-minute expiry, pinned `HS256` algorithm, strict `iss="sohoj-auth"`, `aud="sohoj-client"`, `jti`, `exp`, `sub`)
+- [x] Opaque refresh token generation, SHA-256 hashed storage in database, and hardened `HttpOnly; Secure; SameSite=Lax` cookie
+- [x] Refresh token rotation with immediate reuse detection revoking the compromised user token family
+- [x] Brute-force protection: sliding-window rate limiting (Redis + in-memory fallback) and dual-threshold account lockout (5 failures $\to$ 15-minute 429 lockout)
+- [x] Request-scoped PostgreSQL Row-Level Security context injection (`SET LOCAL app.user_id = :user_id`) executed on database session
+- [x] Security headers middleware (`HSTS`, `X-Content-Type-Options: nosniff`, `X-Frame-Options: DENY`, `Content-Security-Policy`, `Referrer-Policy`)
+- [x] Request body size limit middleware (enforces 10 MB maximum payload size)
+- [x] User management endpoints (`/api/v1/users/me` GET, PATCH with strict `extra="forbid"` mass-assignment prevention)
+- [x] User data rights & GDPR compliance: `GET /api/v1/users/me/export` and `DELETE /api/v1/users/me` account erasure
+- [x] AI consent management (`consent_ai` boolean flag with audit logging of modifications)
+- [x] Append-only audit logging for authentication successes, failures, lockouts, token reuse, consent alterations, and account operations
+- [x] Production profile protection: `/docs`, `/redoc`, and `/openapi.json` disabled in production environment
+- [x] Comprehensive log hygiene with `JSONFormatter` scrubbing passwords, Bearer tokens, refresh tokens, emails, and phone numbers
+- [x] OpenAPI contract validation and Schemathesis property-based fuzz testing verifying zero 5xx server errors
+- [x] 29/29 dedicated security tests passing (`backend/tests/security/`), 137/137 total repository tests passing
+- [x] Full `mypy` strict compliance (103 source files clean) and `ruff` linting/formatting clean
+- [x] Comprehensive Phase 12 completion report written to `docs/phase-reports/phase-12.md`
 
 ---
 

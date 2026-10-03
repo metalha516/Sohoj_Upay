@@ -27,10 +27,26 @@ class ProblemDetails(BaseModel):
         ..., description="URI reference that identifies the specific occurrence of the problem"
     )
     code: str = Field(..., description="Machine-readable error code")
+    guidance: str | None = Field(default=None, description="Actionable user guidance")
     request_id: str | None = Field(default=None, description="Request correlation ID")
     errors: list[dict[str, Any]] | None = Field(
         default=None, description="Detailed field-level validation errors"
     )
+
+
+class InsufficientDataError(Exception):
+    """Raised when an operation requires more historical data than currently available."""
+
+    def __init__(
+        self,
+        detail: str = "Insufficient transaction history to perform this analysis.",
+        guidance: str = "Record regular transactions over at least 2 consecutive months to unlock insights.",
+        code: str = "INSUFFICIENT_DATA",
+    ) -> None:
+        self.detail = detail
+        self.guidance = guidance
+        self.code = code
+        super().__init__(detail)
 
 
 def create_problem_response(
@@ -41,6 +57,7 @@ def create_problem_response(
     code: str,
     errors: list[dict[str, Any]] | None = None,
     problem_type: str = "about:blank",
+    guidance: str | None = None,
 ) -> JSONResponse:
     """Build an RFC 7807 compliant JSONResponse."""
     req_id = request_id_ctx_var.get() or request.headers.get("X-Request-ID")
@@ -51,6 +68,7 @@ def create_problem_response(
         detail=detail,
         instance=str(request.url.path),
         code=code,
+        guidance=guidance,
         request_id=req_id,
         errors=errors,
     )
@@ -58,6 +76,55 @@ def create_problem_response(
         status_code=status_code,
         content=problem.model_dump(exclude_none=True),
         media_type="application/problem+json",
+    )
+
+
+async def insufficient_data_exception_handler(
+    request: Request, exc: InsufficientDataError
+) -> JSONResponse:
+    """Handle InsufficientDataError with RFC 7807 problem+json representation."""
+    return create_problem_response(
+        request=request,
+        status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+        title="Insufficient Data",
+        detail=exc.detail,
+        code=exc.code,
+        guidance=exc.guidance,
+        errors=[
+            {
+                "field": "history",
+                "message": exc.guidance,
+                "type": "cold_start",
+            }
+        ],
+    )
+
+
+async def consent_required_exception_handler(
+    request: Request, exc: Exception
+) -> JSONResponse:
+    """Handle ConsentRequiredError with RFC 7807 403 Forbidden representation."""
+    return create_problem_response(
+        request=request,
+        status_code=status.HTTP_403_FORBIDDEN,
+        title="AI Consent Required",
+        detail="AI coaching features require consent_ai permission in your account profile.",
+        code="AI_CONSENT_REQUIRED",
+        guidance="Enable 'consent_ai' in your user profile to use the AI coaching and chat features.",
+    )
+
+
+async def token_budget_exception_handler(
+    request: Request, exc: Exception
+) -> JSONResponse:
+    """Handle DailyTokenBudgetExceededError with RFC 7807 429 Too Many Requests representation."""
+    return create_problem_response(
+        request=request,
+        status_code=status.HTTP_429_TOO_MANY_REQUESTS,
+        title="Daily AI Token Limit Exceeded",
+        detail="You have reached your daily AI coaching token budget.",
+        code="DAILY_TOKEN_BUDGET_EXCEEDED",
+        guidance="Your daily quota will reset tomorrow at midnight UTC.",
     )
 
 

@@ -1,4 +1,6 @@
-"""Financial goals repository."""
+"""Financial goals and contributions repository."""
+
+from __future__ import annotations
 
 import uuid
 from collections.abc import Sequence
@@ -16,6 +18,22 @@ class GoalRepository(BaseRepository[FinancialGoal]):
     def __init__(self, session: AsyncSession) -> None:
         super().__init__(FinancialGoal, session)
 
+    async def create(self, goal: FinancialGoal) -> FinancialGoal:
+        """Persist a new financial goal."""
+        self.session.add(goal)
+        await self.session.flush()
+        return goal
+
+    async def list_all_for_user(self, user_id: uuid.UUID) -> Sequence[FinancialGoal]:
+        """List all financial goals for the user, ordered by creation date."""
+        query = (
+            select(FinancialGoal)
+            .where(FinancialGoal.user_id == user_id)
+            .order_by(FinancialGoal.created_at.desc())
+        )
+        result = await self.session.execute(query)
+        return result.scalars().all()
+
     async def list_active_for_user(self, user_id: uuid.UUID) -> Sequence[FinancialGoal]:
         """List active financial goals for the user."""
         query = (
@@ -30,7 +48,7 @@ class GoalRepository(BaseRepository[FinancialGoal]):
         return result.scalars().all()
 
     async def add_contribution(self, contribution: GoalContribution) -> GoalContribution:
-        """Add contribution and update goal current amount."""
+        """Add contribution and update goal current amount atomically."""
         self.session.add(contribution)
         # Update goal current amount
         goal = await self.get_by_id_for_user(contribution.goal_id, contribution.user_id)
@@ -40,3 +58,18 @@ class GoalRepository(BaseRepository[FinancialGoal]):
                 goal.status = "achieved"
         await self.session.flush()
         return contribution
+
+    async def get_contributions_for_goal(
+        self, goal_id: uuid.UUID, user_id: uuid.UUID
+    ) -> Sequence[GoalContribution]:
+        """Fetch all contributions made toward a specific goal belonging to the user."""
+        query = (
+            select(GoalContribution)
+            .where(
+                GoalContribution.goal_id == goal_id,
+                GoalContribution.user_id == user_id,
+            )
+            .order_by(GoalContribution.created_at.desc())
+        )
+        result = await self.session.execute(query)
+        return result.scalars().all()

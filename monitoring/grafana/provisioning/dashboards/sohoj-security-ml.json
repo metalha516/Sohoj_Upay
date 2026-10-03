@@ -1,0 +1,132 @@
+{
+  "annotations": { "list": [] },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 1,
+  "id": null,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "title": "Failed Logins & Lockouts (security.md §13.3)",
+      "type": "timeseries",
+      "gridPos": { "h": 7, "w": 8, "x": 0, "y": 0 },
+      "targets": [
+        {
+          "expr": "rate(auth_login_failures_total[1m]) * 60",
+          "legendFormat": "Login Failures / min"
+        }
+      ]
+    },
+    {
+      "title": "Refresh Token Replays & Family Revocations",
+      "type": "stat",
+      "gridPos": { "h": 7, "w": 4, "x": 8, "y": 0 },
+      "targets": [
+        {
+          "expr": "sum(increase(auth_refresh_token_reuse_total[1h]))",
+          "legendFormat": "Replays Last 1h"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "thresholds" },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "color": "green", "value": null },
+              { "color": "red", "value": 1 }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "title": "Rate Limit Rejections",
+      "type": "timeseries",
+      "gridPos": { "h": 7, "w": 6, "x": 12, "y": 0 },
+      "targets": [
+        {
+          "expr": "sum(rate(rate_limit_exceeded_total[1m])) by (limiter)",
+          "legendFormat": "{{limiter}} limit hits"
+        }
+      ]
+    },
+    {
+      "title": "AI Safety Validator Rejections",
+      "type": "timeseries",
+      "gridPos": { "h": 7, "w": 6, "x": 18, "y": 0 },
+      "targets": [
+        {
+          "expr": "sum(rate(llm_validator_rejections_total[1m])) by (validator_type)",
+          "legendFormat": "{{validator_type}}"
+        }
+      ]
+    },
+    {
+      "title": "LLM Token Usage Spend",
+      "type": "timeseries",
+      "gridPos": { "h": 7, "w": 8, "x": 0, "y": 7 },
+      "targets": [
+        {
+          "expr": "sum(rate(llm_tokens_total[5m])) by (direction, model)",
+          "legendFormat": "{{direction}} - {{model}}"
+        }
+      ]
+    },
+    {
+      "title": "LLM Response Latency (p50, p95)",
+      "type": "timeseries",
+      "gridPos": { "h": 7, "w": 8, "x": 8, "y": 7 },
+      "targets": [
+        {
+          "expr": "histogram_quantile(0.50, sum(rate(llm_request_duration_seconds_bucket[5m])) by (le))",
+          "legendFormat": "p50"
+        },
+        {
+          "expr": "histogram_quantile(0.95, sum(rate(llm_request_duration_seconds_bucket[5m])) by (le))",
+          "legendFormat": "p95"
+        }
+      ]
+    },
+    {
+      "title": "Tool Call Execution Rate & Failures",
+      "type": "timeseries",
+      "gridPos": { "h": 7, "w": 8, "x": 16, "y": 7 },
+      "targets": [
+        {
+          "expr": "sum(rate(llm_tool_calls_total[5m])) by (tool_name, status)",
+          "legendFormat": "{{tool_name}} ({{status}})"
+        }
+      ]
+    },
+    {
+      "title": "Feature Drift Scores (PSI)",
+      "type": "barplot",
+      "gridPos": { "h": 7, "w": 12, "x": 0, "y": 14 },
+      "targets": [
+        {
+          "expr": "ml_drift_psi_score",
+          "legendFormat": "{{feature_name}}"
+        }
+      ]
+    },
+    {
+      "title": "Anomaly Events (Detected vs Dismissed vs Confirmed)",
+      "type": "timeseries",
+      "gridPos": { "h": 7, "w": 12, "x": 12, "y": 14 },
+      "targets": [
+        {
+          "expr": "sum(rate(anomaly_events_total[5m])) by (status)",
+          "legendFormat": "{{status}}"
+        }
+      ]
+    }
+  ],
+  "schemaVersion": 38,
+  "style": "dark",
+  "tags": ["sohoj", "security", "ai-ops", "ml"],
+  "time": { "from": "now-6h", "to": "now" },
+  "title": "Sohoj — Security & AI/ML Observability",
+  "uid": "sohoj-security-ml"
+}

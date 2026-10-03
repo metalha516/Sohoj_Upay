@@ -1,0 +1,326 @@
+[
+  {
+    "id": "eval_01",
+    "question": "What percentage of after-tax income should go toward needs in the 50/30/20 rule?",
+    "expected_doc_id": "budgeting-50-30-20",
+    "topic": "budgeting"
+  },
+  {
+    "id": "eval_02",
+    "question": "How does zero based budgeting allocate every unit of currency down to zero?",
+    "expected_doc_id": "budgeting-zero-based",
+    "topic": "budgeting"
+  },
+  {
+    "id": "eval_03",
+    "question": "What happens when an envelope runs out of money in the cash envelope method?",
+    "expected_doc_id": "budgeting-envelope-system",
+    "topic": "budgeting"
+  },
+  {
+    "id": "eval_04",
+    "question": "Why is reverse budgeting called paying yourself first?",
+    "expected_doc_id": "budgeting-pay-yourself-first",
+    "topic": "budgeting"
+  },
+  {
+    "id": "eval_05",
+    "question": "How does the simplified 80/20 budget divide personal spending between savings and living expenses?",
+    "expected_doc_id": "budgeting-80-20-rule",
+    "topic": "budgeting"
+  },
+  {
+    "id": "eval_06",
+    "question": "How should a freelancer manage living expenses during lean and variable income months?",
+    "expected_doc_id": "budgeting-irregular-income",
+    "topic": "budgeting"
+  },
+  {
+    "id": "eval_07",
+    "question": "Why is daily expense tracking important to prevent month-end cash leaks?",
+    "expected_doc_id": "budgeting-tracking-expenses",
+    "topic": "budgeting"
+  },
+  {
+    "id": "eval_08",
+    "question": "What is the difference between fixed expenses like rent and variable expenses like groceries?",
+    "expected_doc_id": "budgeting-fixed-vs-variable",
+    "topic": "budgeting"
+  },
+  {
+    "id": "eval_09",
+    "question": "What is the primary purpose and psychological benefit of an emergency fund?",
+    "expected_doc_id": "emergency-fund-purpose",
+    "topic": "emergency_fund"
+  },
+  {
+    "id": "eval_10",
+    "question": "How many months of essential living expenses should be saved in an emergency fund?",
+    "expected_doc_id": "emergency-fund-sizing",
+    "topic": "emergency_fund"
+  },
+  {
+    "id": "eval_11",
+    "question": "Where should I park emergency savings for immediate liquidity and safety?",
+    "expected_doc_id": "emergency-fund-storage",
+    "topic": "emergency_fund"
+  },
+  {
+    "id": "eval_12",
+    "question": "Is holiday shopping or gadget upgrading a valid reason to use emergency fund money?",
+    "expected_doc_id": "emergency-fund-rules",
+    "topic": "emergency_fund"
+  },
+  {
+    "id": "eval_13",
+    "question": "What steps should I take to rebuild an emergency cash reserve after a crisis?",
+    "expected_doc_id": "emergency-fund-rebuilding",
+    "topic": "emergency_fund"
+  },
+  {
+    "id": "eval_14",
+    "question": "What are the fundamental differences between saving in bank deposits and long-term investing?",
+    "expected_doc_id": "saving-vs-investing-basics",
+    "topic": "investing"
+  },
+  {
+    "id": "eval_15",
+    "question": "Is there any financial investment that guarantees high returns with zero risk?",
+    "expected_doc_id": "investing-risk-and-return",
+    "topic": "investing"
+  },
+  {
+    "id": "eval_16",
+    "question": "Why should long term goals have higher equity exposure than short term goals?",
+    "expected_doc_id": "investing-time-horizons",
+    "topic": "investing"
+  },
+  {
+    "id": "eval_17",
+    "question": "What is the opportunity cost and inflation loss of holding excessive idle cash balances?",
+    "expected_doc_id": "investing-opportunity-cost",
+    "topic": "investing"
+  },
+  {
+    "id": "eval_18",
+    "question": "How does asset diversification across uncorrelated instruments protect an investor?",
+    "expected_doc_id": "investing-diversification",
+    "topic": "investing"
+  },
+  {
+    "id": "eval_19",
+    "question": "How does compound interest create exponential growth on initial principal and accumulated interest?",
+    "expected_doc_id": "compound-interest-mechanics",
+    "topic": "compound_interest"
+  },
+  {
+    "id": "eval_20",
+    "question": "Does monthly compounding interest yield a higher effective annual return than annual compounding?",
+    "expected_doc_id": "compound-interest-frequencies",
+    "topic": "compound_interest"
+  },
+  {
+    "id": "eval_21",
+    "question": "How do I use the Rule of 72 mental shortcut to estimate how long money takes to double?",
+    "expected_doc_id": "compound-interest-rule-of-72",
+    "topic": "compound_interest"
+  },
+  {
+    "id": "eval_22",
+    "question": "Why does starting to save early at age 22 beat waiting until age 32 in wealth accumulation?",
+    "expected_doc_id": "compound-interest-starting-early",
+    "topic": "compound_interest"
+  },
+  {
+    "id": "eval_23",
+    "question": "How do I calculate real returns by subtracting inflation from nominal interest rate?",
+    "expected_doc_id": "compound-interest-real-returns",
+    "topic": "compound_interest"
+  },
+  {
+    "id": "eval_24",
+    "question": "What is inflation and how does it erode the purchasing power of cash over time?",
+    "expected_doc_id": "inflation-basics",
+    "topic": "inflation"
+  },
+  {
+    "id": "eval_25",
+    "question": "What categories of consumer goods and services make up the Consumer Price Index CPI basket?",
+    "expected_doc_id": "inflation-measuring-cpi",
+    "topic": "inflation"
+  },
+  {
+    "id": "eval_26",
+    "question": "What personal finance strategies help protect savings against high inflation?",
+    "expected_doc_id": "inflation-hedging-strategies",
+    "topic": "inflation"
+  },
+  {
+    "id": "eval_27",
+    "question": "How do I calculate real interest rate on a deposit after subtracting withholding tax and inflation?",
+    "expected_doc_id": "inflation-real-interest-rate",
+    "topic": "inflation"
+  },
+  {
+    "id": "eval_28",
+    "question": "How does a Deposit Pension Scheme DPS monthly installment contract work in banking?",
+    "expected_doc_id": "savings-dps-overview",
+    "topic": "banking_products"
+  },
+  {
+    "id": "eval_29",
+    "question": "What is a Fixed Deposit Receipt FDR term deposit and how is interest paid?",
+    "expected_doc_id": "savings-fdr-overview",
+    "topic": "banking_products"
+  },
+  {
+    "id": "eval_30",
+    "question": "What is the difference between a high-yield savings account and an everyday current account?",
+    "expected_doc_id": "savings-accounts-comparison",
+    "topic": "banking_products"
+  },
+  {
+    "id": "eval_31",
+    "question": "What interest penalty occurs when breaking an FDR term deposit before its maturity date?",
+    "expected_doc_id": "savings-premature-encashment",
+    "topic": "banking_products"
+  },
+  {
+    "id": "eval_32",
+    "question": "How does laddering fixed deposits provide staggered liquidity and reduce reinvestment risk?",
+    "expected_doc_id": "savings-fdr-dps-laddering",
+    "topic": "banking_products"
+  },
+  {
+    "id": "eval_33",
+    "question": "How does the debt avalanche repayment method order debts by highest interest rate first?",
+    "expected_doc_id": "debt-avalanche-method",
+    "topic": "debt_management"
+  },
+  {
+    "id": "eval_34",
+    "question": "Why does the debt snowball strategy focus on paying off the smallest balance first for motivation?",
+    "expected_doc_id": "debt-snowball-method",
+    "topic": "debt_management"
+  },
+  {
+    "id": "eval_35",
+    "question": "What distinguishes productive good debt from high-cost consumer bad debt?",
+    "expected_doc_id": "debt-good-vs-bad",
+    "topic": "debt_management"
+  },
+  {
+    "id": "eval_36",
+    "question": "Why does paying only the credit card minimum payment trigger revolving interest charges?",
+    "expected_doc_id": "debt-credit-card-interest",
+    "topic": "debt_management"
+  },
+  {
+    "id": "eval_37",
+    "question": "How is the Debt-to-Income DTI ratio calculated to evaluate sustainable borrowing limits?",
+    "expected_doc_id": "debt-to-income-ratio",
+    "topic": "debt_management"
+  },
+  {
+    "id": "eval_38",
+    "question": "How does the 24-hour delay rule curb impulse shopping on discretionary items?",
+    "expected_doc_id": "impulse-spending-24-hour-rule",
+    "topic": "spending_habits"
+  },
+  {
+    "id": "eval_39",
+    "question": "What psychological triggers lead to stress shopping and emotional retail therapy?",
+    "expected_doc_id": "impulse-spending-emotional-triggers",
+    "topic": "spending_habits"
+  },
+  {
+    "id": "eval_40",
+    "question": "Why do frictionless mobile payments make spending feel abstract compared to physical cash?",
+    "expected_doc_id": "impulse-spending-mfs-friction",
+    "topic": "spending_habits"
+  },
+  {
+    "id": "eval_41",
+    "question": "How can consumers resist marketing alerts and artificial countdown timer urgency?",
+    "expected_doc_id": "impulse-spending-marketing-nudges",
+    "topic": "spending_habits"
+  },
+  {
+    "id": "eval_42",
+    "question": "How do I distinguish between essential needs and upgraded lifestyle wants?",
+    "expected_doc_id": "impulse-spending-needs-vs-wants",
+    "topic": "spending_habits"
+  },
+  {
+    "id": "eval_43",
+    "question": "What KPIs are shown on the financial dashboard overview including income and surplus?",
+    "expected_doc_id": "app-dashboard-reading-kpis",
+    "topic": "app_guide"
+  },
+  {
+    "id": "eval_44",
+    "question": "How does the Sohoj platform calculate monthly savings rate as a percentage of income?",
+    "expected_doc_id": "app-metrics-savings-rate",
+    "topic": "app_guide"
+  },
+  {
+    "id": "eval_45",
+    "question": "How are necessity expenses and discretionary expense shares defined in monthly metrics?",
+    "expected_doc_id": "app-metrics-necessity-ratio",
+    "topic": "app_guide"
+  },
+  {
+    "id": "eval_46",
+    "question": "What does a spending anomaly alert indicate when an unusual transaction occurs?",
+    "expected_doc_id": "app-anomalies-guide",
+    "topic": "app_guide"
+  },
+  {
+    "id": "eval_47",
+    "question": "What are the six behavioral spending archetypes such as Balanced Spender and Tight Budgeter?",
+    "expected_doc_id": "app-behavior-profiles-guide",
+    "topic": "app_guide"
+  },
+  {
+    "id": "eval_48",
+    "question": "How should I interpret the p10, p50, and p90 prediction bounds on next-month expense forecasts?",
+    "expected_doc_id": "app-expense-forecast-guide",
+    "topic": "app_guide"
+  },
+  {
+    "id": "eval_49",
+    "question": "What are the standard agent cash out fees for mobile financial services MFS in Bangladesh?",
+    "expected_doc_id": "mfs-tariffs-fees",
+    "topic": "mfs_faq"
+  },
+  {
+    "id": "eval_50",
+    "question": "Why should I never share my wallet PIN or one-time password OTP with anyone?",
+    "expected_doc_id": "mfs-security-privacy",
+    "topic": "mfs_faq"
+  },
+  {
+    "id": "eval_51",
+    "question": "How does Row-Level Security protect user data and how does AI consent operate in the app?",
+    "expected_doc_id": "app-privacy-and-ai-consent",
+    "topic": "app_faq"
+  },
+  {
+    "id": "eval_52",
+    "question": "How does the app track financial goal progress percentage and calculate completion ETAs?",
+    "expected_doc_id": "app-goals-tracking-faq",
+    "topic": "app_faq"
+  },
+  {
+    "id": "eval_53",
+    "question": "What is the definition of assets, liabilities, and net worth in personal finance?",
+    "expected_doc_id": "glossary-personal-finance",
+    "topic": "glossary"
+  },
+  {
+    "id": "eval_54",
+    "question": "What does lifestyle creep mean when your spending increases alongside salary raises?",
+    "expected_doc_id": "glossary-spending-and-behavior",
+    "topic": "glossary"
+  }
+]

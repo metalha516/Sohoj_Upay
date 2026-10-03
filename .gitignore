@@ -79,6 +79,14 @@ yarn-error.log*
 postgres_data/
 redis_data/
 grafana_data/
+*.db
+*.sqlite
+*.sqlite3
+backups/
+playwright-report/
+test-results/
+frontend/playwright-report/
+frontend/test-results/
 
 # OS & Editor
 .DS_Store

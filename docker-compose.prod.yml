@@ -1,30 +1,274 @@
-# Hardened production-grade docker-compose configuration
-# Enforces read-only rootfs, dropped Linux capabilities, and non-root users.
+# Production Docker Compose Configuration for Sohoj Financial Coach
+# Adheres strictly to security.md §14 (Network Security) and §19 (Launch Checklist)
+#
+# Principles:
+# 1. Zero Direct Host Exposure: Only the Caddy TLS reverse proxy publishes host ports (80, 443).
+#    All other services (API, Worker, Frontend, PostgreSQL, Redis, Prometheus, Grafana)
+#    are isolated within the private bridge network.
+# 2. Least Privilege: Containers run as unprivileged users (UID 10001, 65534, 472).
+# 3. Read-Only Root Filesystem: Application files cannot be modified at runtime.
+# 4. Dropped Capabilities: cap_drop: [ALL] prevents privilege escalation.
+# 5. No New Privileges: security_opt: ["no-new-privileges:true"] prevents suid escalation.
 
 services:
-  backend-api:
+  # =========================================================================
+  # Edge Reverse Proxy & TLS Termination
+  # =========================================================================
+  proxy:
+    image: caddy:2.7-alpine
+    container_name: sohoj-proxy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./deploy/caddy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    networks:
+      - public
+      - internal
     read_only: true
+    cap_drop:
+      - ALL
+    cap_add:
+      - NET_BIND_SERVICE
+    security_opt:
+      - "no-new-privileges:true"
     tmpfs:
-      - /tmp:rw,noexec,nosuid,size=64m
+      - /tmp:rw,noexec,nosuid,size=16m
+    depends_on:
+      backend-api:
+        condition: service_healthy
+      frontend:
+        condition: service_healthy
+
+  # =========================================================================
+  # Database & Cache (Private Network Only)
+  # =========================================================================
+  postgres:
+    image: pgvector/pgvector:pg16
+    container_name: sohoj-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-financial_app}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-replace_with_secure_postgres_password}
+      POSTGRES_DB: ${POSTGRES_DB:-financial_coach}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - internal
+    security_opt:
+      - "no-new-privileges:true"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-financial_app} -d ${POSTGRES_DB:-financial_coach}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  redis:
+    image: redis:7.2-alpine
+    container_name: sohoj-redis
+    restart: unless-stopped
+    command: redis-server --appendonly yes
+    volumes:
+      - redis_data:/data
+    networks:
+      - internal
+    security_opt:
+      - "no-new-privileges:true"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # =========================================================================
+  # Backend Services (API & Worker)
+  # =========================================================================
+  backend-api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: sohoj-backend-api
+    restart: unless-stopped
+    user: "10001:10001"
+    read_only: true
     cap_drop:
       - ALL
     security_opt:
       - "no-new-privileges:true"
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=64m
+    env_file:
+      - .env.example
+    environment:
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
+      DATABASE_URL: postgresql+asyncpg://${POSTGRES_USER:-financial_app}:${POSTGRES_PASSWORD:-replace_with_secure_postgres_password}@postgres:5432/${POSTGRES_DB:-financial_coach}
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      REDIS_URL: redis://redis:6379/0
+      PORT: 8000
+    expose:
+      - "8000"
+    networks:
+      - internal
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8000/health || exit 1"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
 
   backend-worker:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: sohoj-backend-worker
+    restart: unless-stopped
+    user: "10001:10001"
     read_only: true
-    tmpfs:
-      - /tmp:rw,noexec,nosuid,size=64m
     cap_drop:
       - ALL
     security_opt:
       - "no-new-privileges:true"
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=64m
+    command: ["python", "-m", "app.workers.main"]
+    env_file:
+      - .env.example
+    environment:
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
+      DATABASE_URL: postgresql+asyncpg://${POSTGRES_USER:-financial_app}:${POSTGRES_PASSWORD:-replace_with_secure_postgres_password}@postgres:5432/${POSTGRES_DB:-financial_coach}
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      REDIS_URL: redis://redis:6379/0
+    networks:
+      - internal
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
 
+  # =========================================================================
+  # Frontend Application (Next.js Standalone)
+  # =========================================================================
   frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: sohoj-frontend
+    restart: unless-stopped
+    user: "10001:10001"
     read_only: true
-    tmpfs:
-      - /tmp:rw,noexec,nosuid,size=64m
     cap_drop:
       - ALL
     security_opt:
       - "no-new-privileges:true"
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=64m
+    environment:
+      NEXT_PUBLIC_API_URL: /api/v1
+      NODE_ENV: production
+      PORT: 3000
+    expose:
+      - "3000"
+    networks:
+      - internal
+    depends_on:
+      backend-api:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:3000/ || exit 1"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+
+  # =========================================================================
+  # Monitoring & Observability (Internal Only)
+  # =========================================================================
+  prometheus:
+    image: prom/prometheus:v2.51.0
+    container_name: sohoj-prometheus
+    restart: unless-stopped
+    user: "65534:65534"
+    read_only: true
+    cap_drop:
+      - ALL
+    security_opt:
+      - "no-new-privileges:true"
+    volumes:
+      - ./monitoring/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ./monitoring/prometheus/alert_rules.yml:/etc/prometheus/alert_rules.yml:ro
+      - prometheus_data:/prometheus
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+      - "--storage.tsdb.path=/prometheus"
+      - "--web.console.libraries=/usr/share/prometheus/console_libraries"
+      - "--web.console.templates=/usr/share/prometheus/consoles"
+      - "--web.enable-lifecycle"
+    networks:
+      - internal
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q --spider http://localhost:9090/-/healthy || exit 1"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+
+  grafana:
+    image: grafana/grafana:10.4.1
+    container_name: sohoj-grafana
+    restart: unless-stopped
+    user: "472:472"
+    cap_drop:
+      - ALL
+    security_opt:
+      - "no-new-privileges:true"
+    environment:
+      GF_SECURITY_ADMIN_USER: ${GF_SECURITY_ADMIN_USER:-admin}
+      GF_SECURITY_ADMIN_PASSWORD: ${GF_SECURITY_ADMIN_PASSWORD:-replace_with_secure_grafana_password}
+      GF_USERS_ALLOW_SIGN_UP: "false"
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./monitoring/grafana/provisioning:/etc/grafana/provisioning:ro
+    networks:
+      - internal
+    depends_on:
+      prometheus:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q --spider http://localhost:3000/api/health || exit 1"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+
+# =============================================================================
+# Networks
+# =============================================================================
+networks:
+  public:
+    driver: bridge
+  internal:
+    driver: bridge
+    internal: true
+
+# =============================================================================
+# Persistent Storage Volumes
+# =============================================================================
+volumes:
+  postgres_data:
+  redis_data:
+  caddy_data:
+  caddy_config:
+  prometheus_data:
+  grafana_data:

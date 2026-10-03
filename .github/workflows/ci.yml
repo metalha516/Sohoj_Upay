@@ -126,3 +126,25 @@ jobs:
           context: ./frontend
           push: false
           tags: sohoj-frontend:ci
+
+  staging-smoke-tests:
+    name: Staging Smoke Tests & Backup Drill
+    runs-on: ubuntu-latest
+    needs: [lint, typecheck, unit-tests, docker-build]
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - name: Install Dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -e backend/.[dev]
+
+      - name: Run Disaster Recovery & Backup Verification Drill
+        run: python scripts/drill_backup_restore.py

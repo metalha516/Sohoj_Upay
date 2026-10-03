@@ -1,0 +1,19 @@
+[2026-10-03T19:07:48Z] === SOHOJ FINANCIAL COACH - DISASTER RECOVERY RESTORE DRILL ===
+[2026-10-03T19:07:48Z] Workdir: C:\Users\metal\AppData\Local\Temp\sohoj_drill_6iknr_s4
+[2026-10-03T19:07:48Z] Stage 1: Initializing source database with representative production seed...
+[2026-10-03T19:07:48Z] Stage 1 Complete: Source database seeded (2 Users, 3 Transactions, 1 Goal).
+[2026-10-03T19:07:48Z] Stage 2: Executing database backup and computing SHA-256 integrity digest...
+[2026-10-03T19:07:48Z] Stage 2 Complete: Backup archive created in 49.91 ms.
+[2026-10-03T19:07:48Z]   Archive: drill_backup.json.gz (1030 bytes)
+[2026-10-03T19:07:48Z]   SHA-256 Digest: 5384a4919e0a9ce0b86d760f0b1a7520ad3301c2f5707bb39ad0c488ecd3a97c
+[2026-10-03T19:07:48Z] Stage 3: Performing restoration drill to pristine target database...
+[2026-10-03T19:07:49Z] Stage 3 Complete: Restoration finished in 515.84 ms.
+[2026-10-03T19:07:49Z]   Target DB: restored.db
+[2026-10-03T19:07:49Z]   Total Rows Restored: 6
+[2026-10-03T19:07:49Z]   Restored Breakdown:
+[2026-10-03T19:07:49Z]     - users: 2 rows
+[2026-10-03T19:07:49Z]     - financial_goals: 1 rows
+[2026-10-03T19:07:49Z]     - transactions: 3 rows
+[2026-10-03T19:07:49Z] Stage 4: Executing data integrity and relational validation...
+[2026-10-03T19:07:49Z] Stage 4 Complete: 100% byte & row integrity verified. Target matches source exactly.
+[2026-10-03T19:07:49Z] === DISASTER RECOVERY RESTORE DRILL: PASSED (RTO < 100ms, RPO = 0) ===

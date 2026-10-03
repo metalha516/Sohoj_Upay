@@ -1,0 +1,90 @@
+groups:
+  - name: sohoj_security_and_operational_alerts
+    rules:
+      # security.md §13.3: Failed logins > 20/min globally
+      - alert: HighLoginFailureRate
+        expr: rate(auth_login_failures_total[1m]) * 60 > 20
+        for: 1m
+        labels:
+          severity: critical
+          category: security
+        annotations:
+          summary: "Potential credential stuffing attack on authentication service"
+          description: "Global failed logins rate is {{ $value }} failures/min (threshold: >20/min)."
+
+      # security.md §13.3: 401/403 spike > 3x baseline
+      - alert: AuthErrorSpike
+        expr: sum(rate(http_requests_total{status=~"401|403"}[2m])) > 3 * sum(rate(http_requests_total{status=~"401|403"}[10m] offset 10m))
+        for: 2m
+        labels:
+          severity: warning
+          category: security
+        annotations:
+          summary: "Elevated unauthorized / forbidden request spike"
+          description: "401/403 HTTP error rate has spiked to 3x previous baseline."
+
+      # security.md §13.3: Refresh-token reuse detected (any)
+      - alert: RefreshTokenReuseDetected
+        expr: increase(auth_refresh_token_reuse_total[1m]) > 0
+        for: 0s
+        labels:
+          severity: critical
+          category: security
+        annotations:
+          summary: "Refresh token replay attack detected"
+          description: "A rotated refresh token was presented for reuse; session family has been revoked."
+
+      # security.md §13.3: Rate-limit hits sustained > 5 min
+      - alert: RateLimitHitsSustained
+        expr: sum(rate(rate_limit_exceeded_total[5m])) > 5
+        for: 5m
+        labels:
+          severity: warning
+          category: abuse
+        annotations:
+          summary: "Sustained rate limiting rejection activity"
+          description: "Rate limit violations have persisted continuously over a 5-minute interval."
+
+      # security.md §13.3: LLM validator rejects > 5% of chats
+      - alert: HighLLMSafetyRejections
+        expr: (sum(rate(llm_validator_rejections_total[5m])) / sum(rate(http_requests_total{endpoint=~".*chat.*"}[5m]))) > 0.05
+        for: 5m
+        labels:
+          severity: high
+          category: ai_safety
+        annotations:
+          summary: "AI safety validation failure rate exceeds 5%"
+          description: "Prompt injections, advice boundary violations, or numeric grounding failures exceed 5% of chat traffic."
+
+      # security.md §13.3: Outbox lag / worker failures > 60 s
+      - alert: OutboxProcessingLagCritical
+        expr: outbox_lag_seconds > 60
+        for: 1m
+        labels:
+          severity: critical
+          category: reliability
+        annotations:
+          summary: "Transactional Outbox worker lag exceeds 60 seconds"
+          description: "Outbox processing delay is {{ $value }}s; feature updates and dashboard invalidation delayed."
+
+      # ML Drift: PSI score >= 0.25 (Significant distribution shift)
+      - alert: MLFeatureDistributionDrift
+        expr: ml_drift_psi_score >= 0.25
+        for: 10m
+        labels:
+          severity: warning
+          category: ml_ops
+        annotations:
+          summary: "Significant feature drift detected on feature {{ $labels.feature_name }}"
+          description: "Population Stability Index is {{ $value }} (threshold: >= 0.25); model retraining advised."
+
+      # High API latency p95 > 500ms
+      - alert: HighAPILatencyP95
+        expr: histogram_quantile(0.95, sum(rate(http_request_duration_seconds_bucket[5m])) by (le)) > 0.5
+        for: 3m
+        labels:
+          severity: warning
+          category: performance
+        annotations:
+          summary: "API 95th percentile latency exceeds 500ms SLA"
+          description: "Current p95 API latency is {{ $value }}s."

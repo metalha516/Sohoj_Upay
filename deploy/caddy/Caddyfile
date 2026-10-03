@@ -1,0 +1,83 @@
+# Caddyfile for Sohoj Production Reverse Proxy & TLS Termination
+{
+    # Global options
+    admin off
+    auto_https disable_redirects
+    log {
+        output stdout
+        format json
+        level INFO
+    }
+}
+
+# Production Domain / Staging entrypoint
+:80, :443 {
+    # TLS Configuration (Auto-HTTPS with ACME/Let's Encrypt in production)
+    # tls internal  # Uncomment for local dev TLS testing
+
+    # Security Headers per security.md §14
+    header {
+        # Enforce HTTPS
+        Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+        # Prevent MIME type sniffing
+        X-Content-Type-Options "nosniff"
+        # Clickjacking mitigation
+        X-Frame-Options "DENY"
+        # Referrer policy
+        Referrer-Policy "strict-origin-when-cross-origin"
+        # Restrict hardware API access
+        Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=()"
+        # Prevent XSS cross-site reflection
+        X-XSS-Protection "1; mode=block"
+        # Remove server identity headers
+        -Server
+        -X-Powered-By
+    }
+
+    # Gzip / Zstandard compression
+    encode zstd gzip
+
+    # Health check endpoint for external load balancers / cloud health probes
+    handle /healthz {
+        respond "OK" 200
+    }
+
+    # Block public access to Prometheus metrics endpoint unless internal/authorized
+    @metrics {
+        path /metrics
+        not remote_ip 10.0.0.0/8 172.16.0.0/12 192.168.0.0/16 127.0.0.1/32
+    }
+    handle @metrics {
+        respond "Forbidden" 403
+    }
+
+    # API endpoints routed to backend-api
+    handle /api/* {
+        reverse_proxy backend-api:8000 {
+            header_up X-Forwarded-Proto {scheme}
+            header_up X-Real-IP {remote_host}
+            health_uri /health
+            health_interval 10s
+            health_timeout 3s
+        }
+    }
+
+    # OpenAPI Docs & Schema routed to backend-api
+    handle /docs* {
+        reverse_proxy backend-api:8000
+    }
+    handle /openapi.json {
+        reverse_proxy backend-api:8000
+    }
+
+    # All other web traffic routed to Next.js Frontend
+    handle {
+        reverse_proxy frontend:3000 {
+            header_up X-Forwarded-Proto {scheme}
+            header_up X-Real-IP {remote_host}
+            health_uri /
+            health_interval 15s
+            health_timeout 5s
+        }
+    }
+}
