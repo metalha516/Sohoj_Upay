@@ -9,11 +9,24 @@
 | **Phase 3** | Database Schema, Migrations & Row-Level Security | **Completed** | 2026-10-03 |
 | **Phase 4** | High-Fidelity Synthetic Data Generator | **Completed** | 2026-10-03 |
 | **Phase 5** | Data Generation Run, Load & Realism Validation | **Completed** | 2026-10-03 |
-| **Phase 6** | Core Financial API, Services & Outbox Processing | Pending | - |
-| **Phase 7** | Grounded Conversational AI & RAG Engine | Pending | - |
-| **Phase 8** | Next.js Frontend Dashboard & Coach Interface | Pending | - |
-| **Phase 9** | End-to-End Testing, Security Hardening & DAST | Pending | - |
-| **Phase 10** | Observability, Production Packaging & Handover | Pending | - |
+| **Phase 6** | EDA & Data Quality Analysis | **Completed** | 2026-10-03 |
+| **Phase 7** | Feature Engineering & ML Pipeline | Pending | - |
+| **Phase 8** | Core Financial API, Services & Outbox Processing | Pending | - |
+| **Phase 9** | Grounded Conversational AI & RAG Engine | Pending | - |
+| **Phase 10** | Next.js Frontend Dashboard & Coach Interface | Pending | - |
+
+---
+
+## Phase 6 Checklist (Completed)
+- [x] Reproducible Jupyter Notebook in `ml/notebooks/eda.ipynb` (outputs cleared before commit)
+- [x] Comprehensive EDA Report in `docs/data/eda.md` documenting 10 evidence-backed findings that influence ML design
+- [x] 8 high-resolution statistical visualizations generated in `docs/data/figures/eda/`
+- [x] Analysis of per-persona behavior, spending composition, volatility, seasonality, anomalies, cold start, correlations, and distributions
+- [x] Anti-leakage quarantine and three-tier splitting strategy defined (user-level stratified, time-based sequential, held-out seed cohort)
+- [x] Rule-based baselines implemented in `ml/models/baselines.py` (RuleBasedBehaviorClassifier, RobustZScoreAnomalyDetector, ExpenseForecasterBaseline)
+- [x] Baseline benchmark evaluation pipeline implemented in `ml/evaluation/evaluate_baselines.py` reporting metrics on validation data
+- [x] Comprehensive unit tests in `backend/tests/unit/test_ml_baselines.py` (37/37 total repository tests passing)
+- [x] `docs/phase-reports/phase-06.md` completed and verified
 
 ---
 
