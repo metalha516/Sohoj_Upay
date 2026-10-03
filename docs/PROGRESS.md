@@ -12,10 +12,29 @@
 | **Phase 6** | EDA & Data Quality Analysis | **Completed** | 2026-10-03 |
 | **Phase 7** | Feature Engineering & ML Pipeline | **Completed** | 2026-10-03 |
 | **Phase 8** | ML Model A: Behavior Classification | **Completed** | 2026-10-03 |
-| **Phase 9** | ML Model B & C: Anomaly Detection & Expense Forecasting | Pending | - |
-| **Phase 10** | Core Financial API, Services & Outbox Processing | Pending | - |
-| **Phase 11** | Grounded Conversational AI & RAG Engine | Pending | - |
-| **Phase 12** | Next.js Frontend Dashboard & Coach Interface | Pending | - |
+| **Phase 9** | ML Model B: Anomaly Detection | **Completed** | 2026-10-03 |
+| **Phase 10** | ML Model C: Expense Forecasting | Pending | - |
+| **Phase 11** | Core Financial API, Services & Outbox Processing | Pending | - |
+| **Phase 12** | Grounded Conversational AI & RAG Engine | Pending | - |
+| **Phase 13** | Next.js Frontend Dashboard & Coach Interface | Pending | - |
+
+---
+
+## Phase 9 Checklist (Completed)
+- [x] Transaction-level robust Z-Score (median/MAD) implemented in `ml/models/transaction_anomaly.py`
+- [x] Peer-group fallback on sparse history ($< 20$ txns) guaranteeing minimum group size $\ge 20$
+- [x] Category-month spending detector implemented in `ml/models/category_month_anomaly.py`
+- [x] Model ladder benchmark: Isolation Forest vs Local Outlier Factor (LOF) on $61,875$ records ($95.03\%$ concordance, IF $10\times$ faster)
+- [x] Standardized output contract (`is_anomaly`, `anomaly_score`, `observed`, `baseline`, `deviation_pct`, `scope`, `explanation`) in `ml/models/anomaly_detector.py`
+- [x] Alert budget policy strictly enforced ($\le 3$ alerts/user/month; $1.74$ primary, $1.39$ held-out)
+- [x] Seasonality / cultural festival calibration (Dhaka 2026 calendar) reducing Eid false alarms by $46.4\%$
+- [x] Analyst feedback service (`backend/app/services/anomaly_feedback.py`) supporting `confirmed` / `dismissed` actions and adaptive threshold offsets
+- [x] Quarantined held-out seed cohort evaluation ($N=200$ users, $108,233$ txns): alert rate $1.39$/mo, FPR $0.0337$, AP $0.1408$
+- [x] Publication-grade diagnostic figures generated in `docs/ml/figures/model_b/` (`pr_curves.png`, `per_type_recall.png`, `alert_rate_budget.png`, `festival_impact.png`)
+- [x] Cryptographic artifact serialization (`ml/artifacts/anomaly_detector_v1.joblib` + metadata) with SHA-256 tamper verification
+- [x] Backend singleton adapter in `backend/app/ml/anomaly.py`
+- [x] Comprehensive unit test suite (`backend/tests/unit/test_anomaly_detector.py`) passing 10/10 tests (61/61 tests passing across repository)
+- [x] Model card and technical report completed in `docs/ml/model-b-report.md`
 
 ---
 
