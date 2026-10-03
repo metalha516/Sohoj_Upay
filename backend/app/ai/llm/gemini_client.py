@@ -15,6 +15,29 @@ from app.ai.llm.client import LLMClient, LLMMessage, LLMResponse, ToolCall
 logger = logging.getLogger(__name__)
 
 
+def _clean_schema_for_gemini(schema: Any) -> Any:
+    """Recursively clean OpenAPI / JSON-schema to conform strictly to Gemini Schema proto.
+
+    Removes unsupported keys like 'additionalProperties', and translates
+    'exclusiveMinimum' -> 'minimum', 'exclusiveMaximum' -> 'maximum'.
+    """
+    if isinstance(schema, dict):
+        cleaned: dict[str, Any] = {}
+        for k, v in schema.items():
+            if k == "additionalProperties":
+                continue
+            elif k == "exclusiveMinimum":
+                cleaned["minimum"] = _clean_schema_for_gemini(v)
+            elif k == "exclusiveMaximum":
+                cleaned["maximum"] = _clean_schema_for_gemini(v)
+            else:
+                cleaned[k] = _clean_schema_for_gemini(v)
+        return cleaned
+    elif isinstance(schema, list):
+        return [_clean_schema_for_gemini(item) for item in schema]
+    return schema
+
+
 class GeminiLLMClient(LLMClient):
     """Google Gemini API client adapter supporting generateContent and function calling."""
 
@@ -44,7 +67,6 @@ class GeminiLLMClient(LLMClient):
         if not self.api_key:
             raise ValueError("GEMINI_API_KEY is not configured.")
 
-        endpoint = f"{self.base_url}/models/{self.model}:generateContent"
         headers = {
             "Content-Type": "application/json",
             "X-goog-api-key": self.api_key,
@@ -67,25 +89,30 @@ class GeminiLLMClient(LLMClient):
                 if msg.content:
                     parts.append({"text": msg.content})
                 for tc in msg.tool_calls:
-                    parts.append({
-                        "functionCall": {
-                            "name": tc.name,
-                            "args": tc.arguments,
-                        }
-                    })
+                    fc_data: dict[str, Any] = {
+                        "name": tc.name,
+                        "args": tc.arguments,
+                    }
+                    if getattr(tc, "id", None):
+                        fc_data["id"] = tc.id
+                    p_dict: dict[str, Any] = {"functionCall": fc_data}
+                    ts = getattr(tc, "thought_signature", None)
+                    if ts:
+                        p_dict["thoughtSignature"] = ts
+                    parts.append(p_dict)
                 contents.append({
                     "role": "model",
                     "parts": parts if parts else [{"text": " "}],
                 })
             elif msg.role == "tool":
-                # Function response part
+                # In Gemini REST API generateContent, function responses MUST be sent with role 'user'
                 try:
                     resp_obj = json.loads(msg.content) if isinstance(msg.content, str) else msg.content
                 except Exception:
                     resp_obj = {"result": msg.content}
 
                 contents.append({
-                    "role": "function",
+                    "role": "user",
                     "parts": [{
                         "functionResponse": {
                             "name": msg.name or "tool",
@@ -112,10 +139,12 @@ class GeminiLLMClient(LLMClient):
             declarations: list[dict[str, Any]] = []
             for t in tools:
                 func = t.get("function", t)
+                raw_params = func.get("parameters", {})
+                cleaned_params = _clean_schema_for_gemini(raw_params)
                 declarations.append({
                     "name": func.get("name", ""),
                     "description": func.get("description", ""),
-                    "parameters": func.get("parameters", {}),
+                    "parameters": cleaned_params,
                 })
             payload["tools"] = [{"functionDeclarations": declarations}]
 
@@ -123,24 +152,49 @@ class GeminiLLMClient(LLMClient):
 
         max_retries = 3
         data = None
+        used_model = self.model
+
+        candidate_models = [self.model]
+        for fallback in ("gemini-3.5-flash", "gemini-3.6-flash", "gemini-3.7-flash"):
+            if fallback not in candidate_models:
+                candidate_models.append(fallback)
 
         async with httpx.AsyncClient(timeout=30.0) as client:
-            for attempt in range(max_retries):
-                resp = await client.post(endpoint, headers=headers, json=payload)
-                if resp.status_code == 200:
-                    data = resp.json()
+            for model_name in candidate_models:
+                used_model = model_name
+                endpoint = f"{self.base_url}/models/{model_name}:generateContent"
+                model_failed = False
+                for attempt in range(max_retries):
+                    resp = await client.post(endpoint, headers=headers, json=payload)
+                    if resp.status_code == 200:
+                        data = resp.json()
+                        break
+                    elif resp.status_code in (429, 503) and "RESOURCE_EXHAUSTED" in resp.text:
+                        logger.warning(
+                            "Model %s quota exhausted (429). Attempting fallback model...",
+                            model_name,
+                        )
+                        model_failed = True
+                        break
+                    elif resp.status_code in (429, 503) and attempt < max_retries - 1:
+                        wait_seconds = 1.0 * (2 ** attempt)
+                        logger.warning(
+                            f"Gemini API returned {resp.status_code}. Retrying in {wait_seconds}s (attempt {attempt + 1}/{max_retries})..."
+                        )
+                        await asyncio.sleep(wait_seconds)
+                    elif resp.status_code == 404:
+                        logger.warning(f"Model {model_name} not found (404). Attempting fallback...")
+                        model_failed = True
+                        break
+                    else:
+                        logger.error(f"Gemini API returned status {resp.status_code}: {resp.text}")
+                        raise RuntimeError(
+                            f"Gemini API error ({resp.status_code}): {resp.text[:200]}"
+                        )
+                if data:
                     break
-                elif resp.status_code in (429, 503) and attempt < max_retries - 1:
-                    wait_seconds = 1.0 * (2 ** attempt)
-                    logger.warning(
-                        f"Gemini API returned {resp.status_code}. Retrying in {wait_seconds}s (attempt {attempt + 1}/{max_retries})..."
-                    )
-                    await asyncio.sleep(wait_seconds)
-                else:
-                    logger.error(f"Gemini API returned status {resp.status_code}: {resp.text}")
-                    raise RuntimeError(
-                        f"Gemini API error ({resp.status_code}): {resp.text[:200]}"
-                    )
+                if not model_failed:
+                    break
 
             if not data:
                 raise RuntimeError("Gemini API call failed after retries.")
@@ -152,7 +206,7 @@ class GeminiLLMClient(LLMClient):
                 tool_calls=[],
                 tokens_in=0,
                 tokens_out=0,
-                model=self.model,
+                model=used_model,
             )
 
         candidate = candidates[0]
@@ -169,9 +223,10 @@ class GeminiLLMClient(LLMClient):
                 fc = part["functionCall"]
                 tool_calls.append(
                     ToolCall(
-                        id=f"call_{uuid.uuid4().hex[:8]}",
+                        id=fc.get("id") or f"call_{uuid.uuid4().hex[:8]}",
                         name=fc.get("name", ""),
                         arguments=fc.get("args", {}),
+                        thought_signature=part.get("thoughtSignature"),
                     )
                 )
 
@@ -184,5 +239,5 @@ class GeminiLLMClient(LLMClient):
             tool_calls=tool_calls,
             tokens_in=tokens_in,
             tokens_out=tokens_out,
-            model=self.model,
+            model=used_model,
         )

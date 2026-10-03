@@ -15,6 +15,7 @@ class ToolCall:
     name: str = ""
     arguments: dict[str, Any] = field(default_factory=dict)
     function_name: str | None = None
+    thought_signature: str | None = None
 
     def __post_init__(self) -> None:
         if self.function_name and not self.name:

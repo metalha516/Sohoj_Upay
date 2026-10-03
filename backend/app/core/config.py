@@ -62,7 +62,7 @@ class Settings(BaseSettings):
     llm_api_key: str | None = Field(default=None, alias="LLM_API_KEY")
     llm_model: str = Field(default="gpt-4o-mini", alias="LLM_MODEL")
     gemini_api_key: str | None = Field(default=None, alias="GEMINI_API_KEY")
-    gemini_model: str = Field(default="gemini-flash-latest", alias="GEMINI_MODEL")
+    gemini_model: str = Field(default="gemini-3.5-flash", alias="GEMINI_MODEL")
     llm_temperature: float = Field(default=0.1, alias="LLM_TEMPERATURE")
     llm_timeout_seconds: float = Field(default=10.0, alias="LLM_TIMEOUT_SECONDS")
 
