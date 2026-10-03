@@ -148,11 +148,38 @@ def main() -> None:
     p_val = subparsers.add_parser("validate", help="Validate dataset invariants and non-negativity")
     p_val.add_argument("--data-dir", type=str, default="data/exports", help="Dataset directory")
 
+    # Subcommand: load
+    p_load = subparsers.add_parser(
+        "load", help="Bulk-load synthetic dataset into PostgreSQL database"
+    )
+    p_load.add_argument("--data-dir", type=str, default="data/exports", help="Dataset directory")
+
     args = parser.parse_args()
     if args.command == "generate":
         sys.exit(cmd_generate(args))
     elif args.command == "validate":
         sys.exit(cmd_validate(args))
+    elif args.command == "load":
+        sys.exit(cmd_load(args))
+
+
+def cmd_load(args: argparse.Namespace) -> int:
+    """Execute database bulk loading or emission of bulk COPY SQL script."""
+    import asyncio
+
+    from data.synthetic.loader import SyntheticDataLoader
+
+    data_dir = Path(args.data_dir)
+    print(f"[*] Starting bulk load for datasets in: {data_dir}")
+    loader = SyntheticDataLoader(data_dir=data_dir)
+    res = asyncio.run(loader.load_into_database())
+    print(f"[{'PASS' if res.connected else 'INFO'}] {res.message}")
+    if res.tables_loaded:
+        for t, cnt in res.tables_loaded.items():
+            print(f"    - {t}: {cnt:,} rows in PostgreSQL")
+    elif res.sql_script_path:
+        print(f"[+] Bulk SQL script ready: {res.sql_script_path}")
+    return 0
 
 
 if __name__ == "__main__":

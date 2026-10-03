@@ -325,14 +325,20 @@ class SpendingBehaviorEngine:
             # 4-6 bazaar transactions per month
             num_groceries = int(self.rng.integers(4, 7))
             g_days = sorted(self.rng.choice(range(1, 29), size=num_groceries, replace=False))
+            # Engel's law: food expenditure scales sublinearly with income
+            monthly_groceries = 2500.0 + (base_income**0.52) * 20.0
             for g_day in g_days:
                 g_date = date(2026, month, int(g_day))
                 mult = self.calendar.get_category_multiplier("groceries", g_date)
                 is_weekend = self.calendar.is_weekend(g_date)
                 # Weekend morning bazaar basket is larger
-                avg_basket = (base_income * 0.04) * (1.4 if is_weekend else 0.8) * float(mult)
+                avg_basket = (
+                    (monthly_groceries / float(num_groceries))
+                    * (1.35 if is_weekend else 0.85)
+                    * float(mult)
+                )
                 g_amt = Decimal(
-                    str(round(max(250.0, avg_basket * float(self.rng.uniform(0.75, 1.35))), 2))
+                    str(round(max(200.0, avg_basket * float(self.rng.uniform(0.75, 1.30))), 2))
                 ).quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
                 g_hour = (
                     int(self.rng.integers(7, 11)) if is_weekend else int(self.rng.integers(17, 21))
@@ -394,10 +400,22 @@ class SpendingBehaviorEngine:
                     )
                 )
 
-            # 3. Dining & Street Food (3-8 per month)
-            num_dining = int(self.rng.integers(2, 8))
+            # 3. Dining & Street Food (discretionary spending scales with income tier and persona)
+            if base_income <= 15000:
+                num_dining = int(self.rng.integers(1, 4))
+                d_min, d_max = 50.0, 250.0
+            elif base_income <= 40000:
+                num_dining = int(self.rng.integers(3, 7))
+                d_min, d_max = 180.0, 750.0
+            elif base_income <= 80000:
+                num_dining = int(self.rng.integers(4, 9))
+                d_min, d_max = 400.0, 1600.0
+            else:
+                num_dining = int(self.rng.integers(5, 11))
+                d_min, d_max = 700.0, 3000.0
+
             if current_persona == "discretionary_spender":
-                num_dining += 4
+                num_dining += 3
             elif current_persona == "tight_budgeter":
                 num_dining = max(1, num_dining - 3)
 
@@ -410,7 +428,7 @@ class SpendingBehaviorEngine:
                     d_date, d_hour, int(self.rng.integers(0, 60))
                 )
                 d_amt = Decimal(
-                    str(round(float(self.rng.uniform(150, 950)) * float(d_mult), 2))
+                    str(round(float(self.rng.uniform(d_min, d_max)) * float(d_mult), 2))
                 ).quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
                 desc = str(self.rng.choice(DESCRIPTIONS_BY_CATEGORY["dining"]))
                 merchant = (
@@ -433,7 +451,51 @@ class SpendingBehaviorEngine:
                     )
                 )
 
-            # 4. Mobile Recharge (3-7 per month, small realistic denominations)
+            # 4. Lifestyle Shopping & E-Commerce (discretionary luxury goods scaling with income)
+            if base_income > 16000 or current_persona in (
+                "discretionary_spender",
+                "impulsive_shopper",
+            ):
+                num_shop = (
+                    int(self.rng.integers(1, 3))
+                    if base_income <= 45000
+                    else int(self.rng.integers(1, 4))
+                )
+                if current_persona == "tight_budgeter":
+                    num_shop = 0 if self.rng.random() < 0.70 else 1
+                elif current_persona == "discretionary_spender":
+                    num_shop += 1
+
+                s_days = sorted(
+                    self.rng.choice(range(3, 27), size=min(20, num_shop), replace=False)
+                )
+                for s_day in s_days:
+                    s_date = date(2026, month, int(s_day))
+                    s_hour = int(self.rng.integers(14, 22))
+                    s_ts = self.calendar.make_dhaka_datetime(
+                        s_date, s_hour, int(self.rng.integers(0, 60))
+                    )
+                    shop_min = max(350.0, base_income * 0.02)
+                    shop_max = max(1000.0, base_income * 0.08)
+                    shop_amt = Decimal(
+                        str(round(float(self.rng.uniform(shop_min, shop_max)), 2))
+                    ).quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
+                    events.append(
+                        RawEvent(
+                            event_id=self._make_uuid(),
+                            user_id=user.user_id,
+                            ts=s_ts,
+                            txn_type="expense",
+                            category="shopping",
+                            purpose="discretionary",
+                            amount=shop_amt,
+                            fee=Decimal("0.00"),
+                            description=str(self.rng.choice(DESCRIPTIONS_BY_CATEGORY["shopping"])),
+                            merchant=str(self.rng.choice(MERCHANTS_BY_CATEGORY["shopping"])),
+                        )
+                    )
+
+            # 5. Mobile Recharge (3-7 per month, small realistic denominations)
             num_recharges = int(self.rng.integers(3, 8))
             r_days = sorted(self.rng.choice(range(1, 29), size=num_recharges, replace=False))
             recharge_denoms = [20, 29, 39, 49, 99, 109, 149, 199, 298, 498]
@@ -461,10 +523,10 @@ class SpendingBehaviorEngine:
                     )
                 )
 
-            # 5. Seasonal Festivals: Eid-ul-Fitr Shopping (March), Eid-ul-Adha Qurbani (May), Pohela Boishakh (April)
-            if month == 3:  # March: Pre-Eid-ul-Fitr shopping
-                num_shop = int(self.rng.integers(2, 5))
-                shop_days = sorted(self.rng.choice(range(5, 19), size=num_shop, replace=False))
+            # 6. Seasonal Festivals: Eid-ul-Fitr Shopping (March) and Eid-ul-Adha Qurbani (May)
+            if month == 3:  # March: Pre-Eid-ul-Fitr shopping rush
+                num_eid_shop = int(self.rng.integers(2, 5))
+                shop_days = sorted(self.rng.choice(range(5, 19), size=num_eid_shop, replace=False))
                 for s_day in shop_days:
                     s_date = date(2026, 3, int(s_day))
                     s_ts = self.calendar.make_dhaka_datetime(
@@ -479,12 +541,46 @@ class SpendingBehaviorEngine:
                             user_id=user.user_id,
                             ts=s_ts,
                             txn_type="expense",
-                            category="shopping",
+                            category="festival_eid",
                             purpose="discretionary",
                             amount=s_amt,
                             fee=Decimal("0.00"),
                             description="Eid-ul-Fitr Clothing & Family Gifts",
                             merchant=str(self.rng.choice(MERCHANTS_BY_CATEGORY["shopping"])),
+                        )
+                    )
+            elif month == 5:  # May: Eid-ul-Adha Qurbani Cattle Share & Haat Expenses (May 20-26)
+                if base_income >= 12000 or current_persona in (
+                    "consistent_saver",
+                    "balanced_spender",
+                    "cash_dominant_transactor",
+                    "discretionary_spender",
+                ):
+                    q_day = int(self.rng.integers(20, 26))
+                    q_date = date(2026, 5, q_day)
+                    q_ts = self.calendar.make_dhaka_datetime(
+                        q_date, int(self.rng.integers(11, 19)), int(self.rng.integers(0, 60))
+                    )
+                    # Qurbani cattle share is typically 22% to 45% of monthly income, min ৳5,000
+                    q_raw = (
+                        round(
+                            max(5000.0, base_income * float(self.rng.uniform(0.22, 0.42))) / 500.0
+                        )
+                        * 500
+                    )
+                    q_amt = Decimal(str(q_raw)).quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
+                    events.append(
+                        RawEvent(
+                            event_id=self._make_uuid(),
+                            user_id=user.user_id,
+                            ts=q_ts,
+                            txn_type="expense",
+                            category="festival_eid",
+                            purpose="discretionary",
+                            amount=q_amt,
+                            fee=Decimal("0.00"),
+                            description="Eid-ul-Adha Qurbani Cattle Share & Haat Expenses",
+                            merchant="Gorur Haat Livestock Committee",
                         )
                     )
 
@@ -561,11 +657,10 @@ class SpendingBehaviorEngine:
                     )
 
         # -----------------------------------------------------------------
-        # E. Labeling Noise: 5% to 8% mislabeled purpose or "other"
+        # E. Labeling Noise: ~6.2% mislabeled or unstructured "other" purpose (spec: 5.0%-8.0%)
         # -----------------------------------------------------------------
         for ev in events:
-            if ev.txn_type == "expense" and ev.purpose and self.rng.random() < 0.06:
-                # Either flip purpose or mark "other"
-                ev.purpose = str(self.rng.choice(["necessity", "discretionary", "other"]))
+            if ev.txn_type == "expense" and ev.purpose and self.rng.random() < 0.062:
+                ev.purpose = "other"
 
         return events

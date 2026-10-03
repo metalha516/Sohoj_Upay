@@ -8,12 +8,25 @@
 | **Phase 2** | Domain Definitions, Data Contract & Persona Specification | **Completed** | 2026-10-03 |
 | **Phase 3** | Database Schema, Migrations & Row-Level Security | **Completed** | 2026-10-03 |
 | **Phase 4** | High-Fidelity Synthetic Data Generator | **Completed** | 2026-10-03 |
-| **Phase 5** | Analytics, Feature Engineering & ML Pipeline | Pending | - |
+| **Phase 5** | Data Generation Run, Load & Realism Validation | **Completed** | 2026-10-03 |
 | **Phase 6** | Core Financial API, Services & Outbox Processing | Pending | - |
 | **Phase 7** | Grounded Conversational AI & RAG Engine | Pending | - |
 | **Phase 8** | Next.js Frontend Dashboard & Coach Interface | Pending | - |
 | **Phase 9** | End-to-End Testing, Security Hardening & DAST | Pending | - |
 | **Phase 10** | Observability, Production Packaging & Handover | Pending | - |
+
+---
+
+## Phase 5 Checklist (Completed)
+- [x] Primary training cohort ($N=600$ users, $314,863$ transactions, seed `42`) generated with 0 wallet invariant failures
+- [x] Second held-out evaluation cohort ($N=200$ users, $108,233$ transactions, seed `1337`) generated and quarantined for later model validation
+- [x] High-performance bulk database loader (`data/synthetic/loader.py`) with live asyncpg ingestion and offline `bulk_load.sql` generation
+- [x] Statistical dataset validator (`ml/preprocessing/validate_dataset.py`) implementing all 10 domain checks and automated `--gate` enforcement
+- [x] 10/10 checks verified in `docs/data/realism-report.md` (income skewness, savings rates, Engel's law $r=-0.71$, Eid seasonality, circadian rhythms, persona divergence, ledger solvency, fee calibration, anomaly rates, anti-leakage quarantine)
+- [x] 7 high-resolution statistical visualizations generated in `docs/data/figures/`
+- [x] Anti-leakage isolation verified: zero ground-truth columns present in `transactions` or `users` tables
+- [x] Unit test suite updated (`backend/tests/unit/test_realism_validation.py`) with 31/31 passing tests
+- [x] `docs/phase-reports/phase-05.md` completed and verified
 
 ---
 

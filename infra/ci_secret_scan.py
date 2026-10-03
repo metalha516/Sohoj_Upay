@@ -31,6 +31,19 @@ IGNORED_PATHS = {
     ".pytest_cache",
     ".mypy_cache",
     ".ruff_cache",
+    "__pycache__",
+}
+
+IGNORED_EXTENSIONS = {
+    ".pyc",
+    ".parquet",
+    ".png",
+    ".jpg",
+    ".jpeg",
+    ".ico",
+    ".woff",
+    ".woff2",
+    ".ttf",
 }
 
 
@@ -40,6 +53,9 @@ def scan() -> int:
 
     for file_path in root.rglob("*"):
         if file_path.is_dir() or any(p in file_path.parts for p in IGNORED_PATHS):
+            continue
+
+        if file_path.suffix.lower() in IGNORED_EXTENSIONS:
             continue
 
         if file_path.name in (".env.example", "test_logging.py", "logging.py", "ci_secret_scan.py"):

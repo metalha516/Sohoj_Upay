@@ -1,62 +1,72 @@
 [
   {
-    "goal_id": "244f0dfc-1f66-6d27-8853-c949c7dc4bd2",
-    "user_id": "7e8e07e1-2ed3-3d7a-f2a9-19fc943eedc2",
+    "goal_id": "529edb50-9845-440d-de93-79ac7cdfa5ab",
+    "user_id": "26dafe10-4e28-744e-c919-4a0abefaa0a6",
     "title": "Semester Tuition Savings",
     "category": "higher_education",
-    "target_amount": "46400.0",
+    "target_amount": "49600.0",
     "current_amount": "0.00",
-    "target_date": "2026-06-16",
+    "target_date": "2026-05-17",
     "status": "active"
   },
   {
-    "goal_id": "66f61e44-9b3f-b9ec-5f06-c97130ce94d2",
-    "user_id": "ea44d7bb-b122-69f8-cfeb-febf0bfd12a3",
-    "title": "Family Wedding Gift & Savings",
-    "category": "wedding_expenses",
-    "target_amount": "94600.0",
-    "current_amount": "48840.00",
-    "target_date": "2026-10-25",
-    "status": "active"
-  },
-  {
-    "goal_id": "69d601f4-c980-770c-4c59-755e9aecf91b",
-    "user_id": "ea44d7bb-b122-69f8-cfeb-febf0bfd12a3",
-    "title": "Emergency Fund",
-    "category": "emergency_fund",
-    "target_amount": "29500.0",
-    "current_amount": "45020.00",
-    "target_date": "2026-05-19",
-    "status": "active"
-  },
-  {
-    "goal_id": "e13cbf66-e63b-27b3-dc53-48e5ff1e519c",
-    "user_id": "0d047bee-65d4-e0ac-bfc1-3fc3d21698b6",
-    "title": "Smartphone Upgrade",
-    "category": "smartphone",
-    "target_amount": "9600.0",
-    "current_amount": "0.00",
-    "target_date": "2026-05-24",
-    "status": "active"
-  },
-  {
-    "goal_id": "7e7cc56c-75d6-b3ce-c5be-98883fa5adff",
-    "user_id": "29d1eeab-48c1-3041-b22d-d73cf78b3d6a",
-    "title": "Umrah Savings Fund",
-    "category": "hajj_umrah",
-    "target_amount": "118000.0",
-    "current_amount": "11810.00",
-    "target_date": "2026-12-24",
-    "status": "active"
-  },
-  {
-    "goal_id": "11270a74-db9e-90f6-153b-71a28dd276e1",
-    "user_id": "07c063a3-3e62-de4b-5a3d-79c63ae26e68",
+    "goal_id": "4e92c0d5-e6bd-b57b-a0a1-c59bea64d140",
+    "user_id": "71141ca9-4b05-7397-1db0-1080a27af343",
     "title": "Laptop for Work/Study",
     "category": "laptop_purchase",
-    "target_amount": "24500.0",
+    "target_amount": "51200.0",
     "current_amount": "0.00",
-    "target_date": "2026-07-18",
+    "target_date": "2026-08-26",
+    "status": "active"
+  },
+  {
+    "goal_id": "4793c4f8-d84c-8b48-f2d0-2a1168fe2c18",
+    "user_id": "8d6ed34b-12ac-2c7b-7b64-b69cccba9263",
+    "title": "Semester Tuition Savings",
+    "category": "higher_education",
+    "target_amount": "109400.0",
+    "current_amount": "0.00",
+    "target_date": "2026-04-25",
+    "status": "active"
+  },
+  {
+    "goal_id": "10ef7f33-40f3-703d-a992-1c1a0f76d113",
+    "user_id": "6d0adb2f-da53-237f-1226-77690d12cab2",
+    "title": "Emergency Fund",
+    "category": "emergency_fund",
+    "target_amount": "64400.0",
+    "current_amount": "0.00",
+    "target_date": "2026-08-20",
+    "status": "active"
+  },
+  {
+    "goal_id": "66352094-069c-ec96-dc52-137a8dc2d055",
+    "user_id": "6d0adb2f-da53-237f-1226-77690d12cab2",
+    "title": "Smartphone Upgrade",
+    "category": "smartphone",
+    "target_amount": "52300.0",
+    "current_amount": "0.00",
+    "target_date": "2026-03-15",
+    "status": "active"
+  },
+  {
+    "goal_id": "1affcadb-9fd1-ebdd-b666-4d08a2079c2f",
+    "user_id": "6d0adb2f-da53-237f-1226-77690d12cab2",
+    "title": "Semester Tuition Savings",
+    "category": "higher_education",
+    "target_amount": "113900.0",
+    "current_amount": "0.00",
+    "target_date": "2026-04-23",
+    "status": "active"
+  },
+  {
+    "goal_id": "899fe864-bca1-7f79-5994-88cadfd8c4d1",
+    "user_id": "6edbe67e-ae2b-8986-1636-86d18f17d811",
+    "title": "Emergency Fund",
+    "category": "emergency_fund",
+    "target_amount": "48700.0",
+    "current_amount": "0.00",
+    "target_date": "2026-06-25",
     "status": "active"
   }
 ]
