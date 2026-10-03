@@ -1,0 +1,69 @@
+# =============================================================================
+# Anomaly Injection & Life-Event Configuration
+# Configures ground-truth injection rules for Model B validation.
+# =============================================================================
+
+target_injection_rate: 0.025  # 2.5% of total transactions flagged as injected anomalies
+
+anomaly_types:
+  - code: sudden_spend_spike
+    name: Sudden Spend Spike
+    description: Outflow transaction 3.5x to 8x higher than user's category 90-day median.
+    probability: 0.40
+    min_multiplier: 3.5
+    max_multiplier: 8.0
+
+  - code: unusual_time
+    name: Atypical Transaction Time
+    description: High-value transaction executed during midnight/pre-dawn hours (01:00 to 04:30 AM).
+    probability: 0.20
+    allowed_hours: [1, 2, 3, 4]
+
+  - code: atypical_category
+    name: Atypical Category Emergence
+    description: High transaction amount in a category with zero user history in prior 90 days.
+    probability: 0.25
+    typical_categories: [travel, festival_eid, shopping]
+
+  - code: rapid_velocity_burst
+    name: Rapid Velocity Burst
+    description: Clustered series of 3+ cash-out or send-money operations within a 15-minute window.
+    probability: 0.15
+    burst_count_min: 3
+    burst_count_max: 5
+    window_minutes: 15
+
+life_events:
+  - code: medical_emergency
+    name: Medical Emergency
+    description: Sudden hospitalization, clinic bills, or diagnostic tests.
+    annual_probability_per_user: 0.15
+    typical_cost_range_bdt: [5000.0, 35000.0]
+    category: medical
+
+  - code: festival_eid
+    name: Eid-ul-Fitr / Eid-ul-Adha Season
+    description: Major religious holiday involving festival clothes, sacrificial animal purchases, and family travel.
+    annual_probability_per_user: 0.95
+    typical_cost_range_bdt: [8000.0, 45000.0]
+    category: festival_eid
+
+  - code: wedding_ceremony
+    name: Family Wedding / Social Event
+    description: Heavy seasonal expenditure for gold/jewelry, banquet, bridal gifts, and travel.
+    annual_probability_per_user: 0.10
+    typical_cost_range_bdt: [15000.0, 60000.0]
+    category: shopping
+
+  - code: income_loss_shock
+    name: Temporary Job Loss or Income Disruption
+    description: Interruption of monthly inflows for 1 to 2 months, forcing savings drawdown.
+    annual_probability_per_user: 0.08
+    duration_months: 2
+
+  - code: device_replacement
+    name: Critical Appliance / Smartphone Replacement
+    description: Unplanned replacement of broken smartphone or laptop essential for livelihood.
+    annual_probability_per_user: 0.20
+    typical_cost_range_bdt: [8000.0, 30000.0]
+    category: shopping

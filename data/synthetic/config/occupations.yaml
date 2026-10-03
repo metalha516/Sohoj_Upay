@@ -1,0 +1,153 @@
+# =============================================================================
+# Occupation & Segment Models (Bangladesh MFS Users)
+# Defines income percentiles in BDT and many-to-many persona mappings.
+# =============================================================================
+
+occupations:
+  - code: garment_worker
+    name: Ready-Made Garment (RMG) Worker
+    bangla_name: পোশাক শ্রমিক
+    description: Industrial garment factory operator or supervisor receiving monthly salary via MFS.
+    income_distribution_bdt:
+      min: 12500.0
+      p10: 13500.0
+      p25: 15000.0
+      median: 18500.0
+      p75: 23000.0
+      p90: 27000.0
+      max: 32000.0
+    persona_mapping:
+      tight_budgeter: 0.50
+      cash_dominant_transactor: 0.35
+      consistent_saver: 0.10
+      mixed_drifting: 0.05
+
+  - code: student
+    name: College / University Student
+    bangla_name: শিক্ষার্থী
+    description: Tertiary education student reliant on family allowances, part-time tutoring, or campus gigs.
+    income_distribution_bdt:
+      min: 4000.0
+      p10: 6000.0
+      p25: 8500.0
+      median: 12500.0
+      p75: 18000.0
+      p90: 22000.0
+      max: 28000.0
+    persona_mapping:
+      tight_budgeter: 0.35
+      discretionary_spender: 0.30
+      balanced_spender: 0.15
+      consistent_saver: 0.10
+      mixed_drifting: 0.10
+
+  - code: private_sector_employee
+    name: Private Corporate / SME Employee
+    bangla_name: বেসরকারি চাকুরিজীবী
+    description: White-collar professional in accounts, sales, IT, marketing, or general administration.
+    income_distribution_bdt:
+      min: 22000.0
+      p10: 28000.0
+      p25: 36000.0
+      median: 52000.0
+      p75: 78000.0
+      p90: 105000.0
+      max: 150000.0
+    persona_mapping:
+      balanced_spender: 0.35
+      consistent_saver: 0.30
+      discretionary_spender: 0.20
+      mixed_drifting: 0.10
+      cash_dominant_transactor: 0.05
+
+  - code: government_employee
+    name: Public Sector / Government Employee
+    bangla_name: সরকারি চাকুরিজীবী
+    description: Civil servant, school teacher, or public agency officer with pension-backed stable pay scale.
+    income_distribution_bdt:
+      min: 20000.0
+      p10: 25000.0
+      p25: 32000.0
+      median: 46000.0
+      p75: 68000.0
+      p90: 88000.0
+      max: 125000.0
+    persona_mapping:
+      consistent_saver: 0.45
+      balanced_spender: 0.35
+      tight_budgeter: 0.10
+      mixed_drifting: 0.10
+
+  - code: freelancer_gig_worker
+    name: Digital Freelancer & Tech Contractor
+    bangla_name: ডিজিটাল ফ্রিল্যান্সার
+    description: Independent contractor performing software engineering, graphic design, translation, or SEO.
+    income_distribution_bdt:
+      min: 15000.0
+      p10: 22000.0
+      p25: 32000.0
+      median: 55000.0
+      p75: 85000.0
+      p90: 120000.0
+      max: 175000.0
+    persona_mapping:
+      volatile_earner: 0.55
+      discretionary_spender: 0.20
+      consistent_saver: 0.15
+      mixed_drifting: 0.10
+
+  - code: small_shopkeeper_merchant
+    name: Retail Shopkeeper / Micro-Merchant
+    bangla_name: ক্ষুদ্র ব্যবসায়ী ও দোকানদার
+    description: Neighborhood grocery (mudikhana), pharmacy, or mobile accessories retail shop operator.
+    income_distribution_bdt:
+      min: 14000.0
+      p10: 18000.0
+      p25: 24000.0
+      median: 34000.0
+      p75: 48000.0
+      p90: 65000.0
+      max: 95000.0
+    persona_mapping:
+      cash_dominant_transactor: 0.40
+      balanced_spender: 0.25
+      tight_budgeter: 0.20
+      consistent_saver: 0.10
+      mixed_drifting: 0.05
+
+  - code: ride_share_driver
+    name: Ride-Sharing Driver / Delivery Rider
+    bangla_name: রাইডার ও চালক
+    description: Motorbike delivery rider (Pathao, Foodpanda) or CNG auto-rickshaw commercial driver.
+    income_distribution_bdt:
+      min: 15000.0
+      p10: 18000.0
+      p25: 23000.0
+      median: 31000.0
+      p75: 42000.0
+      p90: 52000.0
+      max: 65000.0
+    persona_mapping:
+      volatile_earner: 0.40
+      cash_dominant_transactor: 0.35
+      tight_budgeter: 0.15
+      mixed_drifting: 0.10
+
+  - code: homemaker_remittance_recipient
+    name: Remittance Recipient Household Head
+    bangla_name: রেমিট্যান্স প্রাপ্ত গৃহস্থালী
+    description: Domestic household manager funded primarily by expatriate spouse or family wire transfers.
+    income_distribution_bdt:
+      min: 16000.0
+      p10: 20000.0
+      p25: 27000.0
+      median: 38000.0
+      p75: 54000.0
+      p90: 72000.0
+      max: 95000.0
+    persona_mapping:
+      cash_dominant_transactor: 0.35
+      balanced_spender: 0.30
+      consistent_saver: 0.20
+      tight_budgeter: 0.10
+      mixed_drifting: 0.05

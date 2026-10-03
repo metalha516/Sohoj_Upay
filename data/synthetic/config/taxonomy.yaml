@@ -1,0 +1,294 @@
+# =============================================================================
+# MFS Transaction Taxonomy & Purpose Mapping (Bangladesh Context)
+# =============================================================================
+
+purposes:
+  - code: necessity
+    description: Essential living expenses (food, shelter, utilities, health, education, remittances to dependents)
+  - code: savings_goal
+    description: Intentional financial allocations toward future goals (DPS, emergency reserve, asset purchase)
+  - code: discretionary
+    description: Non-essential lifestyle spending (shopping, dining, entertainment, leisure travel, lifestyle festivals)
+  - code: other
+    description: Miscellaneous or unclassified expenditures (one-off gifts, fines, unallocated transfers)
+
+categories:
+  # Inflows
+  - code: salary
+    name: Salary
+    bangla_name: বেতন
+    flow_type: inflow
+    default_purpose: other
+    is_income: true
+    typical_min_bdt: 10000.0
+    typical_max_bdt: 150000.0
+    typical_frequency: monthly
+    rationale: Monthly primary earned income from formal or structured employment.
+
+  - code: freelance_income
+    name: Freelance & Gig Earnings
+    bangla_name: ফ্রিল্যান্সিং আয়
+    flow_type: inflow
+    default_purpose: other
+    is_income: true
+    typical_min_bdt: 5000.0
+    typical_max_bdt: 80000.0
+    typical_frequency: sporadic
+    rationale: Earnings from software, design, writing contracts, or delivery gig platforms.
+
+  - code: remittance_received
+    name: Foreign / Domestic Remittance
+    bangla_name: রেমিট্যান্স প্রাপ্তি
+    flow_type: inflow
+    default_purpose: other
+    is_income: true
+    typical_min_bdt: 15000.0
+    typical_max_bdt: 60000.0
+    typical_frequency: monthly
+    rationale: Expatriate remittances sent from Middle East, Europe, or urban family members.
+
+  - code: business_revenue
+    name: Merchant / Shop Revenue
+    bangla_name: ব্যবসা ও বিক্রয় আয়
+    flow_type: inflow
+    default_purpose: other
+    is_income: true
+    typical_min_bdt: 500.0
+    typical_max_bdt: 25000.0
+    typical_frequency: daily
+    rationale: Retail sales and customer MFS payments received by micro-merchants and shopkeepers.
+
+  - code: family_support_received
+    name: Family Support Received
+    bangla_name: পারিবারিক সহায়তা গ্রহণ
+    flow_type: inflow
+    default_purpose: other
+    is_income: true
+    typical_min_bdt: 2000.0
+    typical_max_bdt: 15000.0
+    typical_frequency: monthly
+    rationale: Allowance or financial assistance received by students or dependents.
+
+  - code: cash_in_self
+    name: Self Cash-In (Wallet Load)
+    bangla_name: ক্যাশ-ইন (ওয়ালেট লোড)
+    flow_type: inflow
+    default_purpose: other
+    is_income: false
+    typical_min_bdt: 500.0
+    typical_max_bdt: 20000.0
+    typical_frequency: sporadic
+    rationale: Depositing physical cash at an MFS agent into one's own wallet; asset conversion, not income.
+
+  # Outflows - Necessities
+  - code: groceries
+    name: Groceries & Raw Bazaar
+    bangla_name: কাঁচাবাজার ও মুদি
+    flow_type: outflow
+    default_purpose: necessity
+    is_income: false
+    typical_min_bdt: 200.0
+    typical_max_bdt: 5000.0
+    typical_frequency: weekly
+    rationale: Essential staples (rice, lentils, oil, vegetables, fish, meat) bought from local bazaars or superstores.
+
+  - code: rent
+    name: House & Accommodation Rent
+    bangla_name: বাড়ি ভাড়া
+    flow_type: outflow
+    default_purpose: necessity
+    is_income: false
+    typical_min_bdt: 3000.0
+    typical_max_bdt: 35000.0
+    typical_frequency: monthly
+    rationale: Monthly apartment, room, or mess rent paid to landlord (often cashed out or sent via P2P).
+
+  - code: utilities
+    name: Utilities (Electricity, Gas, Water, Internet)
+    bangla_name: ইউটিলিটি বিল
+    flow_type: outflow
+    default_purpose: necessity
+    is_income: false
+    typical_min_bdt: 300.0
+    typical_max_bdt: 4500.0
+    typical_frequency: monthly
+    rationale: DESCO, DPDC, Titas Gas, WASA, and home broadband ISP bills paid directly via MFS Pay Bill.
+
+  - code: mobile_recharge
+    name: Mobile Airtime & Data
+    bangla_name: মোবাইল রিচার্জ
+    flow_type: outflow
+    default_purpose: necessity
+    is_income: false
+    typical_min_bdt: 20.0
+    typical_max_bdt: 500.0
+    typical_frequency: weekly
+    rationale: Talk-time and internet package top-ups on Grameenphone, Robi, Banglalink, or Teletalk.
+
+  - code: transport
+    name: Daily Commute & Transportation
+    bangla_name: যাতায়াত খরচ
+    flow_type: outflow
+    default_purpose: necessity
+    is_income: false
+    typical_min_bdt: 30.0
+    typical_max_bdt: 800.0
+    typical_frequency: daily
+    rationale: Public bus fare, rickshaw, CNG auto, Uber/Pathao rides, or railway tickets.
+
+  - code: education_fees
+    name: Tuition & Educational Fees
+    bangla_name: শিক্ষা ও টিউশন ফি
+    flow_type: outflow
+    default_purpose: necessity
+    is_income: false
+    typical_min_bdt: 500.0
+    typical_max_bdt: 15000.0
+    typical_frequency: monthly
+    rationale: School, college, university semester fees, or private coaching/tutoring stipends.
+
+  - code: medical
+    name: Healthcare & Medicines
+    bangla_name: চিকিৎসা ও ঔষধ
+    flow_type: outflow
+    default_purpose: necessity
+    is_income: false
+    typical_min_bdt: 100.0
+    typical_max_bdt: 6000.0
+    typical_frequency: sporadic
+    rationale: Pharmacy prescriptions, doctor visits, diagnostic tests, or clinic fees.
+
+  - code: family_support_send
+    name: Send Money to Family
+    bangla_name: পরিবারকে টাকা পাঠানো
+    flow_type: outflow
+    default_purpose: necessity
+    is_income: false
+    typical_min_bdt: 1000.0
+    typical_max_bdt: 20000.0
+    typical_frequency: monthly
+    rationale: Remitting living allowances to aging parents, spouse, or siblings in home districts.
+
+  - code: loan_repayment
+    name: Microfinance & Loan Installments
+    bangla_name: ঋণের কিস্তি পরিশোধ
+    flow_type: outflow
+    default_purpose: necessity
+    is_income: false
+    typical_min_bdt: 500.0
+    typical_max_bdt: 8000.0
+    typical_frequency: weekly
+    rationale: Weekly or monthly installment payments to NGOs (BRAC, ASA, Grameen) or bank micro-loans.
+
+  - code: mfs_fee
+    name: MFS Service Charges & Tariffs
+    bangla_name: এমএফএস চার্জ
+    flow_type: outflow
+    default_purpose: necessity
+    is_income: false
+    typical_min_bdt: 5.0
+    typical_max_bdt: 500.0
+    typical_frequency: sporadic
+    rationale: Official agent cash-out tariffs (1.49%-1.85%), P2P send-money fees (৳5), and utility convenience fees.
+
+  # Outflows - Discretionary
+  - code: shopping
+    name: Lifestyle Shopping & Apparel
+    bangla_name: কেনাকাটা ও পোশাক
+    flow_type: outflow
+    default_purpose: discretionary
+    is_income: false
+    typical_min_bdt: 300.0
+    typical_max_bdt: 8000.0
+    typical_frequency: sporadic
+    rationale: Clothing, footwear, electronics, cosmetics, and e-commerce orders (Daraz, Facebook commerce).
+
+  - code: dining
+    name: Dining Out & Food Delivery
+    bangla_name: রেস্তোরাঁ ও ফুড ডেলিভারি
+    flow_type: outflow
+    default_purpose: discretionary
+    is_income: false
+    typical_min_bdt: 100.0
+    typical_max_bdt: 2500.0
+    typical_frequency: weekly
+    rationale: Street food, tea stalls, local restaurants, and food delivery apps (Foodpanda, HungryNaki).
+
+  - code: entertainment
+    name: Recreation & Subscriptions
+    bangla_name: বিনোদন
+    flow_type: outflow
+    default_purpose: discretionary
+    is_income: false
+    typical_min_bdt: 150.0
+    typical_max_bdt: 2000.0
+    typical_frequency: monthly
+    rationale: Cinema tickets (Star Cineplex), OTT streaming subscriptions (Chorki, Hoichoi, Netflix), gaming.
+
+  - code: travel
+    name: Leisure Travel & Holiday
+    bangla_name: ভ্রমণ ও অবকাশ
+    flow_type: outflow
+    default_purpose: discretionary
+    is_income: false
+    typical_min_bdt: 1000.0
+    typical_max_bdt: 15000.0
+    typical_frequency: sporadic
+    rationale: Holiday trips to Cox's Bazar, Sylhet, Sajek, resort bookings, and bus/plane tickets.
+
+  - code: festival_eid
+    name: Eid & Festival Celebrations
+    bangla_name: ঈদ ও উৎসব খরচ
+    flow_type: outflow
+    default_purpose: discretionary
+    is_income: false
+    typical_min_bdt: 1000.0
+    typical_max_bdt: 25000.0
+    typical_frequency: sporadic
+    rationale: Special holiday shopping, Eidi/Salami gifts to younger relatives, festival treats, Qurbani expenses.
+
+  - code: donation_zakat
+    name: Charity, Zakat & Religious Gifts
+    bangla_name: দান ও যাকাত
+    flow_type: outflow
+    default_purpose: other
+    is_income: false
+    typical_min_bdt: 100.0
+    typical_max_bdt: 10000.0
+    typical_frequency: sporadic
+    rationale: Zakat contributions, mosque/temple donations, and philanthropic aid.
+
+  # Outflows - Savings Goals
+  - code: dps_savings_deposit
+    name: MFS / Bank DPS Installment
+    bangla_name: ডিপিএস ও সঞ্চয় কিস্তি
+    flow_type: outflow
+    default_purpose: savings_goal
+    is_income: false
+    typical_min_bdt: 500.0
+    typical_max_bdt: 10000.0
+    typical_frequency: monthly
+    rationale: Contractual monthly Deposit Pension Scheme (e.g. bKash IDLC/City Bank/MTB DPS) or bank transfer.
+
+  - code: emergency_fund_deposit
+    name: Emergency Reserve Allocation
+    bangla_name: জরুরি তহবিল সঞ্চয়
+    flow_type: outflow
+    default_purpose: savings_goal
+    is_income: false
+    typical_min_bdt: 500.0
+    typical_max_bdt: 10000.0
+    typical_frequency: monthly
+    rationale: Explicit reserve deposits set aside in dedicated savings wallets or bank accounts.
+
+  # Outflows - Other
+  - code: other_expense
+    name: Miscellaneous Outflow
+    bangla_name: অন্যান্য খরচ
+    flow_type: outflow
+    default_purpose: other
+    is_income: false
+    typical_min_bdt: 50.0
+    typical_max_bdt: 3000.0
+    typical_frequency: sporadic
+    rationale: Ad-hoc or uncategorized expenditures.

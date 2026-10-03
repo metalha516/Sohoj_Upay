@@ -5,7 +5,7 @@
 | Phase | Description | Status | Completion Date |
 |---|---|---|---|
 | **Phase 1** | Repository Bootstrap, Tooling & Environment | **Completed** | 2026-10-03 |
-| **Phase 2** | Financial Engine, Core DB Schema & Migrations | Pending | - |
+| **Phase 2** | Domain Definitions, Data Contract & Persona Specification | **Completed** | 2026-10-03 |
 | **Phase 3** | Authentication, Users & Security Baseline | Pending | - |
 | **Phase 4** | High-Fidelity Synthetic Data Generator | Pending | - |
 | **Phase 5** | Analytics, Feature Engineering & ML Pipeline | Pending | - |
@@ -14,6 +14,19 @@
 | **Phase 8** | Next.js Frontend Dashboard & Coach Interface | Pending | - |
 | **Phase 9** | End-to-End Testing, Security Hardening & DAST | Pending | - |
 | **Phase 10** | Observability, Production Packaging & Handover | Pending | - |
+
+---
+
+## Phase 2 Checklist (Completed)
+- [x] Complete metric definitions resolved in `docs/data/data-contract.md` (Dhaka timezone, cash-in/transfer/fee semantics)
+- [x] 5+ comprehensive worked numeric examples tracing transactions to final metrics
+- [x] 2-level taxonomy: 4 purposes (`necessity`, `savings_goal`, `discretionary`, `other`) and 25 Bangladeshi MFS categories
+- [x] 6 behavioral archetypes + 1 mixed/drifting persona with exact parameter distributions
+- [x] 8 socioeconomic occupation segments with BDT income percentiles and transition matrices
+- [x] Quarantined ground-truth schema (`synthetic_ground_truth`) preventing ML data leakage
+- [x] Phase 5 statistical realism quality metrics defined
+- [x] Declarative YAML configs (`data/synthetic/config/*.yaml`) with unit-tested Pydantic models
+- [x] `docs/phase-reports/phase-02.md` written with assumptions flagged for sign-off
 
 ---
 

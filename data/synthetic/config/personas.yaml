@@ -1,0 +1,201 @@
+# =============================================================================
+# Behavioral Persona Archetypes (Bangladesh MFS Users)
+# Target mix: 6 archetypes @ 15% each (= 90%) + 1 mixed/drifting @ 10% (= 100%)
+# =============================================================================
+
+personas:
+  - code: consistent_saver
+    name: Consistent Saver
+    target_population_share: 0.15
+    description: Highly disciplined financial manager with steady savings rate, low discretionary leakage, and automated DPS or bank deposits.
+    income_band:
+      min_bdt: 25000.0
+      median_bdt: 45000.0
+      max_bdt: 120000.0
+    income_regularity: regular_monthly
+    savings_rate:
+      mean: 0.28
+      std_dev: 0.06
+      min: 0.18
+      max: 0.50
+    spend_mix:
+      necessity_share: 0.60
+      discretionary_share: 0.10
+      savings_goal_share: 0.28
+      other_share: 0.02
+    cashout_behavior:
+      frequency_per_month_mean: 2.5
+      volume_ratio_mean: 0.25
+    expense_variance: low
+    goal_behavior:
+      active_goals_mean: 2.2
+      goal_adherence_rate: 0.90
+      typical_target_horizon_months: 24
+
+  - code: balanced_spender
+    name: Balanced Spender
+    target_population_share: 0.15
+    description: Moderate and stable financial actor maintaining steady living standards, predictable leisure spending, and modest regular savings.
+    income_band:
+      min_bdt: 20000.0
+      median_bdt: 38000.0
+      max_bdt: 90000.0
+    income_regularity: regular_monthly
+    savings_rate:
+      mean: 0.15
+      std_dev: 0.04
+      min: 0.08
+      max: 0.24
+    spend_mix:
+      necessity_share: 0.65
+      discretionary_share: 0.18
+      savings_goal_share: 0.15
+      other_share: 0.02
+    cashout_behavior:
+      frequency_per_month_mean: 4.0
+      volume_ratio_mean: 0.40
+    expense_variance: moderate
+    goal_behavior:
+      active_goals_mean: 1.5
+      goal_adherence_rate: 0.75
+      typical_target_horizon_months: 12
+
+  - code: tight_budgeter
+    name: Tight Budgeter
+    target_population_share: 0.15
+    description: Financially constrained user living close to subsistence margins, where essential food, rent, and utility costs consume almost all earnings.
+    income_band:
+      min_bdt: 10000.0
+      median_bdt: 18000.0
+      max_bdt: 28000.0
+    income_regularity: regular_monthly
+    savings_rate:
+      mean: 0.03
+      std_dev: 0.02
+      min: 0.00
+      max: 0.08
+    spend_mix:
+      necessity_share: 0.88
+      discretionary_share: 0.07
+      savings_goal_share: 0.03
+      other_share: 0.02
+    cashout_behavior:
+      frequency_per_month_mean: 6.0
+      volume_ratio_mean: 0.65
+    expense_variance: low
+    goal_behavior:
+      active_goals_mean: 0.5
+      goal_adherence_rate: 0.40
+      typical_target_horizon_months: 6
+
+  - code: discretionary_spender
+    name: Discretionary Spender
+    target_population_share: 0.15
+    description: User with comfortable or moderate earnings who frequently allocates high portions of wallet funds to lifestyle shopping, dining, and impulse buys.
+    income_band:
+      min_bdt: 28000.0
+      median_bdt: 50000.0
+      max_bdt: 130000.0
+    income_regularity: regular_monthly
+    savings_rate:
+      mean: 0.06
+      std_dev: 0.04
+      min: 0.00
+      max: 0.14
+    spend_mix:
+      necessity_share: 0.54
+      discretionary_share: 0.38
+      savings_goal_share: 0.06
+      other_share: 0.02
+    cashout_behavior:
+      frequency_per_month_mean: 5.0
+      volume_ratio_mean: 0.45
+    expense_variance: high
+    goal_behavior:
+      active_goals_mean: 1.0
+      goal_adherence_rate: 0.45
+      typical_target_horizon_months: 10
+
+  - code: volatile_earner
+    name: Volatile Earner
+    target_population_share: 0.15
+    description: Freelancers, ride-sharing gig workers, or seasonal micro-entrepreneurs facing highly irregular, milestone-driven, or clustered income flows.
+    income_band:
+      min_bdt: 12000.0
+      median_bdt: 36000.0
+      max_bdt: 110000.0
+    income_regularity: lumpy_milestone
+    savings_rate:
+      mean: 0.16
+      std_dev: 0.12
+      min: 0.00
+      max: 0.45
+    spend_mix:
+      necessity_share: 0.64
+      discretionary_share: 0.18
+      savings_goal_share: 0.16
+      other_share: 0.02
+    cashout_behavior:
+      frequency_per_month_mean: 7.0
+      volume_ratio_mean: 0.60
+    expense_variance: extreme
+    goal_behavior:
+      active_goals_mean: 1.2
+      goal_adherence_rate: 0.55
+      typical_target_horizon_months: 9
+
+  - code: cash_dominant_transactor
+    name: Cash-Dominant Transactor
+    target_population_share: 0.15
+    description: Uses MFS essentially as an instant conduit; withdraws money via agent cash-out within 24-48 hours of receipt to conduct life in physical paper cash.
+    income_band:
+      min_bdt: 12000.0
+      median_bdt: 24000.0
+      max_bdt: 50000.0
+    income_regularity: regular_monthly
+    savings_rate:
+      mean: 0.07
+      std_dev: 0.05
+      min: 0.00
+      max: 0.18
+    spend_mix:
+      necessity_share: 0.78
+      discretionary_share: 0.13
+      savings_goal_share: 0.07
+      other_share: 0.02
+    cashout_behavior:
+      frequency_per_month_mean: 10.0
+      volume_ratio_mean: 0.82
+    expense_variance: moderate
+    goal_behavior:
+      active_goals_mean: 0.6
+      goal_adherence_rate: 0.50
+      typical_target_horizon_months: 8
+
+  - code: mixed_drifting
+    name: Mixed / Drifting
+    target_population_share: 0.10
+    description: Dynamic transitioning user who shifts behavioral patterns across seasons, festivals, career adjustments, or transient life shocks.
+    income_band:
+      min_bdt: 18000.0
+      median_bdt: 35000.0
+      max_bdt: 85000.0
+    income_regularity: bi_weekly
+    savings_rate:
+      mean: 0.12
+      std_dev: 0.09
+      min: 0.00
+      max: 0.32
+    spend_mix:
+      necessity_share: 0.68
+      discretionary_share: 0.18
+      savings_goal_share: 0.12
+      other_share: 0.02
+    cashout_behavior:
+      frequency_per_month_mean: 5.5
+      volume_ratio_mean: 0.55
+    expense_variance: high
+    goal_behavior:
+      active_goals_mean: 1.1
+      goal_adherence_rate: 0.60
+      typical_target_horizon_months: 12
