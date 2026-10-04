@@ -155,7 +155,13 @@ class GeminiLLMClient(LLMClient):
         used_model = self.model
 
         candidate_models = [self.model]
-        for fallback in ("gemini-3.5-flash", "gemini-3.6-flash", "gemini-3.7-flash"):
+        for fallback in (
+            "gemini-3.8-flash",
+            "gemini-3-flash-preview",
+            "gemini-3.5-flash",
+            "gemini-3.6-flash",
+            "gemini-3.7-flash",
+        ):
             if fallback not in candidate_models:
                 candidate_models.append(fallback)
 
