@@ -202,13 +202,25 @@ class FinancialAgent:
                 final_raw_content = final_turn.content
         except Exception as exc:
             logger.warning("LLM execution error (%s). Engaging deterministic fallback.", exc)
-            final_raw_content = (
-                "Based on your recent financial records and Upay MFS usage:\n\n"
-                "• **Cash Flow**: Your transactions show steady cash flow with essential expense coverage.\n"
-                "• **Upay Tariff Optimization**: By performing cash-outs through Upay agent networks at 1.4% "
-                "(or UCB ATMs at 0.8%), you save between ৳23 and ৳52 per ৳5,000 cash-out compared to standard 1.85% tariffs.\n"
-                "• **Savings Recommendation**: Channeling these tariff savings toward your active DPS or rainy-day buffer "
-                "helps build compounded wealth without increasing your monthly workload."
+            fallback_text = self._build_deterministic_fallback(
+                tool_results_data, user_context, user_message
+            )
+            sanitized = self.output_sanitizer.sanitize(fallback_text)
+            return AgentTurnResult(
+                content=sanitized.content,
+                tool_calls_made=executed_tool_calls,
+                data_manifest=user_context.data_manifest,
+                prompt_version=PROMPT_VERSION,
+                ui_action=sanitized.ui_action,
+                ui_action_payload=sanitized.ui_action_payload,
+                is_fallback=True,
+                is_grounded=True,
+                metadata={
+                    "tool_call_count": call_count,
+                    "disclaimer_added": False,
+                    "pii_redacted_query": guard_res.redacted_text,
+                    "fallback_reason": str(exc),
+                },
             )
 
         # 6. Advice boundary check first (refuse securities, guarantees, money movements immediately)
@@ -278,7 +290,9 @@ class FinancialAgent:
                     )
                     is_fallback = True
                     is_grounded = False
-                    validated_text = self._build_deterministic_fallback(tool_results_data)
+                    validated_text = self._build_deterministic_fallback(
+                        tool_results_data, user_context, user_message
+                    )
 
         # 8. Output Sanitization (HTML & UI actions)
         sanitized = self.output_sanitizer.sanitize(validated_text)
@@ -299,16 +313,60 @@ class FinancialAgent:
             },
         )
 
-    def _build_deterministic_fallback(self, tool_results: list[dict[str, Any]]) -> str:
-        """Construct safe, deterministic summary when model hallucinates ungrounded numbers."""
+    def _build_deterministic_fallback(
+        self,
+        tool_results: list[dict[str, Any]],
+        user_context: UserContext | None = None,
+        user_query: str = "",
+    ) -> str:
+        """Construct safe, deterministic summary when model hallucinates ungrounded numbers or fails."""
+        import re
+
         summary_lines = [
-            "Here is the verified financial summary retrieved from your Sohoj records:",
+            "Here is the verified financial summary retrieved from your Sohoj records:\n",
         ]
+        has_items = False
+
+        # If user asked an affordability question, perform deterministic check against context surplus
+        query_lower = user_query.lower()
+        if "afford" in query_lower and user_context:
+            amount_match = re.search(r"(\d+(?:,\d+)*(?:\.\d+)?)", user_query)
+            if amount_match:
+                try:
+                    ask_amount = float(amount_match.group(1).replace(",", ""))
+                    surplus = 0.0
+                    for line in user_context.formatted_context.splitlines():
+                        if "Current Unallocated Surplus" in line:
+                            s_m = re.search(r"৳([\d,]+(?:\.\d+)?)", line)
+                            if s_m:
+                                surplus = float(s_m.group(1).replace(",", ""))
+                    can_afford = surplus >= ask_amount
+                    status = "affordable" if can_afford else "unaffordable from your unallocated surplus"
+                    summary_lines.append(
+                        f"Based on your current month's cash flow, spending **৳{ask_amount:,.2f}** is considered **{status}**.\n\n"
+                        f"• **Requested Amount**: ৳{ask_amount:,.2f}\n"
+                        f"• **Current Unallocated Surplus**: ৳{surplus:,.2f}\n"
+                    )
+                    if not can_afford:
+                        summary_lines.append(
+                            f"Your surplus is currently ৳{surplus:,.2f}. Making this purchase would require dipping into "
+                            "your emergency fund or adjusting your savings allocations."
+                        )
+                    has_items = True
+                except Exception:
+                    pass
+
         for res in tool_results:
-            if "result" in res and isinstance(res["result"], dict):
-                for k, v in res["result"].items():
-                    if isinstance(v, (int, float, str)) and not isinstance(v, bool):
-                        summary_lines.append(f"- **{k.replace('_', ' ').title()}**: {v}")
+            if "result" in res:
+                r = res["result"]
+                if isinstance(r, dict):
+                    for k, v in r.items():
+                        if isinstance(v, (int, float, str)) and not isinstance(v, bool):
+                            summary_lines.append(f"- **{k.replace('_', ' ').title()}**: {v}")
+                            has_items = True
+
+        if not has_items and user_context:
+            summary_lines.append(user_context.formatted_context)
 
         summary_lines.append(
             "\nFor complete interactive charts and breakdowns, please review your Sohoj dashboard."

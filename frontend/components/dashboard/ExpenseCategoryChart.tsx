@@ -59,7 +59,7 @@ export function ExpenseCategoryChart({ categories }: ExpenseCategoryChartProps) 
         <span className="text-xs text-slate-500 font-medium">Monthly breakdown</span>
       </div>
 
-      <div className="min-h-[280px] w-full">
+      <div className="h-[280px] w-full">
         <ResponsiveContainer width="100%" height="100%">
           <PieChart>
             <Pie

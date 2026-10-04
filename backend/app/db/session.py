@@ -8,6 +8,8 @@ from __future__ import annotations
 import uuid
 from collections.abc import AsyncGenerator
 
+from typing import Any
+
 from sqlalchemy import text
 from sqlalchemy.ext.asyncio import (
     AsyncEngine,
@@ -23,17 +25,42 @@ _session_factory: async_sessionmaker[AsyncSession] | None = None
 
 
 def get_engine() -> AsyncEngine:
-    """Return singleton AsyncEngine instance."""
+    """Return singleton AsyncEngine instance with dialect-aware connection pooling."""
     global _engine
     if _engine is None:
         settings = get_settings()
+        connect_args: dict[str, Any] = {}
+        engine_kwargs: dict[str, Any] = {
+            "echo": settings.debug,
+            "future": True,
+        }
+
+        if "sqlite" in settings.database_url:
+            connect_args["check_same_thread"] = False
+        else:
+            engine_kwargs["pool_pre_ping"] = True
+            engine_kwargs["pool_size"] = 10
+            engine_kwargs["max_overflow"] = 10
+            engine_kwargs["pool_recycle"] = 1800
+            engine_kwargs["pool_timeout"] = 30.0
+
         _engine = create_async_engine(
             settings.database_url,
-            echo=settings.debug,
-            pool_pre_ping=True,
-            future=True,
+            connect_args=connect_args,
+            **engine_kwargs,
         )
     return _engine
+
+
+async def check_database_health() -> bool:
+    """Execute lightweight connectivity probe verifying database responsiveness."""
+    try:
+        engine = get_engine()
+        async with engine.connect() as conn:
+            await conn.execute(text("SELECT 1"))
+        return True
+    except Exception:
+        return False
 
 
 def get_session_factory() -> async_sessionmaker[AsyncSession]:

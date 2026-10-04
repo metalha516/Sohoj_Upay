@@ -38,8 +38,22 @@ import {
   ProblemDetails,
 } from "@/types/api";
 
-const API_BASE_URL =
-  process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+export function getApiBaseUrl(): string {
+  if (process.env.NEXT_PUBLIC_API_URL) {
+    return process.env.NEXT_PUBLIC_API_URL.replace(/\/+$/, "");
+  }
+  // In the browser, default to same-origin relative path so Next.js rewrites route transparently
+  if (typeof window !== "undefined") {
+    return "";
+  }
+  // Server-side (Node.js SSR) uses configured internal or external backend URL
+  return (
+    process.env.INTERNAL_API_URL ||
+    process.env.BACKEND_URL ||
+    "http://127.0.0.1:8000"
+  ).replace(/\/+$/, "");
+}
+
 const API_V1_PREFIX = "/api/v1";
 
 export class ApiError extends Error {
@@ -85,7 +99,7 @@ class ApiClient {
     endpoint: string,
     options: RequestInit = {}
   ): Promise<T> {
-    const url = `${API_BASE_URL}${API_V1_PREFIX}${endpoint}`;
+    const url = `${getApiBaseUrl()}${API_V1_PREFIX}${endpoint}`;
     const headers = new Headers(options.headers || {});
 
     if (!headers.has("Content-Type") && !(options.body instanceof FormData)) {
@@ -201,7 +215,7 @@ class ApiClient {
   }
 
   async exportUserData(): Promise<Blob> {
-    const url = `${API_BASE_URL}${API_V1_PREFIX}/users/me/export`;
+    const url = `${getApiBaseUrl()}${API_V1_PREFIX}/users/me/export`;
     const token = this.getToken();
     const headers = new Headers();
     if (token) headers.set("Authorization", `Bearer ${token}`);
@@ -284,9 +298,13 @@ class ApiClient {
   }
 
   async createTransaction(req: TransactionCreateRequest): Promise<Transaction> {
+    let tType: string = req.transaction_type;
+    if (tType === "payment") tType = "expense";
+    else if (tType === "send_money") tType = "transfer";
+
     const payload: Record<string, any> = {
       amount: req.amount,
-      transaction_type: req.transaction_type,
+      transaction_type: tType,
       purpose: req.purpose,
       category: req.category,
       mfs_provider: req.mfs_provider || "upay",
@@ -701,7 +719,7 @@ class ApiClient {
       onError?: (err: any) => void;
     }
   ): Promise<void> {
-    const url = `${API_BASE_URL}${API_V1_PREFIX}/chat`;
+    const url = `${getApiBaseUrl()}${API_V1_PREFIX}/chat`;
     const token = this.getToken();
     const headers = new Headers({
       "Content-Type": "application/json",

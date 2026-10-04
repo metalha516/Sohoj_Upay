@@ -87,13 +87,18 @@ export function FinancialGoalCard({ goals }: FinancialGoalCardProps) {
                   }`}
                 >
                   {isComplete ? (
-                    <CheckCircle2 className="h-3 w-3 text-upay-yellow" />
+                    <>
+                      <CheckCircle2 className="h-3 w-3 text-upay-yellow" />
+                      <span>Complete</span>
+                    </>
                   ) : goal.is_feasible ? (
-                    "On track"
+                    <span>On track · {formatPercent(goal.progress_pct, 0)}</span>
                   ) : (
-                    <AlertCircle className="h-3 w-3" />
+                    <>
+                      <AlertCircle className="h-3 w-3" />
+                      <span>Lagging · {formatPercent(goal.progress_pct, 0)}</span>
+                    </>
                   )}
-                  {formatPercent(goal.progress_pct, 0)}
                 </span>
               </div>
 

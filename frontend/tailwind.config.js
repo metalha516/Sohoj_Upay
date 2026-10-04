@@ -7,8 +7,17 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["var(--font-geist-sans)"],
-        mono: ["var(--font-geist-mono)"],
+        sans: ["var(--font-sans)", "system-ui", "-apple-system", "sans-serif"],
+        mono: ["var(--font-mono)", "ui-monospace", "SFMono-Regular", "monospace"],
+        display: ["var(--font-sans)", "sans-serif"],
+      },
+      letterSpacing: {
+        tighter: "-0.035em",
+        tight: "-0.02em",
+        normal: "-0.005em",
+        wide: "0.05em",
+        wider: "0.12em",
+        widest: "0.20em",
       },
       colors: {
         navy: {
@@ -70,8 +79,14 @@ module.exports = {
         "slide-in-right": "slideInRight 0.5s ease-out forwards",
         "scale-in": "fadeInScale 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards",
         "glow-pulse": "glowPulse 3s ease-in-out infinite",
+        "border-beam": "borderBeam calc(var(--duration)*1s) infinite linear",
       },
       keyframes: {
+        borderBeam: {
+          "100%": {
+            "offset-distance": "100%",
+          },
+        },
         float: {
           "0%, 100%": { transform: "translateY(0)" },
           "50%": { transform: "translateY(-8px)" },

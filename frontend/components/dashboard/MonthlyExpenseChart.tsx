@@ -42,7 +42,7 @@ export function MonthlyExpenseChart({ data }: MonthlyExpenseChartProps) {
         </div>
       </div>
 
-      <div className="min-h-[280px] w-full pt-2">
+      <div className="h-[280px] w-full pt-2">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart data={chartData} margin={{ top: 10, right: 10, left: -15, bottom: 0 }}>
             <XAxis dataKey="month" stroke="#94a3b8" fontSize={11} tickLine={false} />

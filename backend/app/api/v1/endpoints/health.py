@@ -37,36 +37,35 @@ async def readiness_check(request: Request) -> JSONResponse:
     }
     all_ready = True
 
-    # 1. Check PostgreSQL
-    try:
-        import asyncpg
+    # 1. Check Database (Dialect-agnostic: PostgreSQL + SQLite)
+    from app.db.session import check_database_health
 
-        # Parse connection parameters or connect directly
-        conn = await asyncpg.connect(settings.database_url, timeout=2.0)
-        await conn.execute("SELECT 1")
-        await conn.close()
+    db_ok = await check_database_health()
+    if db_ok:
         checks["database"] = "connected"
-    except Exception as exc:
-        logger.warning("Readiness DB check failed: %s", str(exc))
-        checks["database"] = f"unreachable: {type(exc).__name__}"
+    else:
+        checks["database"] = "unreachable"
         all_ready = False
 
-    # 2. Check Redis
+    # 2. Check Redis (gracefully falls back to in-memory cache if not strictly required)
     try:
         import redis.asyncio as aioredis
 
         r = aioredis.from_url(  # type: ignore[no-untyped-call]
             settings.redis_url,
-            socket_timeout=2.0,
-            socket_connect_timeout=2.0,
+            socket_timeout=1.5,
+            socket_connect_timeout=1.5,
         )
         await r.ping()
         await r.aclose()
         checks["redis"] = "connected"
     except Exception as exc:
-        logger.warning("Readiness Redis check failed: %s", str(exc))
-        checks["redis"] = f"unreachable: {type(exc).__name__}"
-        all_ready = False
+        if settings.redis_required:
+            logger.warning("Readiness Redis check failed (required): %s", str(exc))
+            checks["redis"] = f"unreachable: {type(exc).__name__}"
+            all_ready = False
+        else:
+            checks["redis"] = "fallback_in_memory"
 
     if not all_ready:
         return create_problem_response(
@@ -75,7 +74,7 @@ async def readiness_check(request: Request) -> JSONResponse:
             title="Service Unavailable",
             detail="One or more critical backing services are unreachable.",
             code="SERVICE_UNAVAILABLE",
-            errors=[{"service": k, "status": v} for k, v in checks.items() if "connected" not in v],
+            errors=[{"service": k, "status": v} for k, v in checks.items() if v not in ("connected", "fallback_in_memory")],
         )
 
     return JSONResponse(

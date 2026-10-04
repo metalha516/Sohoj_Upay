@@ -214,27 +214,12 @@ class GeminiLLMClient(LLMClient):
                     await asyncio.sleep(wait_seconds)
                 else:
                     logger.error(f"Gemini API returned status {resp.status_code}: {resp.text}")
-                    if resp.status_code in (429, 503):
-                        logger.warning("Gemini API rate limit reached. Returning graceful grounded response.")
-                        return LLMResponse(
-                            content="Based on your transaction history, your regular cash flow is steady. Using Upay agent cash-outs at 1.4% tariff minimizes withdrawal friction compared to 1.85% competitor rates.",
-                            tool_calls=[],
-                            tokens_in=0,
-                            tokens_out=0,
-                            model=self.model,
-                        )
                     raise RuntimeError(
                         f"Gemini API error ({resp.status_code}): {resp.text[:200]}"
                     )
 
             if not data:
-                return LLMResponse(
-                    content="Based on your transaction history, your regular cash flow is steady. Using Upay agent cash-outs at 1.4% tariff minimizes withdrawal friction compared to 1.85% competitor rates.",
-                    tool_calls=[],
-                    tokens_in=0,
-                    tokens_out=0,
-                    model=self.model,
-                )
+                raise RuntimeError("Gemini API returned empty response data.")
 
         candidates = data.get("candidates", [])
         if not candidates:

@@ -8,13 +8,24 @@ export function middleware(request: NextRequest) {
   // Build Content Security Policy (allow Next.js runtime hydration scripts)
   const scriptSrc = `'self' 'unsafe-inline' 'unsafe-eval'`;
 
+  let backendOrigin = "";
+  if (process.env.BACKEND_URL) {
+    try {
+      backendOrigin = new URL(process.env.BACKEND_URL).origin;
+    } catch {
+      // Invalid URL in env, fallback
+    }
+  }
+  const devOrigins = isDev ? "http://localhost:8000 http://127.0.0.1:8000 ws: http:" : "";
+  const connectSrc = `'self' ${devOrigins} ${backendOrigin}`.trim().replace(/\s+/g, " ");
+
   const cspHeader = `
     default-src 'self';
     script-src ${scriptSrc};
-    style-src 'self' 'unsafe-inline';
+    style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
     img-src 'self' blob: data:;
-    font-src 'self';
-    connect-src 'self' http://localhost:8000 http://127.0.0.1:8000 ws: http:;
+    font-src 'self' https://fonts.gstatic.com;
+    connect-src ${connectSrc};
     frame-ancestors 'none';
     form-action 'self';
     base-uri 'self';

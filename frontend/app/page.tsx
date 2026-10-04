@@ -26,6 +26,13 @@ import {
   Shield,
   Award,
 } from "lucide-react";
+import { DynamicGoldTakaCoin, DynamicParticleWave } from "@/components/canvas/ThreeDVisuals";
+import { ParallaxGlassCard } from "@/components/canvas/ParallaxGlassCard";
+import { SpotlightCard } from "@/components/ui/SpotlightCard";
+import { BorderBeam } from "@/components/ui/BorderBeam";
+import { RollingOdometer } from "@/components/ui/RollingOdometer";
+import { MagneticButton } from "@/components/ui/MagneticButton";
+import { CurrencyAmount } from "@/components/ui/CurrencyAmount";
 
 export default function Home() {
   // Simulator State
@@ -201,70 +208,108 @@ export default function Home() {
       </header>
 
       {/* 2. Hero Section */}
-      <section className="relative overflow-hidden pt-16 pb-24 md:pt-24 md:pb-32 mesh-gradient-hero fintech-grid">
+      <section className="relative overflow-hidden pt-12 pb-20 md:pt-20 md:pb-28 mesh-gradient-hero fintech-grid">
+        {/* GPU 3D Particle Wave Field */}
+        <DynamicParticleWave />
+
         {/* Ambient background glows */}
         <div className="pointer-events-none absolute top-12 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-upay-500/10 blur-[130px] rounded-full" />
         <div className="pointer-events-none absolute top-40 right-10 w-[400px] h-[300px] bg-navy-600/25 blur-[120px] rounded-full" />
 
-        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
-          {/* Dynamic Pill */}
-          <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-navy-900/90 border border-navy-700 text-xs font-semibold text-slate-200 shadow-md mb-8 badge-glow animate-pulse-subtle animate-fade-in-up" style={{ "--stagger": 0 } as React.CSSProperties}>
-            <span className="flex h-2 w-2 rounded-full bg-upay-500 animate-ping" />
-            <span className="flex h-2 w-2 rounded-full bg-upay-500 -ml-4" />
-            <span className="text-upay-400 font-bold">Bangladesh&apos;s First AI Financial Copilot</span>
-            <span className="text-slate-500">|</span>
-            <span className="text-slate-300">Upay MFS Intelligence</span>
-          </div>
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center text-left">
+            {/* Left Column: Value Prop & Magnetic CTAs */}
+            <div className="lg:col-span-7 space-y-6">
+              {/* Dynamic Pill */}
+              <div
+                className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-navy-900/90 border border-navy-700 text-xs font-semibold text-slate-200 shadow-md badge-glow animate-pulse-subtle animate-fade-in-up"
+                style={{ "--stagger": 0 } as React.CSSProperties}
+              >
+                <span className="flex h-2 w-2 rounded-full bg-upay-500 animate-ping" />
+                <span className="flex h-2 w-2 rounded-full bg-upay-500 -ml-4" />
+                <span className="text-upay-400 font-bold">Bangladesh&apos;s First AI Financial Copilot</span>
+                <span className="text-slate-500">|</span>
+                <span className="text-slate-300">Upay MFS Intelligence</span>
+              </div>
 
-          {/* Headline */}
-          <h1 className="mx-auto max-w-5xl text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-[1.12] animate-fade-in-up" style={{ "--stagger": 1 } as React.CSSProperties}>
-            Turn Every MFS Taka Into <br className="hidden sm:inline" />
-            <span className="bg-gradient-to-r from-upay-400 via-yellow-200 to-upay-500 bg-clip-text text-transparent">
-              Compounded Wealth
-            </span>
-          </h1>
+              {/* Headline */}
+              <h1
+                className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tighter text-white leading-[1.08] animate-fade-in-up"
+                style={{ "--stagger": 1 } as React.CSSProperties}
+              >
+                Turn Every MFS Taka Into <br />
+                <span className="bg-gradient-to-r from-upay-400 via-yellow-200 to-upay-500 bg-clip-text text-transparent">
+                  Compounded Wealth
+                </span>
+              </h1>
 
-          {/* Subtitle */}
-          <p className="mx-auto mt-6 max-w-3xl text-lg sm:text-xl text-slate-300 leading-relaxed font-normal animate-fade-in-up" style={{ "--stagger": 2 } as React.CSSProperties}>
-            Autonomous forecasting, deterministic wealth simulation, and grounded AI coaching. Seamlessly integrated with Bangladesh MFS networks — zero PII exposure.
-          </p>
+              {/* Subtitle */}
+              <p
+                className="max-w-2xl text-base sm:text-lg text-slate-300 leading-relaxed font-normal animate-fade-in-up"
+                style={{ "--stagger": 2 } as React.CSSProperties}
+              >
+                Autonomous forecasting, deterministic wealth simulation, and grounded AI coaching. Seamlessly integrated with Upay and Bangladesh MFS networks with zero PII exposure.
+              </p>
 
-          {/* Hero CTAs */}
-          <div className="mt-10 flex flex-wrap justify-center items-center gap-4 animate-fade-in-up" style={{ "--stagger": 3 } as React.CSSProperties}>
-            <Link
-              href="/dashboard"
-              className="inline-flex items-center gap-2.5 px-8 py-4 rounded-2xl bg-upay-500 text-navy-950 font-black text-base shadow-xl hover:bg-upay-400 hover:scale-[1.02] active:scale-[0.98] transition-all upay-glow"
-            >
-              Launch Dashboard
-              <ArrowRight className="h-5 w-5" />
-            </Link>
-            <a
-              href="#simulator"
-              className="inline-flex items-center gap-2.5 px-7 py-4 rounded-2xl bg-navy-900/90 text-white font-bold text-base hover:bg-navy-800 transition-all border border-navy-700/80 shadow-md"
-            >
-              <Calculator className="h-5 w-5 text-upay-400" />
-              Try Live Simulator
-            </a>
+              {/* Magnetic Hero CTAs */}
+              <div
+                className="pt-2 flex flex-wrap items-center gap-4 animate-fade-in-up"
+                style={{ "--stagger": 3 } as React.CSSProperties}
+              >
+                <Link href="/dashboard">
+                  <MagneticButton
+                    variant="primary"
+                    icon={<ArrowRight className="h-4 w-4" />}
+                  >
+                    Launch Dashboard
+                  </MagneticButton>
+                </Link>
+                <a href="#simulator">
+                  <MagneticButton
+                    variant="secondary"
+                    icon={<Calculator className="h-4 w-4 text-upay-400" />}
+                  >
+                    Try Live Simulator
+                  </MagneticButton>
+                </a>
+              </div>
+            </div>
+
+            {/* Right Column: Interactive 3D Gold Taka Coin */}
+            <div className="lg:col-span-5 flex flex-col items-center justify-center relative">
+              <div className="relative">
+                {/* Luminous aura behind coin */}
+                <div className="pointer-events-none absolute inset-0 rounded-full bg-upay-500/15 blur-3xl scale-125" />
+                <DynamicGoldTakaCoin />
+              </div>
+              <span className="mt-1 text-[11px] font-mono uppercase tracking-widest text-slate-400 flex items-center gap-1.5">
+                <span className="h-1.5 w-1.5 rounded-full bg-upay-400 animate-ping" />
+                Interactive 3D Taka Token • Drag to Spin
+              </span>
+            </div>
           </div>
 
           {/* Live Trust & Metrics Row */}
-          <div className="mt-16 pt-8 border-t border-navy-800/60 grid grid-cols-2 sm:grid-cols-4 gap-6 max-w-5xl mx-auto">
-            <div className="p-4 rounded-2xl bg-upay-500/10 border border-upay-500/20 backdrop-blur-sm text-center">
-              <div className="text-3xl sm:text-4xl font-black text-upay-400">৳45M+</div>
+          <div className="mt-16 pt-8 border-t border-navy-800/60 grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6 max-w-5xl mx-auto">
+            <SpotlightCard className="p-4 rounded-2xl text-center" withDoubleBezel={false}>
+              <div className="text-3xl sm:text-4xl font-black text-upay-400">
+                <RollingOdometer value={45} prefix="৳" className="text-3xl sm:text-4xl font-black text-upay-400" />
+                <span>M+</span>
+              </div>
               <div className="mt-1 text-xs text-slate-300 font-semibold">Simulated Wealth Volume</div>
-            </div>
-            <div className="p-4 rounded-2xl bg-navy-900/40 border border-navy-800/60 backdrop-blur-sm text-center">
+            </SpotlightCard>
+            <SpotlightCard className="p-4 rounded-2xl text-center" withDoubleBezel={false}>
               <div className="text-2xl sm:text-3xl font-bold text-white">0.8% - 1.4%</div>
               <div className="mt-1 text-xs text-slate-400 font-medium">Upay Tariff Optimization</div>
-            </div>
-            <div className="p-4 rounded-2xl bg-navy-900/40 border border-navy-800/60 backdrop-blur-sm text-center">
+            </SpotlightCard>
+            <SpotlightCard className="p-4 rounded-2xl text-center" withDoubleBezel={false}>
               <div className="text-2xl sm:text-3xl font-extrabold text-upay-400">100% Grounded</div>
-              <div className="mt-1 text-xs text-slate-400 font-medium">Strict Math & Zero Hallucination</div>
-            </div>
-            <div className="p-4 rounded-2xl bg-navy-900/40 border border-navy-800/60 backdrop-blur-sm text-center">
+              <div className="mt-1 text-xs text-slate-400 font-medium">Strict Math Guardrails</div>
+            </SpotlightCard>
+            <SpotlightCard className="p-4 rounded-2xl text-center" withDoubleBezel={false}>
               <div className="text-2xl sm:text-3xl font-semibold text-white">Zero PII</div>
               <div className="mt-1 text-xs text-slate-400 font-medium">HMAC-SHA256 Tokenized</div>
-            </div>
+            </SpotlightCard>
           </div>
         </div>
       </section>
@@ -281,288 +326,297 @@ export default function Home() {
             </p>
           </div>
 
-          {/* Interactive Widget Box */}
-          <div className="max-w-4xl mx-auto rounded-3xl glass-card border border-navy-700/80 p-6 sm:p-10 shadow-2xl relative overflow-hidden">
-            {/* Ambient accent inside card */}
-            <div className="pointer-events-none absolute -right-20 -bottom-20 w-80 h-80 bg-upay-500/10 blur-[100px] rounded-full" />
+          {/* Interactive Widget Box with Double-Bezel and BorderBeam */}
+          <div className="relative max-w-4xl mx-auto">
+            <SpotlightCard className="shadow-2xl overflow-hidden relative" withDoubleBezel={true}>
+              <BorderBeam size={180} duration={8} colorFrom="#FFC709" colorTo="#1E4D9F" />
 
-            {/* Tab Switcher */}
-            <div className="flex items-center justify-center gap-3 p-1.5 rounded-2xl bg-navy-950/80 border border-navy-800/80 max-w-md mx-auto mb-8">
-              <button
-                onClick={() => setActiveWidgetTab("compound")}
-                className={`flex-1 py-2.5 px-4 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center justify-center gap-2 ${
-                  activeWidgetTab === "compound"
-                    ? "bg-upay-500 text-navy-950 shadow-md upay-glow"
-                    : "text-slate-400 hover:text-white"
-                }`}
-              >
-                <TrendingUp className="h-4 w-4" />
-                Wealth Simulator
-              </button>
-              <button
-                onClick={() => setActiveWidgetTab("tariff")}
-                className={`flex-1 py-2.5 px-4 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center justify-center gap-2 ${
-                  activeWidgetTab === "tariff"
-                    ? "bg-upay-500 text-navy-950 shadow-md upay-glow"
-                    : "text-slate-400 hover:text-white"
-                }`}
-              >
-                <Scale className="h-4 w-4" />
-                Tariff Optimizer
-              </button>
-            </div>
+              {/* Tab Switcher */}
+              <div className="flex items-center justify-center gap-3 p-1.5 rounded-2xl bg-navy-950/80 border border-navy-800/80 max-w-md mx-auto mb-8">
+                <button
+                  onClick={() => setActiveWidgetTab("compound")}
+                  className={`flex-1 py-2.5 px-4 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center justify-center gap-2 ${
+                    activeWidgetTab === "compound"
+                      ? "bg-upay-500 text-navy-950 shadow-md upay-glow"
+                      : "text-slate-400 hover:text-white"
+                  }`}
+                >
+                  <TrendingUp className="h-4 w-4" />
+                  Wealth Simulator
+                </button>
+                <button
+                  onClick={() => setActiveWidgetTab("tariff")}
+                  className={`flex-1 py-2.5 px-4 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center justify-center gap-2 ${
+                    activeWidgetTab === "tariff"
+                      ? "bg-upay-500 text-navy-950 shadow-md upay-glow"
+                      : "text-slate-400 hover:text-white"
+                  }`}
+                >
+                  <Scale className="h-4 w-4" />
+                  Tariff Optimizer
+                </button>
+              </div>
 
-            {/* Tab 1: Wealth Simulator */}
-            {activeWidgetTab === "compound" && (
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-                {/* Controls Column */}
-                <div className="lg:col-span-7 space-y-6">
-                  {/* Slider 1: Monthly Savings */}
-                  <div>
-                    <div className="flex justify-between items-center text-sm font-semibold mb-2">
-                      <span className="text-slate-300">Monthly DPS Contribution</span>
-                      <span className="text-upay-400 font-bold text-base">
-                        ৳ {monthlySavings.toLocaleString("en-BD")}
+              {/* Tab 1: Wealth Simulator */}
+              {activeWidgetTab === "compound" && (
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                  {/* Controls Column */}
+                  <div className="lg:col-span-7 space-y-6">
+                    {/* Slider 1: Monthly Savings */}
+                    <div>
+                      <div className="flex justify-between items-center text-sm font-semibold mb-2">
+                        <span className="text-slate-300">Monthly DPS Contribution</span>
+                        <span className="text-upay-400 font-bold text-base">
+                          ৳ {monthlySavings.toLocaleString("en-BD")}
+                        </span>
+                      </div>
+                      <input
+                        type="range"
+                        min={500}
+                        max={25000}
+                        step={500}
+                        value={monthlySavings}
+                        onChange={(e) => setMonthlySavings(Number(e.target.value))}
+                        className="w-full h-2.5 bg-navy-800 rounded-lg appearance-none cursor-pointer accent-[#FFC709]"
+                      />
+                      <div className="flex justify-between text-[11px] text-slate-500 mt-1">
+                        <span>৳500</span>
+                        <span>৳10,000</span>
+                        <span>৳25,000</span>
+                      </div>
+                    </div>
+
+                    {/* Slider 2: Annual Return Rate */}
+                    <div>
+                      <div className="flex justify-between items-center text-sm font-semibold mb-2">
+                        <span className="text-slate-300">Annual Return / DPS Rate</span>
+                        <span className="text-upay-400 font-bold text-base">{returnRate}%</span>
+                      </div>
+                      <input
+                        type="range"
+                        min={5.0}
+                        max={12.0}
+                        step={0.5}
+                        value={returnRate}
+                        onChange={(e) => setReturnRate(Number(e.target.value))}
+                        className="w-full h-2.5 bg-navy-800 rounded-lg appearance-none cursor-pointer accent-[#FFC709]"
+                      />
+                      <div className="flex justify-between text-[11px] text-slate-500 mt-1">
+                        <span>5% (Savings)</span>
+                        <span>8.5% (Bank DPS)</span>
+                        <span>12% (Equity/Bond)</span>
+                      </div>
+                    </div>
+
+                    {/* Slider 3: Horizon */}
+                    <div>
+                      <div className="flex justify-between items-center text-sm font-semibold mb-2">
+                        <span className="text-slate-300">Investment Horizon</span>
+                        <span className="text-upay-400 font-bold text-base">{years} Years</span>
+                      </div>
+                      <input
+                        type="range"
+                        min={1}
+                        max={15}
+                        step={1}
+                        value={years}
+                        onChange={(e) => setYears(Number(e.target.value))}
+                        className="w-full h-2.5 bg-navy-800 rounded-lg appearance-none cursor-pointer accent-[#FFC709]"
+                      />
+                      <div className="flex justify-between text-[11px] text-slate-500 mt-1">
+                        <span>1 Year</span>
+                        <span>5 Years</span>
+                        <span>15 Years</span>
+                      </div>
+                    </div>
+
+                    {/* Grounded Explanation Box */}
+                    <div className="p-3.5 rounded-xl bg-navy-950/60 border border-navy-800 text-xs text-slate-300 leading-relaxed flex items-start gap-2.5">
+                      <CheckCircle2 className="h-4 w-4 text-upay-400 shrink-0 mt-0.5" />
+                      <span>
+                        Grounded Rule of 72: At <strong>{returnRate}%</strong>, your deposited capital doubles every{" "}
+                        <strong className="text-upay-400">{compoundCalculation.doublingYears} years</strong> without risking principal.
                       </span>
                     </div>
-                    <input
-                      type="range"
-                      min={500}
-                      max={25000}
-                      step={500}
-                      value={monthlySavings}
-                      onChange={(e) => setMonthlySavings(Number(e.target.value))}
-                      className="w-full h-2.5 bg-navy-800 rounded-lg appearance-none cursor-pointer accent-[#FFC709]"
-                    />
-                    <div className="flex justify-between text-[11px] text-slate-500 mt-1">
-                      <span>৳500</span>
-                      <span>৳10,000</span>
-                      <span>৳25,000</span>
-                    </div>
                   </div>
 
-                  {/* Slider 2: Annual Return Rate */}
-                  <div>
-                    <div className="flex justify-between items-center text-sm font-semibold mb-2">
-                      <span className="text-slate-300">Annual Return / DPS Rate</span>
-                      <span className="text-upay-400 font-bold text-base">{returnRate}%</span>
-                    </div>
-                    <input
-                      type="range"
-                      min={5.0}
-                      max={12.0}
-                      step={0.5}
-                      value={returnRate}
-                      onChange={(e) => setReturnRate(Number(e.target.value))}
-                      className="w-full h-2.5 bg-navy-800 rounded-lg appearance-none cursor-pointer accent-[#FFC709]"
-                    />
-                    <div className="flex justify-between text-[11px] text-slate-500 mt-1">
-                      <span>5% (Savings)</span>
-                      <span>8.5% (Bank DPS)</span>
-                      <span>12% (Equity/Bond)</span>
-                    </div>
-                  </div>
+                  {/* Calculation Output Card */}
+                  <div className="lg:col-span-5 rounded-2xl bg-gradient-to-br from-navy-900/90 to-navy-950/95 border border-navy-700/70 p-6 flex flex-col justify-between shadow-lg">
+                    <div>
+                      <div className="text-xs uppercase tracking-wider font-extrabold text-slate-400 mb-1">
+                        Projected Maturity Value
+                      </div>
+                      <div className="mt-1">
+                        <RollingOdometer
+                          value={compoundCalculation.futureValue}
+                          prefix="৳"
+                          className="text-3xl sm:text-4xl font-black text-white"
+                        />
+                      </div>
+                      <div className="text-xs text-upay-400 font-semibold mt-1">
+                        +৳ {compoundCalculation.interestEarned.toLocaleString("en-BD")} pure compound gain
+                      </div>
 
-                  {/* Slider 3: Horizon */}
-                  <div>
-                    <div className="flex justify-between items-center text-sm font-semibold mb-2">
-                      <span className="text-slate-300">Investment Horizon</span>
-                      <span className="text-upay-400 font-bold text-base">{years} Years</span>
+                      <div className="mt-6 space-y-3 pt-4 border-t border-navy-800">
+                        <div className="flex justify-between text-xs">
+                          <span className="text-slate-400">Total Capital Saved:</span>
+                          <span className="font-bold text-slate-200">
+                            ৳ {compoundCalculation.principal.toLocaleString("en-BD")}
+                          </span>
+                        </div>
+                        <div className="flex justify-between text-xs">
+                          <span className="text-slate-400">Compound Returns:</span>
+                          <span className="font-bold text-upay-400">
+                            +৳ {compoundCalculation.interestEarned.toLocaleString("en-BD")}
+                          </span>
+                        </div>
+                        <div className="flex justify-between text-xs">
+                          <span className="text-slate-400">Doubling Cycle:</span>
+                          <span className="font-bold text-upay-400">
+                            ~{compoundCalculation.doublingYears} Years
+                          </span>
+                        </div>
+                      </div>
                     </div>
-                    <input
-                      type="range"
-                      min={1}
-                      max={15}
-                      step={1}
-                      value={years}
-                      onChange={(e) => setYears(Number(e.target.value))}
-                      className="w-full h-2.5 bg-navy-800 rounded-lg appearance-none cursor-pointer accent-[#FFC709]"
-                    />
-                    <div className="flex justify-between text-[11px] text-slate-500 mt-1">
-                      <span>1 Year</span>
-                      <span>5 Years</span>
-                      <span>15 Years</span>
-                    </div>
-                  </div>
 
-                  {/* Grounded Explanation Box */}
-                  <div className="p-3.5 rounded-xl bg-navy-950/60 border border-navy-800 text-xs text-slate-300 leading-relaxed flex items-start gap-2.5">
-                    <CheckCircle2 className="h-4 w-4 text-upay-400 shrink-0 mt-0.5" />
-                    <span>
-                      Grounded Rule of 72: At <strong>{returnRate}%</strong>, your deposited capital doubles every{" "}
-                      <strong className="text-upay-400">{compoundCalculation.doublingYears} years</strong> without risking principal.
-                    </span>
+                    <Link
+                      href="/simulator"
+                      className="mt-6 w-full py-3 rounded-xl bg-upay-500 hover:bg-upay-400 text-navy-950 text-xs font-bold transition-all text-center flex items-center justify-center gap-2 upay-glow"
+                    >
+                      Open Full Simulator
+                      <ArrowRight className="h-3.5 w-3.5" />
+                    </Link>
                   </div>
                 </div>
+              )}
 
-                {/* Calculation Output Card */}
-                <div className="lg:col-span-5 rounded-2xl bg-gradient-to-br from-navy-900/90 to-navy-950/95 border border-navy-700/70 p-6 flex flex-col justify-between shadow-lg">
-                  <div>
-                    <div className="text-xs uppercase tracking-wider font-extrabold text-slate-400 mb-1">
-                      Projected Maturity Value
-                    </div>
-                    <div className="text-3xl sm:text-4xl font-black text-white">
-                      ৳ {compoundCalculation.futureValue.toLocaleString("en-BD")}
-                    </div>
-                    <div className="text-xs text-upay-400 font-semibold mt-1">
-                      +৳ {compoundCalculation.interestEarned.toLocaleString("en-BD")} pure compound gain
-                    </div>
-
-                    <div className="mt-6 space-y-3 pt-4 border-t border-navy-800">
-                      <div className="flex justify-between text-xs">
-                        <span className="text-slate-400">Total Capital Saved:</span>
-                        <span className="font-bold text-slate-200">
-                          ৳ {compoundCalculation.principal.toLocaleString("en-BD")}
+              {/* Tab 2: Tariff Optimizer */}
+              {activeWidgetTab === "tariff" && (
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                  {/* Controls */}
+                  <div className="lg:col-span-7 space-y-6">
+                    <div>
+                      <div className="flex justify-between items-center text-sm font-semibold mb-2">
+                        <span className="text-slate-300">Single Cash-Out Amount</span>
+                        <span className="text-upay-400 font-bold text-base">
+                          ৳ {cashOutAmount.toLocaleString("en-BD")}
                         </span>
                       </div>
-                      <div className="flex justify-between text-xs">
-                        <span className="text-slate-400">Compound Returns:</span>
-                        <span className="font-bold text-upay-400">
-                          +৳ {compoundCalculation.interestEarned.toLocaleString("en-BD")}
-                        </span>
-                      </div>
-                      <div className="flex justify-between text-xs">
-                        <span className="text-slate-400">Doubling Cycle:</span>
-                        <span className="font-bold text-upay-400">
-                          ~{compoundCalculation.doublingYears} Years
-                        </span>
+                      <input
+                        type="range"
+                        min={500}
+                        max={25000}
+                        step={500}
+                        value={cashOutAmount}
+                        onChange={(e) => setCashOutAmount(Number(e.target.value))}
+                        className="w-full h-2.5 bg-navy-800 rounded-lg appearance-none cursor-pointer accent-[#FFC709]"
+                      />
+                      <div className="flex justify-between text-[11px] text-slate-500 mt-1">
+                        <span>৳500</span>
+                        <span>৳10,000</span>
+                        <span>৳25,000</span>
                       </div>
                     </div>
-                  </div>
 
-                  <Link
-                    href="/simulator"
-                    className="mt-6 w-full py-3 rounded-xl bg-upay-500 hover:bg-upay-400 text-navy-950 text-xs font-bold transition-all text-center flex items-center justify-center gap-2 upay-glow"
-                  >
-                    Open Full Simulator
-                    <ArrowRight className="h-3.5 w-3.5" />
-                  </Link>
-                </div>
-              </div>
-            )}
+                    {/* Channel Selector */}
+                    <div>
+                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">
+                        Cash-Out Channel
+                      </label>
+                      <div className="grid grid-cols-3 gap-2">
+                        <button
+                          onClick={() => setSelectedChannel("agent")}
+                          className={`p-3 rounded-xl border text-xs font-bold transition-all ${
+                            selectedChannel === "agent"
+                              ? "bg-upay-500 text-navy-950 border-upay-500 shadow-md"
+                              : "bg-navy-900/60 border-navy-800 text-slate-300 hover:bg-navy-800"
+                          }`}
+                        >
+                          Upay Agent (1.4%)
+                        </button>
+                        <button
+                          onClick={() => setSelectedChannel("atm")}
+                          className={`p-3 rounded-xl border text-xs font-bold transition-all ${
+                            selectedChannel === "atm"
+                              ? "bg-upay-500 text-navy-950 border-upay-500 shadow-md"
+                              : "bg-navy-900/60 border-navy-800 text-slate-300 hover:bg-navy-800"
+                          }`}
+                        >
+                          UCB ATM (0.8%)
+                        </button>
+                        <button
+                          onClick={() => setSelectedChannel("app")}
+                          className={`p-3 rounded-xl border text-xs font-bold transition-all ${
+                            selectedChannel === "app"
+                              ? "bg-upay-500 text-navy-950 border-upay-500 shadow-md"
+                              : "bg-navy-900/60 border-navy-800 text-slate-300 hover:bg-navy-800"
+                          }`}
+                        >
+                          Upay App / POS (1.4%)
+                        </button>
+                      </div>
+                    </div>
 
-            {/* Tab 2: Tariff Optimizer */}
-            {activeWidgetTab === "tariff" && (
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-                {/* Controls */}
-                <div className="lg:col-span-7 space-y-6">
-                  <div>
-                    <div className="flex justify-between items-center text-sm font-semibold mb-2">
-                      <span className="text-slate-300">Single Cash-Out Amount</span>
-                      <span className="text-upay-400 font-bold text-base">
-                        ৳ {cashOutAmount.toLocaleString("en-BD")}
+                    <div className="p-3.5 rounded-xl bg-navy-950/60 border border-navy-800 text-xs text-slate-300 leading-relaxed flex items-start gap-2.5">
+                      <Award className="h-4 w-4 text-upay-400 shrink-0 mt-0.5" />
+                      <span>
+                        Standard market cash-out tariffs average <strong>1.85% (৳18.5/1000)</strong>. Upay provides the country&apos;s lowest ATM tariff at{" "}
+                        <strong className="text-upay-400">0.8%</strong> and agent tariff at{" "}
+                        <strong className="text-upay-400">1.4%</strong>.
                       </span>
                     </div>
-                    <input
-                      type="range"
-                      min={500}
-                      max={25000}
-                      step={500}
-                      value={cashOutAmount}
-                      onChange={(e) => setCashOutAmount(Number(e.target.value))}
-                      className="w-full h-2.5 bg-navy-800 rounded-lg appearance-none cursor-pointer accent-[#FFC709]"
-                    />
-                    <div className="flex justify-between text-[11px] text-slate-500 mt-1">
-                      <span>৳500</span>
-                      <span>৳10,000</span>
-                      <span>৳25,000</span>
-                    </div>
                   </div>
 
-                  {/* Channel Selector */}
-                  <div>
-                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">
-                      Cash-Out Channel
-                    </label>
-                    <div className="grid grid-cols-3 gap-2">
-                      <button
-                        onClick={() => setSelectedChannel("agent")}
-                        className={`p-3 rounded-xl border text-xs font-bold transition-all ${
-                          selectedChannel === "agent"
-                            ? "bg-upay-500 text-navy-950 border-upay-500 shadow-md"
-                            : "bg-navy-900/60 border-navy-800 text-slate-300 hover:bg-navy-800"
-                        }`}
-                      >
-                        Upay Agent (1.4%)
-                      </button>
-                      <button
-                        onClick={() => setSelectedChannel("atm")}
-                        className={`p-3 rounded-xl border text-xs font-bold transition-all ${
-                          selectedChannel === "atm"
-                            ? "bg-upay-500 text-navy-950 border-upay-500 shadow-md"
-                            : "bg-navy-900/60 border-navy-800 text-slate-300 hover:bg-navy-800"
-                        }`}
-                      >
-                        UCB ATM (0.8%)
-                      </button>
-                      <button
-                        onClick={() => setSelectedChannel("app")}
-                        className={`p-3 rounded-xl border text-xs font-bold transition-all ${
-                          selectedChannel === "app"
-                            ? "bg-upay-500 text-navy-950 border-upay-500 shadow-md"
-                            : "bg-navy-900/60 border-navy-800 text-slate-300 hover:bg-navy-800"
-                        }`}
-                      >
-                        Upay App / POS (1.4%)
-                      </button>
-                    </div>
-                  </div>
+                  {/* Tariff Output Card */}
+                  <div className="lg:col-span-5 rounded-2xl bg-gradient-to-br from-navy-900/90 to-navy-950/95 border border-navy-700/70 p-6 flex flex-col justify-between shadow-lg">
+                    <div>
+                      <div className="text-xs uppercase tracking-wider font-extrabold text-slate-400 mb-1">
+                        Upay Tariff Fee
+                      </div>
+                      <div className="mt-1">
+                        <RollingOdometer
+                          value={tariffCalculation.upayFee}
+                          prefix="৳"
+                          className="text-3xl sm:text-4xl font-black text-upay-400"
+                        />
+                      </div>
+                      <div className="text-xs text-slate-400 line-through mt-0.5">
+                        Competitor Fee: ৳ {tariffCalculation.competitorFee.toLocaleString("en-BD")}
+                      </div>
 
-                  <div className="p-3.5 rounded-xl bg-navy-950/60 border border-navy-800 text-xs text-slate-300 leading-relaxed flex items-start gap-2.5">
-                    <Award className="h-4 w-4 text-upay-400 shrink-0 mt-0.5" />
-                    <span>
-                      Standard market cash-out tariffs average <strong>1.85% (৳18.5/1000)</strong>. Upay provides the country&apos;s lowest ATM tariff at{" "}
-                      <strong className="text-upay-400">0.8%</strong> and agent tariff at{" "}
-                      <strong className="text-upay-400">1.4%</strong>.
-                    </span>
+                      <div className="mt-6 space-y-3 pt-4 border-t border-navy-800">
+                        <div className="flex justify-between text-xs">
+                          <span className="text-slate-400">Savings This Withdrawal:</span>
+                          <span className="font-bold text-upay-400">
+                            ৳ {tariffCalculation.perTxSavings.toLocaleString("en-BD")} saved
+                          </span>
+                        </div>
+                        <div className="flex justify-between text-xs">
+                          <span className="text-slate-400">Annual Friction Saved:</span>
+                          <span className="font-bold text-upay-400">
+                            ৳ {tariffCalculation.annualSavings.toLocaleString("en-BD")} / year
+                          </span>
+                        </div>
+                        <div className="flex justify-between text-xs">
+                          <span className="text-slate-400">Effective Tariff Rate:</span>
+                          <span className="font-bold text-white">
+                            {tariffCalculation.upayRatePercent}%
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <Link
+                      href="/dashboard"
+                      className="mt-6 w-full py-3 rounded-xl bg-upay-500 hover:bg-upay-400 text-navy-950 text-xs font-bold transition-all text-center flex items-center justify-center gap-2 upay-glow"
+                    >
+                      Track All My Cash-Outs
+                      <ArrowRight className="h-3.5 w-3.5" />
+                    </Link>
                   </div>
                 </div>
-
-                {/* Tariff Output Card */}
-                <div className="lg:col-span-5 rounded-2xl bg-gradient-to-br from-navy-900/90 to-navy-950/95 border border-navy-700/70 p-6 flex flex-col justify-between shadow-lg">
-                  <div>
-                    <div className="text-xs uppercase tracking-wider font-extrabold text-slate-400 mb-1">
-                      Upay Tariff Fee
-                    </div>
-                    <div className="text-3xl sm:text-4xl font-black text-upay-400">
-                      ৳ {tariffCalculation.upayFee.toLocaleString("en-BD")}
-                    </div>
-                    <div className="text-xs text-slate-400 line-through mt-0.5">
-                      Competitor Fee: ৳ {tariffCalculation.competitorFee.toLocaleString("en-BD")}
-                    </div>
-
-                    <div className="mt-6 space-y-3 pt-4 border-t border-navy-800">
-                      <div className="flex justify-between text-xs">
-                        <span className="text-slate-400">Savings This Withdrawal:</span>
-                        <span className="font-bold text-upay-400">
-                          ৳ {tariffCalculation.perTxSavings.toLocaleString("en-BD")} saved
-                        </span>
-                      </div>
-                      <div className="flex justify-between text-xs">
-                        <span className="text-slate-400">Annual Friction Saved:</span>
-                        <span className="font-bold text-upay-400">
-                          ৳ {tariffCalculation.annualSavings.toLocaleString("en-BD")} / year
-                        </span>
-                      </div>
-                      <div className="flex justify-between text-xs">
-                        <span className="text-slate-400">Effective Tariff Rate:</span>
-                        <span className="font-bold text-white">
-                          {tariffCalculation.upayRatePercent}%
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <Link
-                    href="/dashboard"
-                    className="mt-6 w-full py-3 rounded-xl bg-upay-500 hover:bg-upay-400 text-navy-950 text-xs font-bold transition-all text-center flex items-center justify-center gap-2 upay-glow"
-                  >
-                    Track All My Cash-Outs
-                    <ArrowRight className="h-3.5 w-3.5" />
-                  </Link>
-                </div>
-              </div>
-            )}
+              )}
+            </SpotlightCard>
           </div>
         </div>
       </section>
@@ -579,101 +633,109 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-8">
             {/* Pillar 1 */}
-            <div className="md:col-span-7 rounded-3xl glass-card glass-card-hover p-8 border border-navy-800 flex flex-col justify-between animate-fade-in-scale" style={{ "--stagger": 1 } as React.CSSProperties}>
-              <div>
-                <div className="flex items-center justify-between mb-6">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-upay-500/15 border border-upay-500/30 text-upay-400">
-                    <TrendingUp className="h-6 w-6" />
+            <div className="md:col-span-7 animate-fade-in-scale" style={{ "--stagger": 1 } as React.CSSProperties}>
+              <SpotlightCard className="h-full flex flex-col justify-between p-8" withDoubleBezel={false}>
+                <div>
+                  <div className="flex items-center justify-between mb-6">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-upay-500/15 border border-upay-500/30 text-upay-400">
+                      <TrendingUp className="h-6 w-6" />
+                    </div>
+                    <span className="rounded-full bg-navy-800/80 px-3 py-1 text-xs font-semibold text-slate-300 border border-navy-700">
+                      Predictive Engine
+                    </span>
                   </div>
-                  <span className="rounded-full bg-navy-800/80 px-3 py-1 text-xs font-semibold text-slate-300 border border-navy-700">
-                    Predictive Engine
-                  </span>
+                  <h3 className="text-xl font-bold text-white mb-2">
+                    Autonomous Expense Forecasting
+                  </h3>
+                  <p className="text-sm text-slate-400 leading-relaxed">
+                    Hybrid statistical projection trained on localized MFS spending velocity. Predicts 7-day and 30-day cash drains, factoring in salary dates, utility deadlines, and festival seasonality like Eid-ul-Fitr and Puja.
+                  </p>
                 </div>
-                <h3 className="text-xl font-bold text-white mb-2">
-                  Autonomous Expense Forecasting
-                </h3>
-                <p className="text-sm text-slate-400 leading-relaxed">
-                  Hybrid statistical projection trained on localized MFS spending velocity. Predicts 7-day and 30-day cash drains, factoring in salary dates, utility deadlines, and festival seasonality like Eid-ul-Fitr and Puja.
-                </p>
-              </div>
-              <div className="mt-8 pt-4 border-t border-navy-800/80 flex items-center gap-2 text-xs text-upay-400 font-semibold">
-                <CheckCircle2 className="h-4 w-4" />
-                <span>Prevents overdrafts before they happen</span>
-              </div>
+                <div className="mt-8 pt-4 border-t border-navy-800/80 flex items-center gap-2 text-xs text-upay-400 font-semibold">
+                  <CheckCircle2 className="h-4 w-4" />
+                  <span>Prevents overdrafts before they happen</span>
+                </div>
+              </SpotlightCard>
             </div>
 
             {/* Pillar 2 */}
-            <div className="md:col-span-5 rounded-3xl glass-card glass-card-hover p-8 border border-navy-800 flex flex-col justify-between animate-fade-in-scale" style={{ "--stagger": 2 } as React.CSSProperties}>
-              <div>
-                <div className="flex items-center justify-between mb-6">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-cyan-500/15 border border-cyan-500/30 text-cyan-400">
-                    <Bot className="h-6 w-6" />
+            <div className="md:col-span-5 animate-fade-in-scale" style={{ "--stagger": 2 } as React.CSSProperties}>
+              <SpotlightCard className="h-full flex flex-col justify-between p-8" withDoubleBezel={false} spotlightColor="rgba(0, 210, 255, 0.14)">
+                <div>
+                  <div className="flex items-center justify-between mb-6">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-cyan-500/15 border border-cyan-500/30 text-cyan-400">
+                      <Bot className="h-6 w-6" />
+                    </div>
+                    <span className="rounded-full bg-navy-800/80 px-3 py-1 text-xs font-semibold text-slate-300 border border-navy-700">
+                      Gemini 1.5 Flash
+                    </span>
                   </div>
-                  <span className="rounded-full bg-navy-800/80 px-3 py-1 text-xs font-semibold text-slate-300 border border-navy-700">
-                    Gemini 1.5 Flash
-                  </span>
+                  <h3 className="text-xl font-bold text-white mb-2">
+                    Grounded AI Financial Coach
+                  </h3>
+                  <p className="text-sm text-slate-400 leading-relaxed">
+                    Conversational assistant with strict tool-calling boundaries. Powered by Gemini with numeric function verification against actual Upay tariff sheets. Never provides hallucinated rates or speculative stock bets.
+                  </p>
                 </div>
-                <h3 className="text-xl font-bold text-white mb-2">
-                  Grounded AI Financial Coach
-                </h3>
-                <p className="text-sm text-slate-400 leading-relaxed">
-                  Conversational assistant with strict tool-calling boundaries. Powered by Gemini with numeric function verification against actual Upay tariff sheets. Never provides hallucinated rates or speculative stock bets.
-                </p>
-              </div>
-              <div className="mt-8 pt-4 border-t border-navy-800/80 flex items-center gap-2 text-xs text-cyan-400 font-semibold">
-                <CheckCircle2 className="h-4 w-4" />
-                <span>Strict prompt-injected math guardrails</span>
-              </div>
+                <div className="mt-8 pt-4 border-t border-navy-800/80 flex items-center gap-2 text-xs text-cyan-400 font-semibold">
+                  <CheckCircle2 className="h-4 w-4" />
+                  <span>Strict prompt-injected math guardrails</span>
+                </div>
+              </SpotlightCard>
             </div>
 
             {/* Pillar 3 */}
-            <div className="md:col-span-5 rounded-3xl glass-card glass-card-hover p-8 border border-navy-800 flex flex-col justify-between animate-fade-in-scale" style={{ "--stagger": 3 } as React.CSSProperties}>
-              <div>
-                <div className="flex items-center justify-between mb-6">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-amber-500/15 border border-amber-500/30 text-amber-400">
-                    <Calculator className="h-6 w-6" />
+            <div className="md:col-span-5 animate-fade-in-scale" style={{ "--stagger": 3 } as React.CSSProperties}>
+              <SpotlightCard className="h-full flex flex-col justify-between p-8" withDoubleBezel={false} spotlightColor="rgba(245, 158, 11, 0.14)">
+                <div>
+                  <div className="flex items-center justify-between mb-6">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-amber-500/15 border border-amber-500/30 text-amber-400">
+                      <Calculator className="h-6 w-6" />
+                    </div>
+                    <span className="rounded-full bg-navy-800/80 px-3 py-1 text-xs font-semibold text-slate-300 border border-navy-700">
+                      Deterministic Math
+                    </span>
                   </div>
-                  <span className="rounded-full bg-navy-800/80 px-3 py-1 text-xs font-semibold text-slate-300 border border-navy-700">
-                    Deterministic Math
-                  </span>
+                  <h3 className="text-xl font-bold text-white mb-2">
+                    Deterministic Compound Simulator
+                  </h3>
+                  <p className="text-sm text-slate-400 leading-relaxed">
+                    Pure Python and TypeScript Decimal math. Computes future values, exact logarithmic doubling times via the Rule of 72, and target goal amortization schedules with zero floating point drift.
+                  </p>
                 </div>
-                <h3 className="text-xl font-bold text-white mb-2">
-                  Deterministic Compound Simulator
-                </h3>
-                <p className="text-sm text-slate-400 leading-relaxed">
-                  Pure Python and TypeScript Decimal math. Computes future values, exact logarithmic doubling times via the Rule of 72, and target goal amortization schedules with zero floating point drift.
-                </p>
-              </div>
-              <div className="mt-8 pt-4 border-t border-navy-800/80 flex items-center gap-2 text-xs text-amber-400 font-semibold">
-                <CheckCircle2 className="h-4 w-4" />
-                <span>Arbitrary-precision arithmetic</span>
-              </div>
+                <div className="mt-8 pt-4 border-t border-navy-800/80 flex items-center gap-2 text-xs text-amber-400 font-semibold">
+                  <CheckCircle2 className="h-4 w-4" />
+                  <span>Arbitrary-precision arithmetic</span>
+                </div>
+              </SpotlightCard>
             </div>
 
             {/* Pillar 4 */}
-            <div className="md:col-span-7 rounded-3xl glass-card glass-card-hover p-8 border border-navy-800 flex flex-col justify-between animate-fade-in-scale" style={{ "--stagger": 4 } as React.CSSProperties}>
-              <div>
-                <div className="flex items-center justify-between mb-6">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-rose-500/15 border border-rose-500/30 text-rose-400">
-                    <Activity className="h-6 w-6" />
+            <div className="md:col-span-7 animate-fade-in-scale" style={{ "--stagger": 4 } as React.CSSProperties}>
+              <SpotlightCard className="h-full flex flex-col justify-between p-8" withDoubleBezel={false} spotlightColor="rgba(244, 63, 94, 0.14)">
+                <div>
+                  <div className="flex items-center justify-between mb-6">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-rose-500/15 border border-rose-500/30 text-rose-400">
+                      <Activity className="h-6 w-6" />
+                    </div>
+                    <span className="rounded-full bg-navy-800/80 px-3 py-1 text-xs font-semibold text-slate-300 border border-navy-700">
+                      Z-Score Anomaly Trigger
+                    </span>
                   </div>
-                  <span className="rounded-full bg-navy-800/80 px-3 py-1 text-xs font-semibold text-slate-300 border border-navy-700">
-                    Z-Score Anomaly Trigger
-                  </span>
+                  <h3 className="text-xl font-bold text-white mb-2">
+                    MFS Behavioral Archetypes & Anomalies
+                  </h3>
+                  <p className="text-sm text-slate-400 leading-relaxed">
+                    Automatically classifies user telemetry into 6 behavioral archetypes (Volatile Earner, Impulsive Micro-Spender, Family Trustee, etc.). Detects velocity spikes, unexpected midnight transfers, and unauthorized drains.
+                  </p>
                 </div>
-                <h3 className="text-xl font-bold text-white mb-2">
-                  MFS Behavioral Archetypes & Anomalies
-                </h3>
-                <p className="text-sm text-slate-400 leading-relaxed">
-                  Automatically classifies user telemetry into 6 behavioral archetypes (Volatile Earner, Impulsive Micro-Spender, Family Trustee, etc.). Detects velocity spikes, unexpected midnight transfers, and unauthorized drains.
-                </p>
-              </div>
-              <div className="mt-8 pt-4 border-t border-navy-800/80 flex items-center gap-2 text-xs text-rose-400 font-semibold">
-                <CheckCircle2 className="h-4 w-4" />
-                <span>Flags anomalous drain before funds evaporate</span>
-              </div>
+                <div className="mt-8 pt-4 border-t border-navy-800/80 flex items-center gap-2 text-xs text-rose-400 font-semibold">
+                  <CheckCircle2 className="h-4 w-4" />
+                  <span>Flags anomalous drain before funds evaporate</span>
+                </div>
+              </SpotlightCard>
             </div>
           </div>
         </div>
@@ -749,19 +811,48 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* Persona Stat Highlight Box */}
-              <div className="md:col-span-4 rounded-2xl bg-gradient-to-br from-navy-900 to-navy-950 border border-navy-700 p-6 text-center flex flex-col justify-center items-center shadow-inner">
-                <div className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-1">
-                  Verified Outcome
-                </div>
-                <div className="text-3xl sm:text-4xl font-black text-upay-400 mt-1">
-                  {currentPersona.statNumber}
-                </div>
-                <div className="text-xs font-semibold text-slate-300 mt-1">
-                  {currentPersona.statLabel}
-                </div>
-                <div className="mt-6 w-full pt-4 border-t border-navy-800 text-[11px] text-slate-400">
-                  {currentPersona.impact}
+              {/* Persona Stat & 3D Interactive Holographic Card */}
+              <div className="md:col-span-4 flex flex-col items-center justify-center space-y-3">
+                <ParallaxGlassCard
+                  cardHolder={
+                    activePersonaIndex === 0
+                      ? "SUMAIYA TALUKDER"
+                      : activePersonaIndex === 1
+                      ? "ROKSANA PARVEEN"
+                      : "KAMRUL HASAN"
+                  }
+                  maskedPan={
+                    activePersonaIndex === 0
+                      ? "•••• •••• •••• 8421"
+                      : activePersonaIndex === 1
+                      ? "•••• •••• •••• 3190"
+                      : "•••• •••• •••• 9054"
+                  }
+                  balanceTaka={
+                    activePersonaIndex === 0
+                      ? "৳ 38,500.00"
+                      : activePersonaIndex === 1
+                      ? "৳ 14,500.00"
+                      : "৳ 65,000.00"
+                  }
+                  tier={
+                    activePersonaIndex === 0
+                      ? "UPAY GIG PILOT"
+                      : activePersonaIndex === 1
+                      ? "UPAY CAMPUS DPS"
+                      : "UPAY SHARIAH TRUST"
+                  }
+                />
+                <div className="w-full rounded-2xl bg-gradient-to-br from-navy-900 to-navy-950 border border-navy-800 p-4 text-center shadow-inner">
+                  <div className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
+                    Verified Outcome
+                  </div>
+                  <div className="text-2xl font-black text-upay-400 mt-0.5">
+                    {currentPersona.statNumber}
+                  </div>
+                  <div className="text-xs font-semibold text-slate-300">
+                    {currentPersona.statLabel}
+                  </div>
                 </div>
               </div>
             </div>
@@ -843,18 +934,18 @@ export default function Home() {
           </p>
 
           <div className="mt-8 flex flex-wrap justify-center gap-4">
-            <Link
-              href="/dashboard"
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-2xl bg-upay-500 text-navy-950 font-black text-base shadow-xl hover:bg-upay-400 hover:scale-[1.02] active:scale-[0.98] transition-all upay-glow"
-            >
-              Launch Sohoj Copilot
-              <ArrowRight className="h-5 w-5" />
+            <Link href="/dashboard">
+              <MagneticButton
+                variant="primary"
+                icon={<ArrowRight className="h-5 w-5" />}
+              >
+                Launch Sohoj Copilot
+              </MagneticButton>
             </Link>
-            <Link
-              href="/register"
-              className="inline-flex items-center gap-2 px-7 py-4 rounded-2xl bg-navy-900/90 text-white font-bold text-base hover:bg-navy-800 transition-all border border-navy-700 shadow-md"
-            >
-              Create Free Account
+            <Link href="/register">
+              <MagneticButton variant="secondary">
+                Create Free Account
+              </MagneticButton>
             </Link>
           </div>
         </div>

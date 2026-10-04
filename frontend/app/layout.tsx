@@ -1,25 +1,12 @@
 import type { Metadata } from "next";
 import React from "react";
-import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
 
-const inter = Inter({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-const jetbrainsMono = JetBrains_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-  display: "swap",
-});
-
 export const metadata: Metadata = {
-  title: "Sohoj — AI Financial Coach for MFS Users",
+  title: "Sohoj — AI Financial Copilot for MFS",
   description:
-    "Behavior insights, financial forecasts, deterministic math, and grounded coaching for MFS users in Bangladesh.",
+    "Behavior insights, financial forecasts, deterministic compound math, and grounded Upay MFS coaching in Bangladesh.",
 };
 
 export default function RootLayout({
@@ -28,8 +15,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable}`}>
-      <body className="min-h-screen bg-slate-50 text-slate-900 antialiased selection:bg-upay-500/30 selection:text-navy-950">
+    <html lang="en">
+      <body className="min-h-screen bg-slate-50 text-slate-900 antialiased selection:bg-upay-500/30 selection:text-navy-950 font-sans">
         <Providers>{children}</Providers>
       </body>
     </html>

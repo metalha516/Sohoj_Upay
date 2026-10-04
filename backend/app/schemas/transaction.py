@@ -19,6 +19,8 @@ class TxnType(StrEnum):
     CASH_IN = "cash_in"
     CASH_OUT = "cash_out"
     TRANSFER = "transfer"
+    PAYMENT = "payment"
+    SEND_MONEY = "send_money"
 
 
 class TxnPurpose(StrEnum):
@@ -57,13 +59,28 @@ class TransactionCreateRequest(BaseModel):
     idempotency_key: Annotated[str | None, Field(max_length=255)] = None
     ts: datetime | None = None
 
+    @model_validator(mode="before")
+    @classmethod
+    def normalize_aliases(cls, data: Any) -> Any:
+        if isinstance(data, dict):
+            t_type = data.get("transaction_type")
+            if t_type == "payment":
+                data["transaction_type"] = "expense"
+            elif t_type == "send_money":
+                data["transaction_type"] = "transfer"
+        return data
+
     @model_validator(mode="after")
     def validate_purpose_required_for_expense_and_cashout(self) -> TransactionCreateRequest:
         """Enforce business rule: purpose is mandatory for expense and cash_out transactions."""
-        if self.transaction_type in (TxnType.EXPENSE, TxnType.CASH_OUT) and self.purpose is None:
+        if self.transaction_type in (TxnType.EXPENSE, TxnType.CASH_OUT, TxnType.PAYMENT) and self.purpose is None:
             raise ValueError(
                 f"Purpose is required for '{self.transaction_type.value}' transactions."
             )
+        if self.transaction_type == TxnType.PAYMENT:
+            self.transaction_type = TxnType.EXPENSE
+        elif self.transaction_type == TxnType.SEND_MONEY:
+            self.transaction_type = TxnType.TRANSFER
         return self
 
 

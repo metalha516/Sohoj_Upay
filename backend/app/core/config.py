@@ -2,7 +2,7 @@
 
 from functools import lru_cache
 
-from pydantic import Field
+from pydantic import Field, model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -19,7 +19,7 @@ class Settings(BaseSettings):
         alias="SECRET_KEY",
     )
 
-    # Database (PostgreSQL with pgvector)
+    # Database (PostgreSQL with pgvector / SQLite compatible)
     postgres_user: str = Field(default="financial_app", alias="POSTGRES_USER")
     postgres_password: str = Field(
         default="replace_with_secure_postgres_password", alias="POSTGRES_PASSWORD"
@@ -37,6 +37,7 @@ class Settings(BaseSettings):
     redis_port: int = Field(default=6379, alias="REDIS_PORT")
     redis_password: str | None = Field(default=None, alias="REDIS_PASSWORD")
     redis_url: str = Field(default="redis://redis:6379/0", alias="REDIS_URL")
+    redis_required: bool = Field(default=False, alias="REDIS_REQUIRED")
 
     # Security & Tokens
     access_token_expire_minutes: int = Field(default=15, alias="ACCESS_TOKEN_EXPIRE_MINUTES")
@@ -62,7 +63,7 @@ class Settings(BaseSettings):
     llm_api_key: str | None = Field(default=None, alias="LLM_API_KEY")
     llm_model: str = Field(default="gpt-4o-mini", alias="LLM_MODEL")
     gemini_api_key: str | None = Field(default=None, alias="GEMINI_API_KEY")
-    gemini_model: str = Field(default="gemini-flash-latest", alias="GEMINI_MODEL")
+    gemini_model: str = Field(default="gemini-flash-lite-latest", alias="GEMINI_MODEL")
     llm_temperature: float = Field(default=0.1, alias="LLM_TEMPERATURE")
     llm_timeout_seconds: float = Field(default=10.0, alias="LLM_TIMEOUT_SECONDS")
 
@@ -74,6 +75,18 @@ class Settings(BaseSettings):
     admin_api_key: str | None = Field(
         default="admin_master_secret_override_key_99", alias="ADMIN_API_KEY"
     )
+
+    @model_validator(mode="after")
+    def normalize_database_url(self) -> Settings:
+        """Normalize database URL dialect prefixes and relative paths."""
+        url = self.database_url
+        if url.startswith("postgres://"):
+            self.database_url = url.replace("postgres://", "postgresql+asyncpg://", 1)
+        elif url.startswith("postgresql://") and not url.startswith("postgresql+"):
+            self.database_url = url.replace("postgresql://", "postgresql+asyncpg://", 1)
+        elif url.startswith("sqlite://") and not url.startswith("sqlite+"):
+            self.database_url = url.replace("sqlite://", "sqlite+aiosqlite://", 1)
+        return self
 
     model_config = SettingsConfigDict(
         env_file=".env",
