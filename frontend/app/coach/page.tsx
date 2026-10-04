@@ -256,7 +256,7 @@ export default function CoachPage() {
               </div>
               <div>
                 <div className="flex items-center gap-2">
-                  <h1 className="text-sm font-bold text-slate-900">Sohoj Financial Coach</h1>
+                  <h1 className="text-sm font-bold text-slate-900">Shohoj Upay Financial Coach</h1>
                   <span className="flex items-center gap-1 rounded-full bg-emerald-100 px-2 py-0.5 text-[11px] font-semibold text-emerald-800">
                     <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
                     Active & Grounded
@@ -349,7 +349,7 @@ export default function CoachPage() {
                   rows={2}
                   disabled={isStreaming}
                   className="w-full resize-none rounded-xl border border-slate-300 p-3 pr-10 text-sm text-slate-900 placeholder:text-slate-400 focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500 disabled:opacity-60"
-                  aria-label="Message to Sohoj Coach"
+                  aria-label="Message to Shohoj Upay Coach"
                 />
               </div>
 

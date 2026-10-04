@@ -79,6 +79,8 @@ FINANCIAL_KEYWORDS = [
     "grocer",
     "lifestyle",
     "sohoj",
+    "shohoj",
+    "upay",
     "wallet",
     "financial",
     "finance",

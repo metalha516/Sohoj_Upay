@@ -45,7 +45,7 @@ export default function SettingsPage() {
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
-      a.download = `sohoj-data-export-${new Date().toISOString().slice(0, 10)}.json`;
+      a.download = `shohoj-upay-data-export-${new Date().toISOString().slice(0, 10)}.json`;
       document.body.appendChild(a);
       a.click();
       window.URL.revokeObjectURL(url);
@@ -123,7 +123,7 @@ export default function SettingsPage() {
                     Allow AI coaching agent and aggregate metrics analysis
                   </span>
                   <p className="mt-1 text-slate-500 leading-relaxed">
-                    When enabled, Sohoj sends anonymized monthly aggregates to generate insights.
+                    When enabled, Shohoj Upay sends anonymized monthly aggregates to generate insights.
                     No names, phone numbers, or merchant free-text are ever transmitted. Disabling
                     this immediately revokes AI coaching while keeping deterministic features active.
                   </p>

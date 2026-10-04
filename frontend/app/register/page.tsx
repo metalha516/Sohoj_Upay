@@ -45,12 +45,12 @@ export default function RegisterPage() {
         <div className="text-center">
           <Link
             href="/"
-            className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-600 text-white font-black text-2xl shadow-sm"
+            className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-600 text-white font-black text-lg shadow-sm"
           >
-            S
+            SU
           </Link>
           <h1 className="mt-4 text-2xl font-extrabold tracking-tight text-slate-900">
-            Create Sohoj Account
+            Create Shohoj Upay Account
           </h1>
           <p className="mt-1 text-xs text-slate-500">
             Intelligent financial coaching grounded in MFS reality
@@ -208,7 +208,7 @@ export default function RegisterPage() {
                     Consent to AI Coaching (`consent_ai`)
                   </span>
                   <p className="text-[11px] text-slate-500 mt-0.5">
-                    Allow Sohoj to analyze aggregate spending to deliver personalized insights.
+                    Allow Shohoj Upay to analyze aggregate spending to deliver personalized insights.
                   </p>
                 </div>
               </label>
@@ -219,7 +219,7 @@ export default function RegisterPage() {
               disabled={isLoading}
               className="w-full mt-2 inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-600 px-4 py-2.5 text-xs font-bold text-white shadow-sm hover:bg-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 disabled:opacity-50 transition"
             >
-              {isLoading ? "Creating Account..." : "Create Sohoj Account"}
+              {isLoading ? "Creating Account..." : "Create Shohoj Upay Account"}
               <ArrowRight className="h-4 w-4" />
             </button>
           </form>

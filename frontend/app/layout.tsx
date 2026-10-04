@@ -4,7 +4,7 @@ import "./globals.css";
 import { Providers } from "./providers";
 
 export const metadata: Metadata = {
-  title: "Sohoj — AI Financial Coach for MFS Users",
+  title: "Shohoj Upay — AI Financial Coach for MFS Users",
   description:
     "Behavior insights, financial forecasts, deterministic math, and grounded coaching for MFS users in Bangladesh.",
 };

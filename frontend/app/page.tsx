@@ -19,7 +19,7 @@ export default function Home() {
         </div>
 
         <h1 className="text-4xl font-extrabold tracking-tight text-slate-900 sm:text-6xl">
-          Sohoj Financial Coach
+          Shohoj Upay Financial Coach
         </h1>
 
         <p className="text-lg text-slate-600 max-w-xl mx-auto leading-relaxed">

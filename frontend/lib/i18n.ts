@@ -5,14 +5,14 @@
 
 export const strings = {
   app: {
-    name: "Sohoj",
+    name: "Shohoj Upay",
     tagline: "AI Financial Coach for MFS Users",
     description: "Turning MFS transactions into behavioral insights, deterministic simulations, and grounded coaching.",
   },
   auth: {
     loginTitle: "Sign in to your account",
     loginSubtitle: "Manage your finances, track goals, and get grounded coaching",
-    registerTitle: "Create your Sohoj account",
+    registerTitle: "Create your Shohoj Upay account",
     registerSubtitle: "Start your journey towards financial resilience",
     emailLabel: "Email address",
     passwordLabel: "Password",
@@ -125,7 +125,7 @@ export const strings = {
     title: "Account & Privacy Settings",
     subtitle: "Manage your consent preferences, data export, and account retention",
     consentTitle: "AI Coaching & Analytics Consent",
-    consentDesc: "Allow Sohoj to analyze your transaction aggregates to provide grounded coaching and spending insights. Your data is never sold or used for public model training.",
+    consentDesc: "Allow Shohoj Upay to analyze your transaction aggregates to provide grounded coaching and spending insights. Your data is never sold or used for public model training.",
     exportTitle: "Export Personal Data",
     exportDesc: "Download an encrypted JSON file containing all your recorded transactions, goals, and feature history.",
     exportBtn: "Download My Data (JSON)",

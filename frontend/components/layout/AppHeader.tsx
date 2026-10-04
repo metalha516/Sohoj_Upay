@@ -36,13 +36,13 @@ export function AppHeader() {
           <Link
             href="/dashboard"
             className="flex items-center gap-2 text-xl font-bold tracking-tight text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500 rounded"
-            aria-label="Sohoj Home"
+            aria-label="Shohoj Upay Home"
           >
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-600 text-white shadow-sm font-black">
-              S
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-600 text-white shadow-sm font-black text-xs">
+              SU
             </div>
             <span className="flex items-center gap-1.5">
-              Sohoj
+              Shohoj Upay
               <span className="rounded bg-emerald-100 px-1.5 py-0.5 text-xs font-semibold text-emerald-800">
                 Coach
               </span>

@@ -38,12 +38,12 @@ export default function LoginPage() {
         <div className="text-center">
           <Link
             href="/"
-            className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-600 text-white font-black text-2xl shadow-sm hover:bg-emerald-500 transition"
+            className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-600 text-white font-black text-lg shadow-sm hover:bg-emerald-500 transition"
           >
-            S
+            SU
           </Link>
           <h1 className="mt-4 text-2xl font-extrabold tracking-tight text-slate-900">
-            Welcome to Sohoj
+            Welcome to Shohoj Upay
           </h1>
           <p className="mt-1 text-xs text-slate-500">
             Sign in to access your financial dashboard and insights

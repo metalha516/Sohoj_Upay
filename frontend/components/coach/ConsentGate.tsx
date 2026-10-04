@@ -43,7 +43,7 @@ export function ConsentGate({ onConsentGranted }: ConsentGateProps) {
 
         <div className="space-y-4 my-6 text-sm text-slate-600">
           <p className="leading-relaxed">
-            Sohoj AI Coach analyzes your transaction aggregates, savings rates, and goals to provide
+            Shohoj Upay AI Coach analyzes your transaction aggregates, savings rates, and goals to provide
             grounded coaching, affordability checks, and savings strategies.
           </p>
 

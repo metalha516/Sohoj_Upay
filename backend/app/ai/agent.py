@@ -101,7 +101,7 @@ class FinancialAgent:
         if not guard_res.is_in_scope:
             return AgentTurnResult(
                 content=(
-                    "I am Sohoj's personal financial assistant. I specialize in budgeting, savings goals, "
+                    "I am Shohoj Upay's personal financial assistant. I specialize in budgeting, savings goals, "
                     "expense tracking, and financial planning in Bangladesh. "
                     "Please ask a question related to your finances or budget."
                 ),
@@ -289,7 +289,7 @@ class FinancialAgent:
     def _build_deterministic_fallback(self, tool_results: list[dict[str, Any]]) -> str:
         """Construct safe, deterministic summary when model hallucinates ungrounded numbers."""
         summary_lines = [
-            "Here is the verified financial summary retrieved from your Sohoj records:",
+            "Here is the verified financial summary retrieved from your Shohoj Upay records:",
         ]
         for res in tool_results:
             if "result" in res and isinstance(res["result"], dict):
@@ -298,6 +298,6 @@ class FinancialAgent:
                         summary_lines.append(f"- **{k.replace('_', ' ').title()}**: {v}")
 
         summary_lines.append(
-            "\nFor complete interactive charts and breakdowns, please review your Sohoj dashboard."
+            "\nFor complete interactive charts and breakdowns, please review your Shohoj Upay dashboard."
         )
         return "\n".join(summary_lines)
