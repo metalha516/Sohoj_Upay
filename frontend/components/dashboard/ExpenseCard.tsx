@@ -13,9 +13,9 @@ export function ExpenseCard({ amount, necessityRatio = 0 }: ExpenseCardProps) {
   const discretionaryRatio = Math.max(0, 1 - necessityRatio);
 
   return (
-    <div className="rounded-2xl border border-slate-200/80 bg-white p-5 shadow-sm transition hover:shadow-md">
+    <div className="rounded-xl border border-slate-200/80 bg-white p-5 shadow-[0_1px_3px_rgba(0,0,0,0.04)] transition-all duration-300 ease-out hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(0,0,0,0.06)]">
       <div className="flex items-center justify-between">
-        <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
+        <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">
           Monthly Outflow
         </span>
         <div className="rounded-xl bg-rose-50 p-2 text-rose-600 border border-rose-100">
@@ -24,7 +24,7 @@ export function ExpenseCard({ amount, necessityRatio = 0 }: ExpenseCardProps) {
       </div>
 
       <div className="mt-3">
-        <div className="text-2xl font-black tracking-tight text-navy-900">
+        <div className="tabular-nums text-2xl font-black tracking-tight text-navy-900">
           {formatBDT(amount)}
         </div>
         <div className="mt-2">

@@ -158,7 +158,7 @@ export default function GoalsPage() {
               return (
                 <div
                   key={g.id}
-                  className="flex flex-col justify-between rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm hover:shadow-md transition"
+                  className="flex flex-col justify-between rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
                 >
                   <div>
                     {/* Header */}

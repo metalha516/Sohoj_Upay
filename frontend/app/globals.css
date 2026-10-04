@@ -5,6 +5,8 @@
 :root {
   --foreground-rgb: 15, 23, 42;
   --background-rgb: 248, 250, 252;
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
 }
 
 html {
@@ -113,5 +115,76 @@ html {
     background-image:
       linear-gradient(to right, rgba(10, 28, 60, 0.04) 1px, transparent 1px),
       linear-gradient(to bottom, rgba(10, 28, 60, 0.04) 1px, transparent 1px);
+  }
+
+  /* Entrance animations */
+  .animate-fade-in-up {
+    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation-delay: calc(var(--stagger, 0) * 100ms);
+  }
+  
+  .animate-fade-in-scale {
+    animation: fadeInScale 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation-delay: calc(var(--stagger, 0) * 80ms);
+  }
+  
+  .animate-stagger {
+    --stagger: var(--stagger-index, 0);
+  }
+  
+  /* Number counter glow */
+  .number-glow {
+    text-shadow: 0 0 40px rgba(255, 199, 9, 0.3);
+  }
+  
+  /* Subtle horizontal rule */
+  .divider-glow {
+    background: linear-gradient(90deg, transparent, rgba(255, 199, 9, 0.2), transparent);
+    height: 1px;
+  }
+
+  /* Premium focus ring */
+  .premium-focus {
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-upay-500/50 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900;
+  }
+
+  /* Subtle grain overlay */
+  .grain-overlay {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-in-up,
+  .animate-fade-in-scale {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
   }
 }

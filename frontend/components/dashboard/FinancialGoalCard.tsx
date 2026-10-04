@@ -13,9 +13,9 @@ interface FinancialGoalCardProps {
 export function FinancialGoalCard({ goals }: FinancialGoalCardProps) {
   if (!goals || goals.length === 0) {
     return (
-      <div className="rounded-2xl border border-slate-200/80 bg-white p-5 shadow-sm">
+      <div className="rounded-xl border border-slate-200/80 bg-white p-5 shadow-[0_1px_3px_rgba(0,0,0,0.04)] transition-all duration-300 ease-out hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(0,0,0,0.06)]">
         <div className="flex items-center justify-between">
-          <h3 className="text-sm font-bold text-navy-900">Financial Goals</h3>
+          <h3 className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">Financial Goals</h3>
           <Link
             href="/goals"
             className="text-xs font-bold text-navy-900 hover:text-navy-700 hover:underline"
@@ -43,13 +43,13 @@ export function FinancialGoalCard({ goals }: FinancialGoalCardProps) {
   }
 
   return (
-    <div className="rounded-2xl border border-slate-200/80 bg-white p-5 shadow-sm transition hover:shadow-md">
+    <div className="rounded-xl border border-slate-200/80 bg-white p-5 shadow-[0_1px_3px_rgba(0,0,0,0.04)] transition-all duration-300 ease-out hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(0,0,0,0.06)]">
       <div className="flex items-center justify-between pb-3">
         <div className="flex items-center gap-2">
-          <div className="rounded-xl bg-navy-900 p-1.5 text-upay-yellow shadow-sm">
+          <div className="rounded-xl bg-navy-900 p-1.5 text-upay-yellow shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
             <Target className="h-4 w-4" />
           </div>
-          <h3 className="text-sm font-bold text-navy-900">Active Goals</h3>
+          <h3 className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">Active Goals</h3>
         </div>
         <Link
           href="/goals"
@@ -100,8 +100,8 @@ export function FinancialGoalCard({ goals }: FinancialGoalCardProps) {
               {/* Progress bar */}
               <div className="mt-2.5">
                 <div className="flex justify-between text-[11px] text-slate-600 mb-1 font-semibold">
-                  <span>{formatBDT(goal.current_amount)}</span>
-                  <span className="text-slate-400">of {formatBDT(goal.target_amount)}</span>
+                  <span className="tabular-nums">{formatBDT(goal.current_amount)}</span>
+                  <span className="text-slate-400 tabular-nums">of {formatBDT(goal.target_amount)}</span>
                 </div>
                 <div className="h-2 w-full overflow-hidden rounded-full bg-slate-200">
                   <div

@@ -246,7 +246,7 @@ export default function CoachPage() {
       <AppHeader />
 
       {/* Main Chat Interface */}
-      <main className="flex flex-1 overflow-hidden">
+      <main className="flex flex-1 overflow-hidden transition-all duration-300">
         <div className="mx-auto flex h-full w-full max-w-4xl flex-col bg-white border-x border-slate-200">
           {/* Coach Status Header */}
           <div className="flex items-center justify-between border-b border-slate-200 px-4 py-3 bg-slate-50/70">
@@ -284,7 +284,7 @@ export default function CoachPage() {
           </div>
 
           {/* Conversation History / Message Scroll View */}
-          <div className="flex-1 overflow-y-auto px-4 py-4 sm:px-6 space-y-4">
+          <div className="flex-1 overflow-y-auto px-4 py-4 sm:px-6 space-y-4 scroll-smooth">
             {messages.length === 0 ? (
               <div className="my-auto flex flex-col items-center justify-center py-12 text-center">
                 <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-navy-100 text-navy-900 mb-4 shadow-sm border border-navy-200">
@@ -356,7 +356,7 @@ export default function CoachPage() {
               <button
                 type="submit"
                 disabled={!input.trim() || isStreaming}
-                className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-navy-900 text-upay-yellow shadow-sm hover:bg-navy-800 focus:outline-none focus:ring-2 focus:ring-navy-900 disabled:opacity-50 transition-colors shrink-0 border border-navy-800"
+                className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-navy-900 text-upay-yellow shadow-sm hover:bg-navy-800 focus:outline-none focus:ring-2 focus:ring-navy-900 disabled:opacity-50 transition-all duration-300 hover:shadow-[0_0_15px_rgba(255,199,9,0.3)] hover:-translate-y-0.5 shrink-0 border border-navy-800"
                 aria-label="Send message"
               >
                 {isStreaming ? (

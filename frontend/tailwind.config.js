@@ -6,6 +6,10 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ["var(--font-geist-sans)"],
+        mono: ["var(--font-geist-mono)"],
+      },
       colors: {
         navy: {
           50: "#F0F4F8",
@@ -50,11 +54,22 @@ module.exports = {
       backdropBlur: {
         xs: "2px",
       },
+      borderRadius: {
+        "4xl": "2rem",
+        "5xl": "2.5rem",
+      },
+      transitionTimingFunction: {
+        premium: "cubic-bezier(0.16, 1, 0.3, 1)",
+      },
       animation: {
         "pulse-subtle": "pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite",
         "float": "float 5s ease-in-out infinite",
         "float-slow": "float 8s ease-in-out infinite",
         "shimmer": "shimmer 2.5s linear infinite",
+        "fade-in-up": "fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards",
+        "slide-in-right": "slideInRight 0.5s ease-out forwards",
+        "scale-in": "fadeInScale 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards",
+        "glow-pulse": "glowPulse 3s ease-in-out infinite",
       },
       keyframes: {
         float: {
@@ -64,6 +79,22 @@ module.exports = {
         shimmer: {
           "0%": { backgroundPosition: "-200% 0" },
           "100%": { backgroundPosition: "200% 0" },
+        },
+        fadeInUp: {
+          from: { opacity: "0", transform: "translateY(24px)" },
+          to: { opacity: "1", transform: "translateY(0)" },
+        },
+        fadeInScale: {
+          from: { opacity: "0", transform: "scale(0.95) translateY(12px)" },
+          to: { opacity: "1", transform: "scale(1) translateY(0)" },
+        },
+        slideInRight: {
+          from: { opacity: "0", transform: "translateX(24px)" },
+          to: { opacity: "1", transform: "translateX(0)" },
+        },
+        glowPulse: {
+          "0%, 100%": { opacity: "0.5", transform: "scale(1)" },
+          "50%": { opacity: "1", transform: "scale(1.05)" },
         },
       },
     },

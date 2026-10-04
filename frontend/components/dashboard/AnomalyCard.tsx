@@ -17,10 +17,10 @@ export function AnomalyCard({ anomalies, onFeedback }: AnomalyCardProps) {
 
   if (pendingAnomalies.length === 0) {
     return (
-      <div className="rounded-2xl border border-slate-200/80 bg-white p-5 shadow-sm transition hover:shadow-md">
+      <div className="rounded-xl border border-slate-200/80 bg-white p-5 shadow-[0_1px_3px_rgba(0,0,0,0.04)] transition-all duration-300 ease-out hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(0,0,0,0.06)]">
         <div className="flex items-center gap-2 text-navy-900">
           <ShieldAlert className="h-4 w-4 text-navy-900" />
-          <h3 className="text-sm font-bold">Spending Anomaly Monitor</h3>
+          <h3 className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">Spending Anomaly Monitor</h3>
         </div>
         <div className="mt-3 rounded-xl bg-navy-50/70 border border-navy-100/80 p-4 text-xs text-navy-950">
           <p className="font-bold text-navy-900">No anomalous spending detected</p>
@@ -43,11 +43,11 @@ export function AnomalyCard({ anomalies, onFeedback }: AnomalyCardProps) {
   };
 
   return (
-    <div className="rounded-2xl border border-slate-200/80 bg-white p-5 shadow-sm transition hover:shadow-md">
+    <div className="rounded-xl border border-slate-200/80 bg-white p-5 shadow-[0_1px_3px_rgba(0,0,0,0.04)] transition-all duration-300 ease-out hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(0,0,0,0.06)]">
       <div className="flex items-center justify-between pb-3">
         <div className="flex items-center gap-2 text-amber-600">
           <AlertTriangle className="h-4 w-4" />
-          <h3 className="text-sm font-bold text-navy-900">
+          <h3 className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">
             Unusual Activity Detected ({pendingAnomalies.length})
           </h3>
         </div>

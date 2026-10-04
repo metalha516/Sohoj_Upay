@@ -16,13 +16,13 @@ export function AIInsightCard({ profile, insights }: AIInsightCardProps) {
   const confidence = profile?.confidence ?? 0.85;
 
   return (
-    <div className="rounded-2xl border border-slate-200/80 bg-white p-5 shadow-sm transition hover:shadow-md">
+    <div className="rounded-xl border border-slate-200/80 bg-white p-5 shadow-[0_1px_3px_rgba(0,0,0,0.04)] transition-all duration-300 ease-out hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(0,0,0,0.06)]">
       <div className="flex items-center justify-between pb-3">
         <div className="flex items-center gap-2">
-          <div className="rounded-xl bg-navy-900 p-1.5 text-upay-yellow shadow-sm">
+          <div className="rounded-xl bg-navy-900 p-1.5 text-upay-yellow shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
             <Compass className="h-4 w-4" aria-hidden="true" />
           </div>
-          <h3 className="text-sm font-bold text-navy-900">Financial Persona</h3>
+          <h3 className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">Financial Persona</h3>
         </div>
         <div className="flex items-center gap-1 text-[11px] font-bold text-slate-600">
           <ShieldCheck className="h-3.5 w-3.5 text-navy-900" />

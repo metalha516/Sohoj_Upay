@@ -85,10 +85,10 @@ export default function SettingsPage() {
 
         <div className="space-y-6">
           {/* Section 1: AI Usage & Consent */}
-          <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+          <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-all duration-300 hover:shadow-md hover:-translate-y-1">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2.5">
-                <div className="rounded-xl bg-emerald-50 p-2 text-emerald-600">
+                <div className="rounded-xl bg-upay-yellow/20 p-2 text-navy-900 border border-upay-yellow/40">
                   <Shield className="h-5 w-5" />
                 </div>
                 <div>
@@ -102,8 +102,8 @@ export default function SettingsPage() {
               </div>
 
               {consentSuccess && (
-                <span className="flex items-center gap-1 text-xs text-emerald-600 font-semibold">
-                  <CheckCircle2 className="h-3.5 w-3.5" />
+                <span className="flex items-center gap-1 text-xs text-navy-900 font-semibold">
+                  <CheckCircle2 className="h-3.5 w-3.5 text-upay-yellow" />
                   Saved
                 </span>
               )}
@@ -116,7 +116,7 @@ export default function SettingsPage() {
                   checked={consentAi}
                   disabled={isUpdatingConsent}
                   onChange={(e) => handleConsentToggle(e.target.checked)}
-                  className="mt-1 h-4 w-4 rounded text-emerald-600 focus:ring-emerald-500"
+                  className="mt-1 h-4 w-4 rounded text-navy-900 focus:ring-navy-900 accent-[#0A1C3C]"
                 />
                 <div className="text-xs">
                   <span className="font-bold text-slate-900 block">
@@ -133,7 +133,7 @@ export default function SettingsPage() {
           </div>
 
           {/* Section 2: Data Export */}
-          <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+          <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-all duration-300 hover:shadow-md hover:-translate-y-1">
             <div className="flex items-center gap-2.5">
               <div className="rounded-xl bg-blue-50 p-2 text-blue-600">
                 <Download className="h-5 w-5" />
@@ -164,7 +164,7 @@ export default function SettingsPage() {
           </div>
 
           {/* Section 3: Data Deletion & Erasure */}
-          <div className="rounded-2xl border border-rose-200 bg-white p-6 shadow-sm">
+          <div className="rounded-2xl border border-rose-200 bg-white p-6 shadow-sm transition-all duration-300 hover:shadow-md hover:-translate-y-1">
             <div className="flex items-center gap-2.5">
               <div className="rounded-xl bg-rose-50 p-2 text-rose-600">
                 <Trash2 className="h-5 w-5" />

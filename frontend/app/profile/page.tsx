@@ -62,7 +62,7 @@ export default function ProfilePage() {
         </div>
 
         {successMsg && (
-          <div className="mb-4 flex items-center gap-2 rounded-xl bg-emerald-50 border border-emerald-200 p-3 text-xs text-emerald-800">
+          <div className="mb-4 flex items-center gap-2 rounded-xl bg-upay-yellow/20 border border-upay-yellow/40 p-3 text-xs text-navy-900 font-medium">
             <CheckCircle2 className="h-4 w-4" />
             <span>{successMsg}</span>
           </div>
@@ -75,10 +75,10 @@ export default function ProfilePage() {
           </div>
         )}
 
-        <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm space-y-6">
+        <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-all duration-300 hover:shadow-md hover:-translate-y-1 space-y-6">
           {/* Identity Header */}
           <div className="flex items-center gap-4 pb-6 border-b border-slate-100">
-            <div className="h-16 w-16 rounded-2xl bg-emerald-600 text-white flex items-center justify-center font-bold text-2xl shadow-sm">
+            <div className="h-16 w-16 rounded-2xl bg-navy-900 text-upay-yellow flex items-center justify-center font-bold text-2xl shadow-sm border border-navy-800">
               {user?.full_name ? user.full_name[0] : "U"}
             </div>
             <div>
@@ -104,7 +104,7 @@ export default function ProfilePage() {
                 type="text"
                 value={fullName}
                 onChange={(e) => setFullName(e.target.value)}
-                className="w-full rounded-xl border border-slate-300 px-3.5 py-2 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                className="w-full rounded-xl border border-slate-300 px-3.5 py-2 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-navy-900"
               />
             </div>
 
@@ -168,7 +168,7 @@ export default function ProfilePage() {
                   placeholder="35000"
                   value={monthlyIncome}
                   onChange={(e) => setMonthlyIncome(e.target.value)}
-                  className="w-full rounded-xl border border-slate-300 px-3.5 py-2 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  className="w-full rounded-xl border border-slate-300 px-3.5 py-2 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-navy-900"
                 />
               </div>
             </div>
@@ -178,7 +178,7 @@ export default function ProfilePage() {
                 Baseline Starting MFS Balance
               </label>
               <div className="flex items-center gap-2 rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-2 text-xs text-slate-600">
-                <Wallet className="h-4 w-4 text-emerald-600" />
+                <Wallet className="h-4 w-4 text-navy-900" />
                 <span className="font-bold">{formatBDT(user?.starting_balance)}</span>
               </div>
             </div>

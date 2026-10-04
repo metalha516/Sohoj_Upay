@@ -265,7 +265,7 @@ export function SimulatorView() {
         <div className="lg:col-span-7 space-y-5">
           {/* 3 Metric Cards */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
-            <div className="rounded-2xl border border-navy-800 bg-gradient-to-br from-navy-900 to-navy-950 p-4 shadow-md text-white">
+            <div className="rounded-2xl border border-navy-800 bg-gradient-to-br from-navy-900 to-navy-950 p-4 shadow-md text-white transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
               <span className="text-xs font-bold uppercase tracking-wider text-slate-300">
                 Projected Future Value
               </span>
@@ -275,7 +275,7 @@ export function SimulatorView() {
               <span className="text-[10px] text-slate-400 font-medium">After {years} years</span>
             </div>
 
-            <div className="rounded-2xl border border-slate-200/80 bg-white p-4 shadow-sm">
+            <div className="rounded-2xl border border-slate-200/80 bg-white p-4 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
               <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
                 Total Contributed
               </span>
@@ -285,7 +285,7 @@ export function SimulatorView() {
               <span className="text-[10px] text-slate-400 font-medium">Your deposits</span>
             </div>
 
-            <div className="rounded-2xl border border-slate-200/80 bg-white p-4 shadow-sm">
+            <div className="rounded-2xl border border-slate-200/80 bg-white p-4 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
               <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
                 Compound Growth
               </span>

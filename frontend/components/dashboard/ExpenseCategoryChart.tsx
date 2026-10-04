@@ -23,7 +23,7 @@ const PALETTE = [
 export function ExpenseCategoryChart({ categories }: ExpenseCategoryChartProps) {
   if (!categories || categories.length === 0) {
     return (
-      <div className="flex h-64 items-center justify-center rounded-2xl border border-dashed border-slate-200 bg-slate-50 text-xs text-slate-500">
+      <div className="flex min-h-[280px] items-center justify-center rounded-2xl overflow-hidden border border-dashed border-slate-200 bg-slate-50 text-xs text-slate-500">
         No category spending recorded for this month.
       </div>
     );
@@ -53,13 +53,13 @@ export function ExpenseCategoryChart({ categories }: ExpenseCategoryChartProps) 
   ];
 
   return (
-    <div className="rounded-2xl border border-slate-200/80 bg-white p-5 shadow-sm transition hover:shadow-md">
+    <div className="rounded-2xl overflow-hidden border border-slate-200/80 bg-white p-5 shadow-[0_1px_3px_rgba(0,0,0,0.04)] transition-all duration-300 ease-out hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(0,0,0,0.06)]">
       <div className="flex items-center justify-between pb-2">
-        <h3 className="text-sm font-bold text-navy-900">Spending by Category</h3>
+        <h3 className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">Spending by Category</h3>
         <span className="text-xs text-slate-500 font-medium">Monthly breakdown</span>
       </div>
 
-      <div className="h-48 w-full">
+      <div className="min-h-[280px] w-full">
         <ResponsiveContainer width="100%" height="100%">
           <PieChart>
             <Pie
@@ -82,8 +82,8 @@ export function ExpenseCategoryChart({ categories }: ExpenseCategoryChartProps) 
                   return (
                     <div className="rounded-xl border border-navy-100 bg-white p-2.5 shadow-lg text-xs">
                       <p className="font-bold text-navy-900 capitalize">{p.name}</p>
-                      <p className="text-slate-600 mt-0.5 font-medium">{formatBDT(p.amount)}</p>
-                      <p className="text-navy-900 font-black">{formatPercent(p.percentage)}</p>
+                      <p className="text-slate-600 mt-0.5 font-medium tabular-nums">{formatBDT(p.amount)}</p>
+                      <p className="text-navy-900 font-black tabular-nums">{formatPercent(p.percentage)}</p>
                     </div>
                   );
                 }

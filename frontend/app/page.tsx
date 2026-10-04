@@ -130,7 +130,7 @@ export default function Home() {
       location: "Sylhet (Beanibazar)",
       income: "৳65,000 / month (UAE Inflow)",
       archetype: "Family Trustee & Lumpy Inflow",
-      tagColor: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",
+      tagColor: "bg-upay-500/10 text-upay-400 border-upay-500/20",
       quote: "When remittance lands, money disappears instantly among extended family expenses unless structured.",
       problem: "Large bi-monthly overseas inflows left no emergency buffer; remittance incentives (2.5% govt subsidy) were untracked.",
       solution: "Grounded Gemini AI Coach created an automatic 20% instant lock into high-yield Islamic Shariah DPS upon remittance receipt, routing payouts through Upay's zero-hidden-fee channel.",
@@ -208,7 +208,7 @@ export default function Home() {
 
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
           {/* Dynamic Pill */}
-          <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-navy-900/90 border border-navy-700 text-xs font-semibold text-slate-200 shadow-md mb-8 badge-glow animate-pulse-subtle">
+          <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-navy-900/90 border border-navy-700 text-xs font-semibold text-slate-200 shadow-md mb-8 badge-glow animate-pulse-subtle animate-fade-in-up" style={{ "--stagger": 0 } as React.CSSProperties}>
             <span className="flex h-2 w-2 rounded-full bg-upay-500 animate-ping" />
             <span className="flex h-2 w-2 rounded-full bg-upay-500 -ml-4" />
             <span className="text-upay-400 font-bold">Bangladesh&apos;s First AI Financial Copilot</span>
@@ -217,7 +217,7 @@ export default function Home() {
           </div>
 
           {/* Headline */}
-          <h1 className="mx-auto max-w-5xl text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-[1.12]">
+          <h1 className="mx-auto max-w-5xl text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-[1.12] animate-fade-in-up" style={{ "--stagger": 1 } as React.CSSProperties}>
             Turn Every MFS Taka Into <br className="hidden sm:inline" />
             <span className="bg-gradient-to-r from-upay-400 via-yellow-200 to-upay-500 bg-clip-text text-transparent">
               Compounded Wealth
@@ -225,13 +225,12 @@ export default function Home() {
           </h1>
 
           {/* Subtitle */}
-          <p className="mx-auto mt-6 max-w-3xl text-lg sm:text-xl text-slate-300 leading-relaxed font-normal">
-            Autonomous expense forecasting, deterministic compound wealth simulation, and grounded
-            Gemini AI coaching. Seamlessly integrated with Upay, bKash, Nagad, and Rocket — with zero PII exposure.
+          <p className="mx-auto mt-6 max-w-3xl text-lg sm:text-xl text-slate-300 leading-relaxed font-normal animate-fade-in-up" style={{ "--stagger": 2 } as React.CSSProperties}>
+            Autonomous forecasting, deterministic wealth simulation, and grounded AI coaching. Seamlessly integrated with Bangladesh MFS networks — zero PII exposure.
           </p>
 
           {/* Hero CTAs */}
-          <div className="mt-10 flex flex-wrap justify-center items-center gap-4">
+          <div className="mt-10 flex flex-wrap justify-center items-center gap-4 animate-fade-in-up" style={{ "--stagger": 3 } as React.CSSProperties}>
             <Link
               href="/dashboard"
               className="inline-flex items-center gap-2.5 px-8 py-4 rounded-2xl bg-upay-500 text-navy-950 font-black text-base shadow-xl hover:bg-upay-400 hover:scale-[1.02] active:scale-[0.98] transition-all upay-glow"
@@ -246,31 +245,24 @@ export default function Home() {
               <Calculator className="h-5 w-5 text-upay-400" />
               Try Live Simulator
             </a>
-            <Link
-              href="/coach"
-              className="inline-flex items-center gap-2 px-6 py-4 rounded-2xl bg-navy-950/60 text-slate-300 font-semibold text-base hover:text-white hover:bg-navy-900 transition-all border border-navy-800/80"
-            >
-              <Bot className="h-5 w-5 text-cyan-400" />
-              Chat With AI Coach
-            </Link>
           </div>
 
           {/* Live Trust & Metrics Row */}
           <div className="mt-16 pt-8 border-t border-navy-800/60 grid grid-cols-2 sm:grid-cols-4 gap-6 max-w-5xl mx-auto">
-            <div className="p-4 rounded-2xl bg-navy-900/40 border border-navy-800/60 backdrop-blur-sm text-center">
-              <div className="text-2xl sm:text-3xl font-black text-upay-400">৳45M+</div>
-              <div className="mt-1 text-xs text-slate-400 font-medium">Simulated Wealth Volume</div>
+            <div className="p-4 rounded-2xl bg-upay-500/10 border border-upay-500/20 backdrop-blur-sm text-center">
+              <div className="text-3xl sm:text-4xl font-black text-upay-400">৳45M+</div>
+              <div className="mt-1 text-xs text-slate-300 font-semibold">Simulated Wealth Volume</div>
             </div>
             <div className="p-4 rounded-2xl bg-navy-900/40 border border-navy-800/60 backdrop-blur-sm text-center">
-              <div className="text-2xl sm:text-3xl font-black text-white">0.8% - 1.4%</div>
+              <div className="text-2xl sm:text-3xl font-bold text-white">0.8% - 1.4%</div>
               <div className="mt-1 text-xs text-slate-400 font-medium">Upay Tariff Optimization</div>
             </div>
             <div className="p-4 rounded-2xl bg-navy-900/40 border border-navy-800/60 backdrop-blur-sm text-center">
-              <div className="text-2xl sm:text-3xl font-black text-emerald-400">100% Grounded</div>
+              <div className="text-2xl sm:text-3xl font-extrabold text-upay-400">100% Grounded</div>
               <div className="mt-1 text-xs text-slate-400 font-medium">Strict Math & Zero Hallucination</div>
             </div>
             <div className="p-4 rounded-2xl bg-navy-900/40 border border-navy-800/60 backdrop-blur-sm text-center">
-              <div className="text-2xl sm:text-3xl font-black text-white">Zero PII</div>
+              <div className="text-2xl sm:text-3xl font-semibold text-white">Zero PII</div>
               <div className="mt-1 text-xs text-slate-400 font-medium">HMAC-SHA256 Tokenized</div>
             </div>
           </div>
@@ -280,11 +272,7 @@ export default function Home() {
       {/* 3. Interactive Live Simulation & Coach Preview Widget */}
       <section id="simulator" className="py-20 md:py-28 relative bg-[#070D18]">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-12">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-upay-500/10 border border-upay-500/30 text-xs font-bold text-upay-400 mb-3">
-              <Sparkles className="h-3.5 w-3.5" />
-              Interactive Engine
-            </div>
+          <div className="text-center max-w-3xl mx-auto mb-12 animate-fade-in-up">
             <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white">
               Test The Financial Engine Live
             </h2>
@@ -429,7 +417,7 @@ export default function Home() {
                       </div>
                       <div className="flex justify-between text-xs">
                         <span className="text-slate-400">Compound Returns:</span>
-                        <span className="font-bold text-emerald-400">
+                        <span className="font-bold text-upay-400">
                           +৳ {compoundCalculation.interestEarned.toLocaleString("en-BD")}
                         </span>
                       </div>
@@ -546,7 +534,7 @@ export default function Home() {
                     <div className="mt-6 space-y-3 pt-4 border-t border-navy-800">
                       <div className="flex justify-between text-xs">
                         <span className="text-slate-400">Savings This Withdrawal:</span>
-                        <span className="font-bold text-emerald-400">
+                        <span className="font-bold text-upay-400">
                           ৳ {tariffCalculation.perTxSavings.toLocaleString("en-BD")} saved
                         </span>
                       </div>
@@ -583,10 +571,6 @@ export default function Home() {
       <section id="features" className="py-20 md:py-28 relative bg-[#061325]">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-upay-500/10 border border-upay-500/30 text-xs font-bold text-upay-400 mb-3">
-              <Layers className="h-3.5 w-3.5" />
-              Core Architecture
-            </div>
             <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white">
               Engineered For Financial Clarity
             </h2>
@@ -595,9 +579,9 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
             {/* Pillar 1 */}
-            <div className="rounded-3xl glass-card glass-card-hover p-8 border border-navy-800 flex flex-col justify-between">
+            <div className="md:col-span-7 rounded-3xl glass-card glass-card-hover p-8 border border-navy-800 flex flex-col justify-between animate-fade-in-scale" style={{ "--stagger": 1 } as React.CSSProperties}>
               <div>
                 <div className="flex items-center justify-between mb-6">
                   <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-upay-500/15 border border-upay-500/30 text-upay-400">
@@ -608,7 +592,7 @@ export default function Home() {
                   </span>
                 </div>
                 <h3 className="text-xl font-bold text-white mb-2">
-                  1. Autonomous Expense Forecasting
+                  Autonomous Expense Forecasting
                 </h3>
                 <p className="text-sm text-slate-400 leading-relaxed">
                   Hybrid statistical projection trained on localized MFS spending velocity. Predicts 7-day and 30-day cash drains, factoring in salary dates, utility deadlines, and festival seasonality like Eid-ul-Fitr and Puja.
@@ -621,7 +605,7 @@ export default function Home() {
             </div>
 
             {/* Pillar 2 */}
-            <div className="rounded-3xl glass-card glass-card-hover p-8 border border-navy-800 flex flex-col justify-between">
+            <div className="md:col-span-5 rounded-3xl glass-card glass-card-hover p-8 border border-navy-800 flex flex-col justify-between animate-fade-in-scale" style={{ "--stagger": 2 } as React.CSSProperties}>
               <div>
                 <div className="flex items-center justify-between mb-6">
                   <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-cyan-500/15 border border-cyan-500/30 text-cyan-400">
@@ -632,7 +616,7 @@ export default function Home() {
                   </span>
                 </div>
                 <h3 className="text-xl font-bold text-white mb-2">
-                  2. Grounded AI Financial Coach
+                  Grounded AI Financial Coach
                 </h3>
                 <p className="text-sm text-slate-400 leading-relaxed">
                   Conversational assistant with strict tool-calling boundaries. Powered by Gemini with numeric function verification against actual Upay tariff sheets. Never provides hallucinated rates or speculative stock bets.
@@ -645,7 +629,7 @@ export default function Home() {
             </div>
 
             {/* Pillar 3 */}
-            <div className="rounded-3xl glass-card glass-card-hover p-8 border border-navy-800 flex flex-col justify-between">
+            <div className="md:col-span-5 rounded-3xl glass-card glass-card-hover p-8 border border-navy-800 flex flex-col justify-between animate-fade-in-scale" style={{ "--stagger": 3 } as React.CSSProperties}>
               <div>
                 <div className="flex items-center justify-between mb-6">
                   <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-amber-500/15 border border-amber-500/30 text-amber-400">
@@ -656,7 +640,7 @@ export default function Home() {
                   </span>
                 </div>
                 <h3 className="text-xl font-bold text-white mb-2">
-                  3. Deterministic Compound Simulator
+                  Deterministic Compound Simulator
                 </h3>
                 <p className="text-sm text-slate-400 leading-relaxed">
                   Pure Python and TypeScript Decimal math. Computes future values, exact logarithmic doubling times via the Rule of 72, and target goal amortization schedules with zero floating point drift.
@@ -669,7 +653,7 @@ export default function Home() {
             </div>
 
             {/* Pillar 4 */}
-            <div className="rounded-3xl glass-card glass-card-hover p-8 border border-navy-800 flex flex-col justify-between">
+            <div className="md:col-span-7 rounded-3xl glass-card glass-card-hover p-8 border border-navy-800 flex flex-col justify-between animate-fade-in-scale" style={{ "--stagger": 4 } as React.CSSProperties}>
               <div>
                 <div className="flex items-center justify-between mb-6">
                   <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-rose-500/15 border border-rose-500/30 text-rose-400">
@@ -680,7 +664,7 @@ export default function Home() {
                   </span>
                 </div>
                 <h3 className="text-xl font-bold text-white mb-2">
-                  4. MFS Behavioral Archetypes & Anomalies
+                  MFS Behavioral Archetypes & Anomalies
                 </h3>
                 <p className="text-sm text-slate-400 leading-relaxed">
                   Automatically classifies user telemetry into 6 behavioral archetypes (Volatile Earner, Impulsive Micro-Spender, Family Trustee, etc.). Detects velocity spikes, unexpected midnight transfers, and unauthorized drains.
@@ -730,8 +714,8 @@ export default function Home() {
           </div>
 
           {/* Persona Card Detail */}
-          <div className="max-w-4xl mx-auto rounded-3xl glass-card border border-navy-700/80 p-8 sm:p-12 shadow-2xl relative">
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+          <div className="max-w-4xl mx-auto rounded-3xl glass-card border border-navy-700/80 p-8 sm:p-12 shadow-2xl relative overflow-hidden transition-all duration-500 ease-out">
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center transition-all duration-500 ease-out" key={activePersonaIndex}>
               <div className="md:col-span-8 space-y-4">
                 <div className="flex flex-wrap items-center gap-2.5">
                   <h3 className="text-2xl sm:text-3xl font-black text-white">
@@ -759,7 +743,7 @@ export default function Home() {
                     <p className="text-sm text-slate-300 mt-0.5">{currentPersona.problem}</p>
                   </div>
                   <div>
-                    <span className="text-xs uppercase font-extrabold tracking-wider text-emerald-400">Sohoj Intervention:</span>
+                    <span className="text-xs uppercase font-extrabold tracking-wider text-upay-400">Sohoj Intervention:</span>
                     <p className="text-sm text-slate-300 mt-0.5">{currentPersona.solution}</p>
                   </div>
                 </div>
@@ -793,10 +777,6 @@ export default function Home() {
 
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
               <div className="lg:col-span-7 space-y-4">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-xs font-bold text-cyan-400">
-                  <ShieldCheck className="h-4 w-4" />
-                  Bank-Grade Privacy Standards
-                </div>
                 <h3 className="text-2xl sm:text-4xl font-extrabold text-white">
                   Zero PII. 100% Data Minimization.
                 </h3>
@@ -852,8 +832,9 @@ export default function Home() {
       </section>
 
       {/* 7. Conversion CTA Banner */}
+      <div className="h-px w-full bg-gradient-to-r from-transparent via-upay-500/50 to-transparent shadow-[0_0_15px_rgba(255,199,9,0.3)]"></div>
       <section className="py-20 relative bg-gradient-to-b from-[#061325] to-[#0A1C3C] text-center">
-        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 animate-fade-in-up">
           <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight">
             Ready To Stop Leaking Money On MFS Fees?
           </h2>
@@ -982,8 +963,8 @@ export default function Home() {
               &copy; 2026 Sohoj Financial Intelligence. Built with pride for Bangladesh&apos;s digital economy. Powered by Upay MFS &amp; Google Gemini.
             </div>
             <div className="flex items-center gap-4 text-[11px] text-slate-400">
-              <span className="inline-flex items-center gap-1.5 text-emerald-400 font-semibold">
-                <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
+              <span className="inline-flex items-center gap-1.5 text-upay-400 font-semibold">
+                <span className="h-2 w-2 rounded-full bg-upay-500 animate-pulse" />
                 Telemetry Systems Operational
               </span>
             </div>

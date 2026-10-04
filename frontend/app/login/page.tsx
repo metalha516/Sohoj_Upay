@@ -32,13 +32,13 @@ export default function LoginPage() {
   };
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-4 bg-slate-50">
+    <main className="flex min-h-screen flex-col items-center justify-center p-4 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-50 via-slate-100 to-upay-yellow/10">
       <div className="w-full max-w-md space-y-6">
         {/* Brand Header */}
         <div className="text-center">
           <Link
             href="/"
-            className="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-navy-900 text-upay-yellow font-black text-2xl shadow-md border border-navy-800 hover:scale-105 transition-transform"
+            className="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-upay-500 text-navy-900 font-black text-2xl shadow-md border border-navy-800 hover:scale-105 transition-transform"
           >
             S
           </Link>
@@ -123,21 +123,21 @@ export default function LoginPage() {
               <button
                 type="button"
                 onClick={() => handleQuickFill("sumaiya.talukder.26dafe@example.com")}
-                className="rounded-lg bg-navy-50/80 border border-navy-100 px-2.5 py-1.5 text-[11px] font-bold text-navy-900 hover:bg-navy-900 hover:text-upay-yellow hover:border-navy-900 transition-all shadow-sm"
+                className="rounded-lg bg-navy-50/80 border border-navy-100 px-2.5 py-1.5 text-[11px] font-bold text-navy-900 hover:bg-navy-900 hover:text-upay-yellow hover:border-navy-900 transition-all duration-300 hover:-translate-y-0.5 shadow-sm hover:shadow-md"
               >
                 Sumaiya (Driver)
               </button>
               <button
                 type="button"
                 onClick={() => handleQuickFill("roksana.khan.71141c@example.test")}
-                className="rounded-lg bg-navy-50/80 border border-navy-100 px-2.5 py-1.5 text-[11px] font-bold text-navy-900 hover:bg-navy-900 hover:text-upay-yellow hover:border-navy-900 transition-all shadow-sm"
+                className="rounded-lg bg-navy-50/80 border border-navy-100 px-2.5 py-1.5 text-[11px] font-bold text-navy-900 hover:bg-navy-900 hover:text-upay-yellow hover:border-navy-900 transition-all duration-300 hover:-translate-y-0.5 shadow-sm hover:shadow-md"
               >
                 Roksana (Student)
               </button>
               <button
                 type="button"
                 onClick={() => handleQuickFill("kamrul.akter.8d6ed3@example.test")}
-                className="rounded-lg bg-navy-50/80 border border-navy-100 px-2.5 py-1.5 text-[11px] font-bold text-navy-900 hover:bg-navy-900 hover:text-upay-yellow hover:border-navy-900 transition-all shadow-sm"
+                className="rounded-lg bg-navy-50/80 border border-navy-100 px-2.5 py-1.5 text-[11px] font-bold text-navy-900 hover:bg-navy-900 hover:text-upay-yellow hover:border-navy-900 transition-all duration-300 hover:-translate-y-0.5 shadow-sm hover:shadow-md"
               >
                 Kamrul (Remittance)
               </button>

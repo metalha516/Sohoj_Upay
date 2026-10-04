@@ -56,7 +56,7 @@ export function ChatMessageBubble({ message }: ChatMessageBubbleProps) {
 
   if (isUser) {
     return (
-      <div className="flex justify-end gap-3 my-4">
+      <div className="flex justify-end gap-3 my-4 animate-fade-in-up">
         <div className="max-w-[85%] sm:max-w-[75%] rounded-2xl bg-navy-900 px-4 py-3 text-white shadow-md border border-navy-800">
           <p className="text-sm whitespace-pre-wrap leading-relaxed font-medium">{message.content}</p>
         </div>
@@ -69,12 +69,12 @@ export function ChatMessageBubble({ message }: ChatMessageBubbleProps) {
 
   // Assistant Bubble
   return (
-    <div className="flex justify-start gap-3 my-4">
+    <div className="flex justify-start gap-3 my-4 animate-fade-in-up">
       <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-navy-900 text-upay-yellow shadow-sm font-bold text-xs mt-1 border border-navy-800">
         <Sparkles className="h-4 w-4" />
       </div>
 
-      <div className="max-w-[90%] sm:max-w-[80%] rounded-2xl border border-slate-200/80 bg-white p-4 shadow-sm space-y-3">
+      <div className="max-w-[90%] sm:max-w-[80%] rounded-2xl border border-slate-200/80 border-l-2 border-l-upay-500/40 bg-white p-4 shadow-sm space-y-3">
         {/* Tool Execution Chips */}
         {message.toolCalls && message.toolCalls.length > 0 && (
           <div className="flex flex-wrap gap-1.5 pb-2 border-b border-slate-100">

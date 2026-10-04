@@ -35,7 +35,7 @@ export function AppBottomNav() {
             <Link
               key={item.href}
               href={item.href}
-              className={`flex flex-col items-center justify-center gap-1 px-3 py-1.5 rounded-xl text-xs font-medium transition-all ${
+              className={`flex flex-col items-center justify-center gap-1 px-3 py-1.5 rounded-xl text-xs font-medium transition-all duration-300 ${
                 isActive
                   ? "text-upay-500 font-bold bg-navy-800/90 shadow-sm"
                   : "text-slate-400 hover:text-white"

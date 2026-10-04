@@ -18,9 +18,9 @@ export function SavingsCard({
   const isHealthy = savingsRate >= 0.2; // 20% savings rule
 
   return (
-    <div className="rounded-2xl border border-slate-200/80 bg-white p-5 shadow-sm transition hover:shadow-md">
+    <div className="rounded-xl border border-slate-200/80 bg-white p-5 shadow-[0_1px_3px_rgba(0,0,0,0.04)] transition-all duration-300 ease-out hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(0,0,0,0.06)]">
       <div className="flex items-center justify-between">
-        <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
+        <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">
           Net Monthly Savings
         </span>
         <div className="rounded-xl p-2 bg-navy-50 text-navy-900 border border-navy-100/60">
@@ -30,7 +30,7 @@ export function SavingsCard({
 
       <div className="mt-3">
         <div className="flex items-baseline gap-2 flex-wrap">
-          <span className="text-2xl font-black tracking-tight text-navy-900">
+          <span className="tabular-nums text-2xl font-black tracking-tight text-navy-900">
             {formatBDT(savingsAmount)}
           </span>
           <span className="rounded-full bg-upay-yellow/20 px-2.5 py-0.5 text-xs font-black text-navy-900 border border-upay-yellow/50">
@@ -42,7 +42,7 @@ export function SavingsCard({
           <ShieldCheck className="h-4 w-4 text-navy-800" aria-hidden="true" />
           <span>
             Emergency fund:{" "}
-            <strong className="text-navy-950 font-bold">
+            <strong className="text-navy-950 font-bold tabular-nums">
               {Number(emergencyFundMonths || 0).toFixed(1)} mo
             </strong>{" "}
             runway

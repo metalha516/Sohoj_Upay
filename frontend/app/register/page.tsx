@@ -40,12 +40,12 @@ export default function RegisterPage() {
   };
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-4 bg-slate-50 py-10">
+    <main className="flex min-h-screen flex-col items-center justify-center p-4 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-50 via-slate-100 to-upay-yellow/10 py-10">
       <div className="w-full max-w-md space-y-6">
         <div className="text-center">
           <Link
             href="/"
-            className="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-navy-900 text-upay-yellow font-black text-2xl shadow-md border border-navy-800 hover:scale-105 transition-transform"
+            className="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-upay-500 text-navy-900 font-black text-2xl shadow-md border border-navy-800 hover:scale-105 transition-transform"
           >
             S
           </Link>
