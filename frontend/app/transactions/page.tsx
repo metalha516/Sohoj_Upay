@@ -272,10 +272,11 @@ export default function TransactionsPage() {
             </h2>
             <form onSubmit={handleAddTxnSubmit} className="mt-4 space-y-3.5">
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">
+                <label htmlFor="new-txn-amount" className="block text-xs font-bold text-slate-700 mb-1">
                   Amount (৳)
                 </label>
                 <input
+                  id="new-txn-amount"
                   type="number"
                   step="0.01"
                   min="1"
@@ -288,10 +289,11 @@ export default function TransactionsPage() {
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">
+                <label htmlFor="new-txn-type" className="block text-xs font-bold text-slate-700 mb-1">
                   Transaction Type
                 </label>
                 <select
+                  id="new-txn-type"
                   value={newType}
                   onChange={(e) => setNewType(e.target.value as TransactionType)}
                   className="w-full rounded-xl border border-slate-300 px-3 py-2 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-navy-900 focus:border-navy-900"
@@ -304,10 +306,11 @@ export default function TransactionsPage() {
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">
+                <label htmlFor="new-txn-purpose" className="block text-xs font-bold text-slate-700 mb-1">
                   Purpose
                 </label>
                 <select
+                  id="new-txn-purpose"
                   value={newPurpose}
                   onChange={(e) => setNewPurpose(e.target.value as Purpose)}
                   className="w-full rounded-xl border border-slate-300 px-3 py-2 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-navy-900 focus:border-navy-900"
@@ -320,10 +323,11 @@ export default function TransactionsPage() {
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">
+                <label htmlFor="new-txn-channel" className="block text-xs font-bold text-slate-700 mb-1">
                   MFS Channel
                 </label>
                 <select
+                  id="new-txn-channel"
                   value={newProvider}
                   onChange={(e) => setNewProvider(e.target.value as any)}
                   className="w-full rounded-xl border border-slate-300 px-3 py-2 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-navy-900 focus:border-navy-900 font-medium"
