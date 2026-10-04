@@ -4,7 +4,8 @@
 .env.*.local
 *.override.yml
 !docker-compose.override.yml.example
-.agents/
+.agents/*
+!.agents/skills/
 
 # Python
 __pycache__/
