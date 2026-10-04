@@ -41,10 +41,10 @@ const PURPOSE_CATEGORIES: Record<Purpose, string[]> = {
 };
 
 const PROVIDERS: { id: MFSProvider; label: string; color: string }[] = [
+  { id: "upay", label: "Upay", color: "text-amber-500 font-bold" },
   { id: "bkash", label: "bKash", color: "text-[#E2136E]" },
   { id: "nagad", label: "Nagad", color: "text-[#F7941D]" },
   { id: "rocket", label: "Rocket", color: "text-[#8C3494]" },
-  { id: "upay", label: "Upay", color: "text-[#005BAC]" },
   { id: "other", label: "Other MFS", color: "text-slate-600" },
 ];
 
@@ -171,7 +171,7 @@ export function CashOutPurposeModal({
                 value={amount}
                 onChange={(e) => setAmount(e.target.value)}
                 required
-                className="w-full rounded-xl border border-slate-300 pl-8 pr-4 py-2.5 text-slate-900 placeholder-slate-400 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 text-base font-semibold"
+                className="w-full rounded-xl border border-slate-300 pl-8 pr-4 py-2.5 text-slate-900 placeholder-slate-400 focus:border-navy-900 focus:outline-none focus:ring-2 focus:ring-navy-900/20 text-base font-semibold"
               />
             </div>
           </div>
@@ -198,13 +198,13 @@ export function CashOutPurposeModal({
                     onClick={() => handlePurposeChange(p.id)}
                     className={`flex flex-col text-left p-3 rounded-xl border transition ${
                       isSelected
-                        ? "border-emerald-600 bg-emerald-50/60 ring-2 ring-emerald-600/30 text-emerald-950"
+                        ? "border-navy-900 bg-navy-50/80 ring-2 ring-navy-900/30 text-navy-950 font-bold"
                         : "border-slate-200 bg-slate-50/50 hover:bg-slate-100 text-slate-700"
                     }`}
                   >
                     <div className="flex items-center justify-between">
                       <span className="font-bold text-xs">{p.label}</span>
-                      {isSelected && <Check className="h-3.5 w-3.5 text-emerald-600" />}
+                      {isSelected && <Check className="h-3.5 w-3.5 text-navy-900" />}
                     </div>
                     <span className="text-[10px] text-slate-500 mt-0.5">{p.desc}</span>
                   </button>
@@ -227,7 +227,7 @@ export function CashOutPurposeModal({
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
                 required
-                className="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-xs text-slate-900 capitalize focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 bg-white"
+                className="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-xs text-slate-900 capitalize focus:border-navy-900 focus:outline-none focus:ring-2 focus:ring-navy-900/20 bg-white"
               >
                 {PURPOSE_CATEGORIES[purpose].map((cat) => (
                   <option key={cat} value={cat}>
@@ -253,11 +253,11 @@ export function CashOutPurposeModal({
                     onClick={() => setProvider(pr.id)}
                     className={`px-3 py-1.5 rounded-lg text-xs font-semibold border transition ${
                       isSelected
-                        ? "border-slate-900 bg-slate-900 text-white"
+                        ? "border-navy-900 bg-navy-900 text-upay-yellow font-bold shadow-sm"
                         : "border-slate-200 bg-white text-slate-700 hover:bg-slate-50"
                     }`}
                   >
-                    <span className={isSelected ? "text-white" : pr.color}>
+                    <span className={isSelected ? "text-upay-yellow" : pr.color}>
                       {pr.label}
                     </span>
                   </button>
@@ -281,7 +281,7 @@ export function CashOutPurposeModal({
               placeholder="e.g. Agent cash-out for house rent"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              className="w-full rounded-xl border border-slate-300 px-3.5 py-2 text-xs text-slate-900 placeholder-slate-400 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/20"
+              className="w-full rounded-xl border border-slate-300 px-3.5 py-2 text-xs text-slate-900 placeholder-slate-400 focus:border-navy-900 focus:outline-none focus:ring-2 focus:ring-navy-900/20"
             />
           </div>
 

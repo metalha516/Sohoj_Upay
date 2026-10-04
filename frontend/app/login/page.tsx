@@ -38,20 +38,20 @@ export default function LoginPage() {
         <div className="text-center">
           <Link
             href="/"
-            className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-600 text-white font-black text-2xl shadow-sm hover:bg-emerald-500 transition"
+            className="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-navy-900 text-upay-yellow font-black text-2xl shadow-md border border-navy-800 hover:scale-105 transition-transform"
           >
             S
           </Link>
-          <h1 className="mt-4 text-2xl font-extrabold tracking-tight text-slate-900">
+          <h1 className="mt-4 text-2xl font-black tracking-tight text-navy-900">
             Welcome to Sohoj
           </h1>
-          <p className="mt-1 text-xs text-slate-500">
+          <p className="mt-1 text-xs text-slate-500 font-medium">
             Sign in to access your financial dashboard and insights
           </p>
         </div>
 
         {/* Card */}
-        <div className="rounded-2xl border border-slate-200 bg-white p-6 sm:p-8 shadow-sm">
+        <div className="rounded-2xl border border-slate-200/80 bg-white p-6 sm:p-8 shadow-sm">
           {error && (
             <div className="mb-5 flex items-center gap-2 rounded-xl bg-rose-50 border border-rose-200 p-3 text-xs text-rose-700">
               <AlertCircle className="h-4 w-4 flex-shrink-0" />
@@ -77,7 +77,7 @@ export default function LoginPage() {
                   placeholder="user@example.test"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full rounded-xl border border-slate-300 pl-10 pr-4 py-2.5 text-xs text-slate-900 placeholder-slate-400 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/20"
+                  className="w-full rounded-xl border border-slate-300 pl-10 pr-4 py-2.5 text-xs text-slate-900 placeholder-slate-400 focus:border-navy-900 focus:outline-none focus:ring-2 focus:ring-navy-900/20 font-medium"
                 />
               </div>
             </div>
@@ -99,7 +99,7 @@ export default function LoginPage() {
                   placeholder="••••••••••••"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full rounded-xl border border-slate-300 pl-10 pr-4 py-2.5 text-xs text-slate-900 placeholder-slate-400 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/20"
+                  className="w-full rounded-xl border border-slate-300 pl-10 pr-4 py-2.5 text-xs text-slate-900 placeholder-slate-400 focus:border-navy-900 focus:outline-none focus:ring-2 focus:ring-navy-900/20 font-medium"
                 />
               </div>
             </div>
@@ -107,7 +107,7 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full mt-2 inline-flex items-center justify-center gap-2 rounded-xl bg-slate-900 px-4 py-2.5 text-xs font-bold text-white shadow-sm hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:ring-offset-2 disabled:opacity-50 transition"
+              className="w-full mt-2 inline-flex items-center justify-center gap-2 rounded-xl bg-navy-900 px-4 py-2.5 text-xs font-bold text-upay-yellow shadow-sm hover:bg-navy-800 focus:outline-none focus:ring-2 focus:ring-navy-900 focus:ring-offset-2 disabled:opacity-50 transition border border-navy-800"
             >
               {isLoading ? "Signing in..." : "Sign In to Account"}
               <ArrowRight className="h-4 w-4" />
@@ -116,28 +116,28 @@ export default function LoginPage() {
 
           {/* Seed Quick-Fill Helpers */}
           <div className="mt-6 border-t border-slate-100 pt-4">
-            <p className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider mb-2">
+            <p className="text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-2">
               Quick Test Seed Personas:
             </p>
-            <div className="flex flex-wrap gap-1.5">
+            <div className="flex flex-wrap gap-2">
               <button
                 type="button"
                 onClick={() => handleQuickFill("sumaiya.talukder.26dafe@example.com")}
-                className="rounded-lg bg-slate-100 px-2 py-1 text-[11px] font-medium text-slate-700 hover:bg-emerald-50 hover:text-emerald-700 transition"
+                className="rounded-lg bg-navy-50/80 border border-navy-100 px-2.5 py-1.5 text-[11px] font-bold text-navy-900 hover:bg-navy-900 hover:text-upay-yellow hover:border-navy-900 transition-all shadow-sm"
               >
                 Sumaiya (Driver)
               </button>
               <button
                 type="button"
                 onClick={() => handleQuickFill("roksana.khan.71141c@example.test")}
-                className="rounded-lg bg-slate-100 px-2 py-1 text-[11px] font-medium text-slate-700 hover:bg-emerald-50 hover:text-emerald-700 transition"
+                className="rounded-lg bg-navy-50/80 border border-navy-100 px-2.5 py-1.5 text-[11px] font-bold text-navy-900 hover:bg-navy-900 hover:text-upay-yellow hover:border-navy-900 transition-all shadow-sm"
               >
                 Roksana (Student)
               </button>
               <button
                 type="button"
                 onClick={() => handleQuickFill("kamrul.akter.8d6ed3@example.test")}
-                className="rounded-lg bg-slate-100 px-2 py-1 text-[11px] font-medium text-slate-700 hover:bg-emerald-50 hover:text-emerald-700 transition"
+                className="rounded-lg bg-navy-50/80 border border-navy-100 px-2.5 py-1.5 text-[11px] font-bold text-navy-900 hover:bg-navy-900 hover:text-upay-yellow hover:border-navy-900 transition-all shadow-sm"
               >
                 Kamrul (Remittance)
               </button>
@@ -145,11 +145,11 @@ export default function LoginPage() {
           </div>
         </div>
 
-        <p className="text-center text-xs text-slate-500">
+        <p className="text-center text-xs text-slate-500 font-medium">
           Don&apos;t have an account?{" "}
           <Link
             href="/register"
-            className="font-bold text-emerald-600 hover:text-emerald-500"
+            className="font-bold text-navy-900 hover:underline"
           >
             Create an account
           </Link>

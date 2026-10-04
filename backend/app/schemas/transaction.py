@@ -30,6 +30,17 @@ class TxnPurpose(StrEnum):
     OTHER = "other"
 
 
+class MFSProvider(StrEnum):
+    """Permitted Mobile Financial Services (MFS) providers in Bangladesh."""
+
+    BKASH = "bkash"
+    NAGAD = "nagad"
+    ROCKET = "rocket"
+    UPAY = "upay"
+    BANK = "bank"
+    OTHER = "other"
+
+
 class TransactionCreateRequest(BaseModel):
     """Payload to record a new financial transaction with strict validations."""
 
@@ -40,6 +51,7 @@ class TransactionCreateRequest(BaseModel):
     purpose: TxnPurpose | None = None
     category: Annotated[str | None, Field(max_length=100)] = None
     merchant: Annotated[str | None, Field(max_length=255)] = None
+    mfs_provider: MFSProvider | None = None
     description: Annotated[str | None, Field(max_length=1000)] = None
     goal_id: uuid.UUID | None = None
     idempotency_key: Annotated[str | None, Field(max_length=255)] = None
@@ -66,6 +78,7 @@ class CashoutCreateRequest(BaseModel):
     )
     category: Annotated[str | None, Field(max_length=100)] = "Cash Out"
     merchant: Annotated[str | None, Field(max_length=255)] = None
+    mfs_provider: MFSProvider | None = None
     description: Annotated[str | None, Field(max_length=1000)] = None
     idempotency_key: Annotated[str | None, Field(max_length=255)] = None
     ts: datetime | None = None
@@ -83,6 +96,7 @@ class TransactionResponse(BaseModel):
     purpose: str | None = None
     category: str | None = None
     merchant: str | None = None
+    mfs_provider: str | None = None
     description: str | None = None
     goal_id: uuid.UUID | None = None
     idempotency_key: str | None = None

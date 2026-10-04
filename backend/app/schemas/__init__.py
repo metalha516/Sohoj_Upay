@@ -60,6 +60,7 @@ from app.schemas.simulation import (
 )
 from app.schemas.transaction import (
     CashoutCreateRequest,
+    MFSProvider,
     TransactionCreateRequest,
     TransactionCursorPage,
     TransactionResponse,
@@ -100,6 +101,7 @@ __all__ = [
     "GoalStatus",
     "GoalUpdateRequest",
     "LoginRequest",
+    "MFSProvider",
     "MessageResponse",
     "MonthlyFeatureItem",
     "PasswordChangeRequest",

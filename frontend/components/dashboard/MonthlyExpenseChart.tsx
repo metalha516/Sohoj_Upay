@@ -34,11 +34,11 @@ export function MonthlyExpenseChart({ data }: MonthlyExpenseChartProps) {
   }));
 
   return (
-    <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+    <div className="rounded-2xl border border-slate-200/80 bg-white p-5 shadow-sm transition hover:shadow-md">
       <div className="flex items-center justify-between pb-3">
         <div>
-          <h3 className="text-sm font-bold text-slate-900">Income vs Outflow</h3>
-          <p className="text-xs text-slate-500">Trailing monthly totals</p>
+          <h3 className="text-sm font-bold text-navy-900">Income vs Outflow</h3>
+          <p className="text-xs text-slate-500 font-medium">Trailing monthly totals</p>
         </div>
       </div>
 
@@ -57,15 +57,15 @@ export function MonthlyExpenseChart({ data }: MonthlyExpenseChartProps) {
                 if (active && payload && payload.length) {
                   const p = payload[0].payload;
                   return (
-                    <div className="rounded-lg border border-slate-200 bg-white p-2.5 shadow-lg text-xs">
-                      <p className="font-semibold text-slate-700">{p.fullMonth}</p>
-                      <p className="font-medium text-emerald-600 mt-1">
+                    <div className="rounded-xl border border-navy-100 bg-white p-2.5 shadow-lg text-xs">
+                      <p className="font-bold text-navy-900">{p.fullMonth}</p>
+                      <p className="font-semibold text-navy-700 mt-1">
                         Inflow: {formatBDT(p.income)}
                       </p>
-                      <p className="font-medium text-rose-600">
+                      <p className="font-semibold text-rose-600">
                         Outflow: {formatBDT(p.expense)}
                       </p>
-                      <p className="font-bold text-slate-800 mt-1 border-t pt-1">
+                      <p className="font-black text-navy-950 mt-1 border-t border-slate-100 pt-1">
                         Net: {formatBDT(p.income - p.expense)}
                       </p>
                     </div>
@@ -80,7 +80,7 @@ export function MonthlyExpenseChart({ data }: MonthlyExpenseChartProps) {
               iconType="circle"
               wrapperStyle={{ fontSize: 11, paddingBottom: 8 }}
             />
-            <Bar dataKey="income" name="Income" fill="#10b981" radius={[4, 4, 0, 0]} />
+            <Bar dataKey="income" name="Income" fill="#0A1C3C" radius={[4, 4, 0, 0]} />
             <Bar dataKey="expense" name="Expense" fill="#f43f5e" radius={[4, 4, 0, 0]} />
           </BarChart>
         </ResponsiveContainer>

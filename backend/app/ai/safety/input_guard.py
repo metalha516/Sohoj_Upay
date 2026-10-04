@@ -92,6 +92,7 @@ FINANCIAL_KEYWORDS = [
     "bkash",
     "nagad",
     "rocket",
+    "upay",
     "mfs",
     "credit",
     "debit",

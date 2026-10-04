@@ -43,7 +43,7 @@ export default function BehaviorPage() {
   if (authLoading) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-slate-50">
-        <div className="h-8 w-8 animate-spin rounded-full border-4 border-emerald-600 border-t-transparent" />
+        <div className="h-8 w-8 animate-spin rounded-full border-4 border-navy-900 border-t-transparent" />
       </div>
     );
   }
@@ -56,11 +56,11 @@ export default function BehaviorPage() {
         {/* Page Title & Intro */}
         <div>
           <div className="flex items-center gap-2.5">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-purple-100 text-purple-700">
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-navy-900 text-upay-yellow border border-navy-800 shadow-sm font-bold">
               <Brain className="h-5 w-5" />
             </div>
             <div>
-              <h1 className="text-2xl font-bold tracking-tight text-slate-900">
+              <h1 className="text-2xl font-black tracking-tight text-navy-900">
                 Behavior & Anomaly Intelligence
               </h1>
               <p className="text-sm text-slate-500">

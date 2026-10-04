@@ -58,7 +58,7 @@ export function ToolStatusChip({ tool, status, callIndex }: ToolStatusChipProps)
       {isRunning ? (
         <Clock className="h-3 w-3 shrink-0 text-amber-600 animate-spin" />
       ) : (
-        <CheckCircle2 className="h-3 w-3 shrink-0 text-emerald-600" />
+        <CheckCircle2 className="h-3 w-3 shrink-0 text-navy-900" />
       )}
     </div>
   );

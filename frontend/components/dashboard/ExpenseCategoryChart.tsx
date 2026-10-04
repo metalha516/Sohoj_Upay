@@ -10,14 +10,14 @@ interface ExpenseCategoryChartProps {
 }
 
 const PALETTE = [
-  "#0f766e", // teal-700
-  "#0284c7", // sky-600
-  "#e11d48", // rose-600
-  "#d97706", // amber-600
-  "#7c3aed", // violet-600
-  "#059669", // emerald-600
-  "#475569", // slate-600
-  "#ea580c", // orange-600
+  "#0A1C3C", // Upay Deep Navy
+  "#FFC709", // Upay Vibrant Yellow
+  "#1E3A8A", // Deep Navy Accent
+  "#F59E0B", // Amber
+  "#3B82F6", // Blue
+  "#E11D48", // Rose
+  "#475569", // Slate
+  "#0D9488", // Teal
 ];
 
 export function ExpenseCategoryChart({ categories }: ExpenseCategoryChartProps) {
@@ -53,10 +53,10 @@ export function ExpenseCategoryChart({ categories }: ExpenseCategoryChartProps) 
   ];
 
   return (
-    <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+    <div className="rounded-2xl border border-slate-200/80 bg-white p-5 shadow-sm transition hover:shadow-md">
       <div className="flex items-center justify-between pb-2">
-        <h3 className="text-sm font-bold text-slate-900">Spending by Category</h3>
-        <span className="text-xs text-slate-500">Monthly breakdown</span>
+        <h3 className="text-sm font-bold text-navy-900">Spending by Category</h3>
+        <span className="text-xs text-slate-500 font-medium">Monthly breakdown</span>
       </div>
 
       <div className="h-48 w-full">
@@ -80,10 +80,10 @@ export function ExpenseCategoryChart({ categories }: ExpenseCategoryChartProps) 
                 if (active && payload && payload.length) {
                   const p = payload[0].payload;
                   return (
-                    <div className="rounded-lg border border-slate-200 bg-white p-2.5 shadow-lg text-xs">
-                      <p className="font-bold text-slate-800 capitalize">{p.name}</p>
-                      <p className="text-slate-600 mt-0.5">{formatBDT(p.amount)}</p>
-                      <p className="text-emerald-600 font-semibold">{formatPercent(p.percentage)}</p>
+                    <div className="rounded-xl border border-navy-100 bg-white p-2.5 shadow-lg text-xs">
+                      <p className="font-bold text-navy-900 capitalize">{p.name}</p>
+                      <p className="text-slate-600 mt-0.5 font-medium">{formatBDT(p.amount)}</p>
+                      <p className="text-navy-900 font-black">{formatPercent(p.percentage)}</p>
                     </div>
                   );
                 }

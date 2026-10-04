@@ -50,28 +50,28 @@ export function AnomalyListTable({ initialAnomalies, isLoading }: AnomalyListTab
   });
 
   return (
-    <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+    <div className="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm transition hover:shadow-md">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4 pb-3 border-b border-slate-100">
         <div className="flex items-center gap-2">
           <ShieldAlert className="h-5 w-5 text-rose-600" />
           <div>
-            <h3 className="text-base font-bold text-slate-900">Detected Spending Anomalies</h3>
-            <p className="text-xs text-slate-500">
+            <h3 className="text-base font-bold text-navy-900">Detected Spending Anomalies</h3>
+            <p className="text-xs text-slate-500 font-medium">
               Unsupervised statistical and Isolation Forest flags with your feedback history
             </p>
           </div>
         </div>
 
         {/* Filter Pills */}
-        <div className="flex items-center gap-1 bg-slate-100 p-1 rounded-xl text-xs font-medium">
+        <div className="flex items-center gap-1 bg-slate-100 p-1 rounded-xl text-xs font-semibold">
           {(["all", "open", "confirmed", "dismissed"] as const).map((tab) => (
             <button
               key={tab}
               onClick={() => setFilter(tab)}
-              className={`px-3 py-1 rounded-lg capitalize transition-colors ${
+              className={`px-3 py-1 rounded-lg capitalize transition-all ${
                 filter === tab
-                  ? "bg-white text-slate-900 shadow-sm font-semibold"
-                  : "text-slate-600 hover:text-slate-900"
+                  ? "bg-navy-900 text-upay-yellow shadow-sm font-bold"
+                  : "text-slate-600 hover:text-navy-900"
               }`}
             >
               {tab}
@@ -87,11 +87,11 @@ export function AnomalyListTable({ initialAnomalies, isLoading }: AnomalyListTab
         </div>
       ) : filtered.length === 0 ? (
         <div className="py-12 text-center">
-          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-100 text-emerald-700 mx-auto mb-3">
-            <CheckCircle className="h-6 w-6" />
+          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-navy-50 text-navy-900 border border-navy-100 mx-auto mb-3">
+            <CheckCircle className="h-6 w-6 text-navy-900" />
           </div>
-          <h4 className="text-sm font-bold text-slate-900">No Anomalies Found</h4>
-          <p className="text-xs text-slate-500 mt-1">
+          <h4 className="text-sm font-bold text-navy-900">No Anomalies Found</h4>
+          <p className="text-xs text-slate-500 mt-1 font-medium">
             {filter === "all"
               ? "All your recent cash-outs and card outlays align with your baseline spending distributions."
               : `No anomalies currently marked as "${filter}".`}
@@ -168,9 +168,9 @@ export function AnomalyListTable({ initialAnomalies, isLoading }: AnomalyListTab
                       <button
                         onClick={() => handleUpdateStatus(anomaly.id, "confirmed")}
                         disabled={actionLoading === anomaly.id}
-                        className="inline-flex items-center gap-1.5 rounded-xl border border-amber-300 bg-amber-50 px-3 py-1.5 text-xs font-semibold text-amber-900 hover:bg-amber-100 focus:outline-none focus:ring-2 focus:ring-amber-500 disabled:opacity-50 transition-colors"
+                        className="inline-flex items-center gap-1.5 rounded-xl border border-navy-800 bg-navy-900 px-3 py-1.5 text-xs font-bold text-upay-yellow hover:bg-navy-800 focus:outline-none focus:ring-2 focus:ring-navy-900 disabled:opacity-50 transition-colors shadow-sm"
                       >
-                        <Check className="h-3.5 w-3.5 text-amber-700" />
+                        <Check className="h-3.5 w-3.5 text-upay-yellow" />
                         <span>Confirm Outlier</span>
                       </button>
 

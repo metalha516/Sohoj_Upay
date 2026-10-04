@@ -62,13 +62,15 @@ export function BehaviorTrendChart({ data, isLoading }: BehaviorTrendChartProps)
   });
 
   return (
-    <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+    <div className="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm transition hover:shadow-md">
       <div className="flex items-center justify-between mb-4 pb-3 border-b border-slate-100">
         <div className="flex items-center gap-2">
-          <TrendingUp className="h-5 w-5 text-emerald-600" />
-          <h3 className="text-base font-bold text-slate-900">Spending & Savings Allocation Trends</h3>
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-navy-50 text-navy-900 border border-navy-100">
+            <TrendingUp className="h-4 w-4 text-navy-900" />
+          </div>
+          <h3 className="text-base font-bold text-navy-900">Spending & Savings Allocation Trends</h3>
         </div>
-        <span className="text-xs text-slate-500">Trailing 6 Months</span>
+        <span className="text-xs text-slate-500 font-medium">Trailing 6 Months</span>
       </div>
 
       <div className="h-72 w-full pt-2">
@@ -111,9 +113,9 @@ export function BehaviorTrendChart({ data, isLoading }: BehaviorTrendChartProps)
                   : "Savings"
               }
             />
-            <Bar dataKey="necessity" stackId="a" fill="#0284C7" radius={[0, 0, 0, 0]} />
-            <Bar dataKey="discretionary" stackId="a" fill="#9333EA" radius={[0, 0, 0, 0]} />
-            <Bar dataKey="savings" stackId="a" fill="#059669" radius={[4, 4, 0, 0]} />
+            <Bar dataKey="necessity" stackId="a" fill="#0A1C3C" radius={[0, 0, 0, 0]} />
+            <Bar dataKey="discretionary" stackId="a" fill="#94A3B8" radius={[0, 0, 0, 0]} />
+            <Bar dataKey="savings" stackId="a" fill="#FFC709" radius={[4, 4, 0, 0]} />
           </BarChart>
         </ResponsiveContainer>
       </div>

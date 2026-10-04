@@ -37,9 +37,9 @@ export function FactorBarsCard({ profile, isLoading }: FactorBarsCardProps) {
       benchmark: 20,
       unit: "%",
       status: savingsRate >= 0.2 ? "Optimal" : "Attention",
-      statusColor: savingsRate >= 0.2 ? "text-emerald-700 bg-emerald-50" : "text-amber-700 bg-amber-50",
+      statusColor: savingsRate >= 0.2 ? "text-navy-950 bg-upay-yellow/20 border border-upay-yellow/40 font-bold" : "text-amber-800 bg-amber-100 font-bold",
       description: "Portion of monthly income converted to persistent reserves",
-      barColor: "bg-emerald-600",
+      barColor: "bg-upay-yellow",
     },
     {
       name: "Necessity Expense Ratio",
@@ -47,9 +47,9 @@ export function FactorBarsCard({ profile, isLoading }: FactorBarsCardProps) {
       benchmark: 50,
       unit: "%",
       status: necessityRate <= 0.6 ? "Healthy" : "Elevated",
-      statusColor: necessityRate <= 0.6 ? "text-blue-700 bg-blue-50" : "text-amber-700 bg-amber-50",
+      statusColor: necessityRate <= 0.6 ? "text-navy-900 bg-navy-50 border border-navy-100 font-bold" : "text-amber-800 bg-amber-100 font-bold",
       description: "Essential outlays (groceries, rent, medical, utilities)",
-      barColor: "bg-blue-600",
+      barColor: "bg-navy-900",
     },
     {
       name: "Discretionary Ratio",
@@ -57,9 +57,9 @@ export function FactorBarsCard({ profile, isLoading }: FactorBarsCardProps) {
       benchmark: 30,
       unit: "%",
       status: discretionaryRate <= 0.3 ? "Controlled" : "High",
-      statusColor: discretionaryRate <= 0.3 ? "text-emerald-700 bg-emerald-50" : "text-rose-700 bg-rose-50",
+      statusColor: discretionaryRate <= 0.3 ? "text-navy-900 bg-slate-100 font-bold" : "text-rose-800 bg-rose-100 font-bold",
       description: "Lifestyle, dining out, and impulse transactions",
-      barColor: "bg-purple-600",
+      barColor: "bg-amber-400",
     },
     {
       name: "Monthly Cash-Out Count",
@@ -67,9 +67,9 @@ export function FactorBarsCard({ profile, isLoading }: FactorBarsCardProps) {
       benchmark: 6,
       unit: " txns",
       status: cashoutFreq <= 6 ? "Prudent" : "Frequent",
-      statusColor: cashoutFreq <= 6 ? "text-emerald-700 bg-emerald-50" : "text-amber-700 bg-amber-50",
+      statusColor: cashoutFreq <= 6 ? "text-navy-900 bg-navy-50 font-bold" : "text-amber-800 bg-amber-100 font-bold",
       description: "Frequency of MFS agent cash withdrawals incurring tariffs",
-      barColor: "bg-amber-500",
+      barColor: "bg-navy-700",
     },
     {
       name: "Spending Volatility",
@@ -77,20 +77,22 @@ export function FactorBarsCard({ profile, isLoading }: FactorBarsCardProps) {
       benchmark: 25,
       unit: "%",
       status: spendingVariance <= 0.25 ? "Consistent" : "Volatile",
-      statusColor: spendingVariance <= 0.25 ? "text-emerald-700 bg-emerald-50" : "text-rose-700 bg-rose-50",
+      statusColor: spendingVariance <= 0.25 ? "text-navy-900 bg-slate-100 font-bold" : "text-rose-800 bg-rose-100 font-bold",
       description: "Weekly variance coefficient in discretionary spending",
-      barColor: "bg-indigo-600",
+      barColor: "bg-slate-600",
     },
   ];
 
   return (
-    <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+    <div className="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm transition hover:shadow-md">
       <div className="flex items-center justify-between mb-4 pb-3 border-b border-slate-100">
         <div className="flex items-center gap-2">
-          <Sliders className="h-5 w-5 text-emerald-600" />
-          <h3 className="text-base font-bold text-slate-900">Explainability Factors</h3>
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-navy-50 text-navy-900 border border-navy-100">
+            <Sliders className="h-4 w-4" />
+          </div>
+          <h3 className="text-base font-bold text-navy-900">Explainability Factors</h3>
         </div>
-        <span className="text-xs text-slate-500">Benchmark: 50/30/20 Guideline</span>
+        <span className="text-xs text-slate-500 font-medium">Benchmark: 50/30/20 Guideline</span>
       </div>
 
       <p className="text-xs text-slate-500 mb-6">

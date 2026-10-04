@@ -84,28 +84,32 @@ export function SimulatorView() {
   return (
     <div className="space-y-6">
       {/* Top Banner with Assumed Rate Badge */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 rounded-2xl bg-slate-900 p-6 text-white shadow-md">
-        <div>
-          <div className="flex items-center gap-2">
-            <Calculator className="h-6 w-6 text-emerald-400" />
-            <h1 className="text-xl font-extrabold tracking-tight">
+      <div className="relative overflow-hidden flex flex-col sm:flex-row sm:items-center justify-between gap-4 rounded-2xl bg-gradient-to-br from-navy-900 via-[#0A1C3C] to-navy-950 p-6 text-white shadow-lg border border-navy-800">
+        <div className="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full bg-upay-yellow/10 blur-3xl" />
+
+        <div className="relative z-10">
+          <div className="flex items-center gap-2.5">
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-navy-800/80 border border-navy-700/80 text-upay-yellow shadow-inner">
+              <Calculator className="h-5 w-5" />
+            </div>
+            <h1 className="text-xl sm:text-2xl font-black tracking-tight text-white">
               Deterministic Wealth Simulator
             </h1>
           </div>
-          <p className="mt-1 text-xs text-slate-300 max-w-xl">
+          <p className="mt-2 text-xs text-slate-300 max-w-xl font-medium">
             Pure compound interest calculations executed strictly by our backend Financial
-            Engine with Decimal arithmetic.
+            Engine with high-precision Decimal arithmetic.
           </p>
         </div>
 
         {/* ALWAYS VISIBLE: Assumed-rate badge */}
-        <div className="flex items-center gap-2 self-start sm:self-auto rounded-xl bg-amber-500/10 border border-amber-400/30 px-3.5 py-2 text-amber-300">
-          <ShieldAlert className="h-4 w-4 flex-shrink-0" />
+        <div className="relative z-10 flex items-center gap-2 self-start sm:self-auto rounded-xl bg-navy-800/90 border border-upay-yellow/40 px-3.5 py-2 text-upay-yellow shadow-inner">
+          <ShieldAlert className="h-4 w-4 flex-shrink-0 text-upay-yellow" />
           <div className="text-left">
-            <span className="block text-xs font-bold uppercase tracking-wider">
+            <span className="block text-xs font-black uppercase tracking-wider text-upay-yellow">
               Assumed-Rate Badge
             </span>
-            <span className="text-[11px] text-amber-200/90">
+            <span className="text-[11px] text-slate-300 font-medium">
               Projections not guaranteed
             </span>
           </div>
@@ -122,18 +126,18 @@ export function SimulatorView() {
       {/* Grid: Controls on left, Results & Charts on right */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Controls Column */}
-        <div className="lg:col-span-5 space-y-5 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-          <h2 className="text-sm font-bold uppercase tracking-wider text-slate-800 pb-2 border-b border-slate-100">
+        <div className="lg:col-span-5 space-y-5 rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm">
+          <h2 className="text-sm font-bold uppercase tracking-wider text-navy-900 pb-2 border-b border-slate-100">
             Simulation Parameters
           </h2>
 
           {/* Initial Principal Slider */}
           <div>
             <div className="flex justify-between items-center text-xs mb-2">
-              <label htmlFor="principal-slider" className="font-semibold text-slate-700">
+              <label htmlFor="principal-slider" className="font-bold text-navy-900">
                 Initial Deposit
               </label>
-              <span className="font-bold text-slate-900 bg-slate-100 px-2 py-0.5 rounded">
+              <span className="font-black text-navy-900 bg-slate-100 px-2.5 py-1 rounded-lg border border-slate-200/60">
                 {formatBDT(principal)}
               </span>
             </div>
@@ -145,9 +149,9 @@ export function SimulatorView() {
               step="5000"
               value={principal}
               onChange={(e) => setPrincipal(Number(e.target.value))}
-              className="w-full accent-emerald-600 cursor-pointer"
+              className="w-full accent-[#FFC709] cursor-pointer h-2 bg-slate-200 rounded-lg"
             />
-            <div className="flex justify-between text-[10px] text-slate-400 mt-1">
+            <div className="flex justify-between text-[10px] text-slate-400 mt-1 font-medium">
               <span>৳0</span>
               <span>৳1,00,000</span>
               <span>৳2,00,000</span>
@@ -157,10 +161,10 @@ export function SimulatorView() {
           {/* Monthly Saving Slider: ৳2,000 to ৳10,000 required range */}
           <div>
             <div className="flex justify-between items-center text-xs mb-2">
-              <label htmlFor="monthly-saving-slider" className="font-semibold text-slate-700">
+              <label htmlFor="monthly-saving-slider" className="font-bold text-navy-900">
                 Monthly Saving
               </label>
-              <span className="font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded">
+              <span className="font-black text-navy-950 bg-upay-yellow/20 px-2.5 py-1 rounded-lg border border-upay-yellow/50">
                 {formatBDT(monthlyContribution)} / mo
               </span>
             </div>
@@ -172,9 +176,9 @@ export function SimulatorView() {
               step="500"
               value={monthlyContribution}
               onChange={(e) => setMonthlyContribution(Number(e.target.value))}
-              className="w-full accent-emerald-600 cursor-pointer"
+              className="w-full accent-[#FFC709] cursor-pointer h-2 bg-slate-200 rounded-lg"
             />
-            <div className="flex justify-between text-[10px] text-slate-400 mt-1">
+            <div className="flex justify-between text-[10px] text-slate-400 mt-1 font-medium">
               <span>৳2,000 (Min)</span>
               <span>৳6,000</span>
               <span>৳10,000 (Max)</span>
@@ -185,14 +189,14 @@ export function SimulatorView() {
           <div>
             <div className="flex justify-between items-center text-xs mb-2">
               <div className="flex items-center gap-1.5">
-                <label htmlFor="rate-slider" className="font-semibold text-slate-700">
+                <label htmlFor="rate-slider" className="font-bold text-navy-900">
                   Assumed Annual Rate
                 </label>
-                <span className="text-[10px] font-bold text-amber-700 bg-amber-50 px-1.5 py-0.5 rounded">
+                <span className="text-[10px] font-bold text-amber-900 bg-amber-100 px-1.5 py-0.5 rounded border border-amber-200">
                   Assumed
                 </span>
               </div>
-              <span className="font-bold text-slate-900 bg-slate-100 px-2 py-0.5 rounded">
+              <span className="font-black text-navy-900 bg-slate-100 px-2.5 py-1 rounded-lg border border-slate-200/60">
                 {annualRate.toFixed(1)}% p.a.
               </span>
             </div>
@@ -204,9 +208,9 @@ export function SimulatorView() {
               step="0.5"
               value={annualRate}
               onChange={(e) => setAnnualRate(Number(e.target.value))}
-              className="w-full accent-emerald-600 cursor-pointer"
+              className="w-full accent-[#FFC709] cursor-pointer h-2 bg-slate-200 rounded-lg"
             />
-            <div className="flex justify-between text-[10px] text-slate-400 mt-1">
+            <div className="flex justify-between text-[10px] text-slate-400 mt-1 font-medium">
               <span>2.0% (Savings)</span>
               <span>7.0% (DPS/FDR)</span>
               <span>12.0% (Equity)</span>
@@ -216,10 +220,10 @@ export function SimulatorView() {
           {/* Horizon Years Slider: 1 to 15 years required range */}
           <div>
             <div className="flex justify-between items-center text-xs mb-2">
-              <label htmlFor="years-slider" className="font-semibold text-slate-700">
+              <label htmlFor="years-slider" className="font-bold text-navy-900">
                 Horizon
               </label>
-              <span className="font-bold text-slate-900 bg-slate-100 px-2 py-0.5 rounded">
+              <span className="font-black text-navy-900 bg-slate-100 px-2.5 py-1 rounded-lg border border-slate-200/60">
                 {years} {years === 1 ? "Year" : "Years"}
               </span>
             </div>
@@ -231,9 +235,9 @@ export function SimulatorView() {
               step="1"
               value={years}
               onChange={(e) => setYears(Number(e.target.value))}
-              className="w-full accent-emerald-600 cursor-pointer"
+              className="w-full accent-[#FFC709] cursor-pointer h-2 bg-slate-200 rounded-lg"
             />
-            <div className="flex justify-between text-[10px] text-slate-400 mt-1">
+            <div className="flex justify-between text-[10px] text-slate-400 mt-1 font-medium">
               <span>1 Year</span>
               <span>7 Years</span>
               <span>15 Years</span>
@@ -242,14 +246,14 @@ export function SimulatorView() {
 
           {/* Doubling Time Rule of 72 Badge */}
           {doublingResult && (
-            <div className="rounded-xl border border-slate-200 bg-slate-50 p-3.5 text-xs">
-              <div className="flex items-center justify-between text-slate-700">
-                <span className="font-semibold">Rule of 72 Doubling Time:</span>
-                <span className="font-extrabold text-slate-900">
+            <div className="rounded-xl border border-navy-100 bg-navy-50/60 p-3.5 text-xs">
+              <div className="flex items-center justify-between text-navy-900">
+                <span className="font-semibold text-slate-700">Rule of 72 Doubling Time:</span>
+                <span className="font-black text-navy-950">
                   ~{doublingResult.years_rule_of_72.toFixed(1)} years
                 </span>
               </div>
-              <p className="mt-1 text-[11px] text-slate-500">
+              <p className="mt-1 text-[11px] text-slate-500 font-medium">
                 Exact log compounding: {doublingResult.years_exact.toFixed(2)} years at{" "}
                 {annualRate}%
               </p>
@@ -261,49 +265,49 @@ export function SimulatorView() {
         <div className="lg:col-span-7 space-y-5">
           {/* 3 Metric Cards */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
-            <div className="rounded-2xl border border-emerald-200 bg-emerald-50/60 p-4 shadow-sm">
-              <span className="text-xs font-semibold text-emerald-800">
+            <div className="rounded-2xl border border-navy-800 bg-gradient-to-br from-navy-900 to-navy-950 p-4 shadow-md text-white">
+              <span className="text-xs font-bold uppercase tracking-wider text-slate-300">
                 Projected Future Value
               </span>
-              <div className="mt-1 text-2xl font-extrabold text-emerald-950">
+              <div className="mt-1 text-2xl font-black text-upay-yellow drop-shadow-sm">
                 {growthResult ? formatBDT(growthResult.future_value) : "—"}
               </div>
-              <span className="text-[10px] text-emerald-700">After {years} years</span>
+              <span className="text-[10px] text-slate-400 font-medium">After {years} years</span>
             </div>
 
-            <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
-              <span className="text-xs font-semibold text-slate-500">
+            <div className="rounded-2xl border border-slate-200/80 bg-white p-4 shadow-sm">
+              <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
                 Total Contributed
               </span>
-              <div className="mt-1 text-xl font-bold text-slate-900">
+              <div className="mt-1 text-xl font-black text-navy-900">
                 {growthResult ? formatBDT(growthResult.total_contributed) : "—"}
               </div>
-              <span className="text-[10px] text-slate-400">Your deposits</span>
+              <span className="text-[10px] text-slate-400 font-medium">Your deposits</span>
             </div>
 
-            <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
-              <span className="text-xs font-semibold text-slate-500">
+            <div className="rounded-2xl border border-slate-200/80 bg-white p-4 shadow-sm">
+              <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
                 Compound Growth
               </span>
-              <div className="mt-1 text-xl font-bold text-emerald-600">
+              <div className="mt-1 text-xl font-black text-navy-900">
                 {growthResult ? formatBDT(growthResult.total_growth) : "—"}
               </div>
-              <span className="text-[10px] text-slate-400">Interest earned</span>
+              <span className="text-[10px] text-amber-600 font-bold">Interest earned</span>
             </div>
           </div>
 
           {/* Growth Area Chart */}
-          <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+          <div className="rounded-2xl border border-slate-200/80 bg-white p-5 shadow-sm transition hover:shadow-md">
             <div className="flex items-center justify-between pb-3 border-b border-slate-100">
               <div>
-                <h3 className="text-sm font-bold text-slate-900">
+                <h3 className="text-sm font-bold text-navy-900">
                   Wealth Accumulation Curve
                 </h3>
-                <p className="text-xs text-slate-500">
+                <p className="text-xs text-slate-500 font-medium">
                   Principal contributions vs compound interest
                 </p>
               </div>
-              <span className="text-xs font-semibold text-slate-500 bg-slate-100 px-2.5 py-1 rounded-full">
+              <span className="text-xs font-bold text-navy-900 bg-navy-50 border border-navy-100 px-2.5 py-1 rounded-full">
                 {isLoading ? "Calculating..." : "Backend Verified"}
               </span>
             </div>
@@ -316,12 +320,12 @@ export function SimulatorView() {
                 >
                   <defs>
                     <linearGradient id="balanceGrad" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#059669" stopOpacity={0.4} />
-                      <stop offset="95%" stopColor="#059669" stopOpacity={0.0} />
+                      <stop offset="5%" stopColor="#FFC709" stopOpacity={0.45} />
+                      <stop offset="95%" stopColor="#FFC709" stopOpacity={0.02} />
                     </linearGradient>
                     <linearGradient id="contribGrad" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#94a3b8" stopOpacity={0.4} />
-                      <stop offset="95%" stopColor="#94a3b8" stopOpacity={0.0} />
+                      <stop offset="5%" stopColor="#0A1C3C" stopOpacity={0.25} />
+                      <stop offset="95%" stopColor="#0A1C3C" stopOpacity={0.0} />
                     </linearGradient>
                   </defs>
                   <XAxis dataKey="year" stroke="#94a3b8" fontSize={11} tickLine={false} />
@@ -336,15 +340,15 @@ export function SimulatorView() {
                       if (active && payload && payload.length) {
                         const p = payload[0].payload;
                         return (
-                          <div className="rounded-lg border border-slate-200 bg-white p-3 shadow-lg text-xs space-y-1">
-                            <p className="font-bold text-slate-900">{p.year}</p>
-                            <p className="text-emerald-700 font-semibold">
-                              Total Balance: {formatBDT(p.balance)}
+                          <div className="rounded-xl border border-navy-100 bg-white p-3 shadow-lg text-xs space-y-1">
+                            <p className="font-black text-navy-950">{p.year}</p>
+                            <p className="text-navy-900 font-bold">
+                              Total Balance: <span className="text-amber-600">{formatBDT(p.balance)}</span>
                             </p>
-                            <p className="text-slate-600">
+                            <p className="text-slate-600 font-medium">
                               Contributed: {formatBDT(p.contributed)}
                             </p>
-                            <p className="text-emerald-600">
+                            <p className="text-slate-700 font-semibold">
                               Interest: {formatBDT(p.growth)}
                             </p>
                           </div>
@@ -362,15 +366,15 @@ export function SimulatorView() {
                     type="monotone"
                     dataKey="balance"
                     name="Total Value"
-                    stroke="#059669"
-                    strokeWidth={2}
+                    stroke="#FFC709"
+                    strokeWidth={2.5}
                     fill="url(#balanceGrad)"
                   />
                   <Area
                     type="monotone"
                     dataKey="contributed"
                     name="Contributed"
-                    stroke="#64748b"
+                    stroke="#0A1C3C"
                     strokeWidth={1.5}
                     strokeDasharray="4 4"
                     fill="url(#contribGrad)"

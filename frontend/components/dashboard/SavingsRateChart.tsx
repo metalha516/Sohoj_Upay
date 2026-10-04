@@ -33,13 +33,13 @@ export function SavingsRateChart({ data }: SavingsRateChartProps) {
   }));
 
   return (
-    <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+    <div className="rounded-2xl border border-slate-200/80 bg-white p-5 shadow-sm transition hover:shadow-md">
       <div className="flex items-center justify-between pb-3">
         <div>
-          <h3 className="text-sm font-bold text-slate-900">Savings Rate Trend</h3>
-          <p className="text-xs text-slate-500">Trailing months vs 20% benchmark</p>
+          <h3 className="text-sm font-bold text-navy-900">Savings Rate Trend</h3>
+          <p className="text-xs text-slate-500 font-medium">Trailing months vs 20% benchmark</p>
         </div>
-        <span className="rounded-full bg-emerald-50 px-2 py-0.5 text-xs font-semibold text-emerald-700">
+        <span className="rounded-full bg-upay-yellow/20 px-2.5 py-0.5 text-xs font-bold text-navy-950 border border-upay-yellow/40">
           Target: 20%
         </span>
       </div>
@@ -49,8 +49,8 @@ export function SavingsRateChart({ data }: SavingsRateChartProps) {
           <AreaChart data={chartData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
             <defs>
               <linearGradient id="rateGradient" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="#10b981" stopOpacity={0.4} />
-                <stop offset="95%" stopColor="#10b981" stopOpacity={0.0} />
+                <stop offset="5%" stopColor="#FFC709" stopOpacity={0.45} />
+                <stop offset="95%" stopColor="#FFC709" stopOpacity={0.02} />
               </linearGradient>
             </defs>
             <XAxis dataKey="month" stroke="#94a3b8" fontSize={11} tickLine={false} />
@@ -66,10 +66,10 @@ export function SavingsRateChart({ data }: SavingsRateChartProps) {
                 if (active && payload && payload.length) {
                   const p = payload[0].payload;
                   return (
-                    <div className="rounded-lg border border-slate-200 bg-white p-2.5 shadow-lg text-xs">
-                      <p className="font-semibold text-slate-700">{p.fullMonth}</p>
-                      <p className="font-bold text-emerald-600 mt-1">
-                        Rate: {formatPercent(p.rate / 100)}
+                    <div className="rounded-xl border border-navy-100 bg-white p-2.5 shadow-lg text-xs">
+                      <p className="font-bold text-navy-900">{p.fullMonth}</p>
+                      <p className="font-black text-navy-950 mt-1">
+                        Rate: <span className="text-amber-600">{formatPercent(p.rate / 100)}</span>
                       </p>
                     </div>
                   );
@@ -79,11 +79,11 @@ export function SavingsRateChart({ data }: SavingsRateChartProps) {
             />
             <ReferenceLine
               y={20}
-              stroke="#059669"
+              stroke="#0A1C3C"
               strokeDasharray="3 3"
               label={{
                 value: "20% Goal",
-                fill: "#059669",
+                fill: "#0A1C3C",
                 fontSize: 10,
                 position: "right",
               }}
@@ -91,7 +91,7 @@ export function SavingsRateChart({ data }: SavingsRateChartProps) {
             <Area
               type="monotone"
               dataKey="rate"
-              stroke="#10b981"
+              stroke="#FFC709"
               strokeWidth={2.5}
               fillOpacity={1}
               fill="url(#rateGradient)"

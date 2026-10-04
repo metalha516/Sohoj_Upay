@@ -157,6 +157,7 @@ class FinancialAgent:
                     role="assistant",
                     content=llm_response.content,
                     tool_calls=llm_response.tool_calls,
+                    raw_parts=llm_response.raw_parts,
                 )
             )
 
@@ -190,6 +191,7 @@ class FinancialAgent:
                         role="tool",
                         content=json.dumps(tool_res, default=str),
                         tool_call_id=tc.id,
+                        name=tc.name,
                     )
                 )
 

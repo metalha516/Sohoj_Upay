@@ -12,22 +12,22 @@ interface BehaviorProfileCardProps {
 const ARCHETYPE_METADATA: Record<string, { label: string; badgeColor: string; description: string }> = {
   disciplined_saver: {
     label: "Disciplined Saver",
-    badgeColor: "bg-emerald-100 text-emerald-800 border-emerald-200",
+    badgeColor: "bg-navy-900 text-upay-yellow border-navy-800",
     description: "Consistent surplus accumulator with strong emergency fund protection and prudent discretionary outlays.",
   },
   emergency_vulnerable: {
     label: "Emergency Vulnerable",
-    badgeColor: "bg-amber-100 text-amber-800 border-amber-200",
+    badgeColor: "bg-amber-100 text-amber-900 border-amber-300",
     description: "Living close to cash reserves with high necessity expenses and limited liquidity buffer against shocks.",
   },
   impulsive_spender: {
     label: "Impulsive Spender",
-    badgeColor: "bg-rose-100 text-rose-800 border-rose-200",
+    badgeColor: "bg-rose-100 text-rose-900 border-rose-300",
     description: "Elevated discretionary cash-outs and variable month-to-month outflow spikes.",
   },
   balanced_optimizer: {
     label: "Balanced Optimizer",
-    badgeColor: "bg-blue-100 text-blue-800 border-blue-200",
+    badgeColor: "bg-upay-yellow/20 text-navy-950 border-upay-yellow/40",
     description: "Maintains sustainable necessity-to-savings ratios with conscious cash-out planning.",
   },
 };
@@ -35,7 +35,7 @@ const ARCHETYPE_METADATA: Record<string, { label: string; badgeColor: string; de
 export function BehaviorProfileCard({ profile, isLoading }: BehaviorProfileCardProps) {
   if (isLoading) {
     return (
-      <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm animate-pulse">
+      <div className="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm animate-pulse">
         <div className="h-6 w-48 bg-slate-200 rounded mb-4" />
         <div className="h-4 w-full bg-slate-100 rounded mb-2" />
         <div className="h-4 w-3/4 bg-slate-100 rounded" />
@@ -45,19 +45,19 @@ export function BehaviorProfileCard({ profile, isLoading }: BehaviorProfileCardP
 
   if (!profile) {
     return (
-      <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+      <div className="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm">
         <div className="flex items-center gap-3">
-          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-600 text-white shadow-sm font-bold">
+          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-navy-900 text-upay-yellow shadow-sm font-bold border border-navy-800">
             <Sparkles className="h-6 w-6" />
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <h2 className="text-xl font-bold text-slate-900">Balanced Optimizer</h2>
-              <span className="rounded-full border border-blue-200 bg-blue-100 text-blue-800 px-2.5 py-0.5 text-xs font-semibold">
+              <h2 className="text-xl font-black text-navy-900">Balanced Optimizer</h2>
+              <span className="rounded-full border border-upay-yellow/40 bg-upay-yellow/20 text-navy-950 px-2.5 py-0.5 text-xs font-bold">
                 Cold-Start Baseline
               </span>
             </div>
-            <p className="text-xs text-slate-500 mt-0.5">
+            <p className="text-xs text-slate-500 mt-0.5 font-medium">
               Personalized behavioral persona will calibrate dynamically as monthly transactions are recorded.
             </p>
           </div>
@@ -69,27 +69,27 @@ export function BehaviorProfileCard({ profile, isLoading }: BehaviorProfileCardP
   const archetypeKey = (profile.profile || profile.persona_label || "balanced_optimizer").toLowerCase();
   const meta = ARCHETYPE_METADATA[archetypeKey] || {
     label: profile.profile.replace(/_/g, " "),
-    badgeColor: "bg-emerald-100 text-emerald-800 border-emerald-200",
+    badgeColor: "bg-navy-900 text-upay-yellow border-navy-800",
     description: profile.description || "Active financial behavioral archetype.",
   };
 
   const confidencePct = Math.round((Number(profile.confidence) || 0.85) * 100);
 
   return (
-    <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+    <div className="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm transition hover:shadow-md">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-100">
         <div className="flex items-center gap-3">
-          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-600 text-white shadow-sm font-bold">
+          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-navy-900 text-upay-yellow shadow-sm font-bold border border-navy-800">
             <Sparkles className="h-6 w-6" />
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <h2 className="text-xl font-bold text-slate-900">{meta.label}</h2>
-              <span className={`rounded-full border px-2.5 py-0.5 text-xs font-semibold ${meta.badgeColor}`}>
+              <h2 className="text-xl font-black text-navy-900">{meta.label}</h2>
+              <span className={`rounded-full border px-2.5 py-0.5 text-xs font-bold ${meta.badgeColor}`}>
                 Active Archetype
               </span>
             </div>
-            <p className="text-xs text-slate-500 mt-0.5">
+            <p className="text-xs text-slate-500 mt-0.5 font-medium">
               Personalized behavioral persona derived from MFS cash flow telemetry
             </p>
           </div>
@@ -98,13 +98,13 @@ export function BehaviorProfileCard({ profile, isLoading }: BehaviorProfileCardP
         {/* Confidence & Model Version Badges */}
         <div className="flex items-center gap-2">
           <div className="flex items-center gap-1.5 rounded-xl bg-slate-50 border border-slate-200 px-3 py-1.5 text-xs">
-            <ShieldCheck className="h-4 w-4 text-emerald-600" />
-            <span className="font-semibold text-slate-800">{confidencePct}%</span>
-            <span className="text-slate-500">Confidence</span>
+            <ShieldCheck className="h-4 w-4 text-navy-900" />
+            <span className="font-bold text-navy-950">{confidencePct}%</span>
+            <span className="text-slate-500 font-medium">Confidence</span>
           </div>
 
           {profile.model_version && (
-            <div className="rounded-xl bg-slate-50 border border-slate-200 px-2.5 py-1.5 text-xs font-mono text-slate-600">
+            <div className="rounded-xl bg-slate-50 border border-slate-200 px-2.5 py-1.5 text-xs font-mono text-slate-600 font-bold">
               {profile.model_version}
             </div>
           )}

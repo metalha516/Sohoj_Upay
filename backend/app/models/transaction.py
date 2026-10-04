@@ -42,6 +42,16 @@ PURPOSE_ENUM = Enum(
     name="purpose_t",
     create_type=False,
 )
+MFS_PROVIDER_ENUM = Enum(
+    "bkash",
+    "nagad",
+    "rocket",
+    "upay",
+    "bank",
+    "other",
+    name="mfs_provider_t",
+    create_type=False,
+)
 
 
 class Transaction(Base, UUIDPrimaryKeyMixin):
@@ -70,6 +80,7 @@ class Transaction(Base, UUIDPrimaryKeyMixin):
     purpose: Mapped[str | None] = mapped_column(PURPOSE_ENUM, nullable=True)
     category: Mapped[str | None] = mapped_column(String(100), nullable=True)
     merchant: Mapped[str | None] = mapped_column(String(255), nullable=True)
+    mfs_provider: Mapped[str | None] = mapped_column(String(50), nullable=True)
     description: Mapped[str | None] = mapped_column(Text, nullable=True)
     goal_id: Mapped[uuid.UUID | None] = mapped_column(
         UUID(as_uuid=True),

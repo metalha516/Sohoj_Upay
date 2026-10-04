@@ -57,10 +57,10 @@ export function ChatMessageBubble({ message }: ChatMessageBubbleProps) {
   if (isUser) {
     return (
       <div className="flex justify-end gap-3 my-4">
-        <div className="max-w-[85%] sm:max-w-[75%] rounded-2xl bg-emerald-700 px-4 py-3 text-white shadow-sm">
-          <p className="text-sm whitespace-pre-wrap leading-relaxed">{message.content}</p>
+        <div className="max-w-[85%] sm:max-w-[75%] rounded-2xl bg-navy-900 px-4 py-3 text-white shadow-md border border-navy-800">
+          <p className="text-sm whitespace-pre-wrap leading-relaxed font-medium">{message.content}</p>
         </div>
-        <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold">
+        <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-navy-100 text-navy-900 text-xs font-black border border-navy-200">
           <UserIcon className="h-4 w-4" />
         </div>
       </div>
@@ -70,11 +70,11 @@ export function ChatMessageBubble({ message }: ChatMessageBubbleProps) {
   // Assistant Bubble
   return (
     <div className="flex justify-start gap-3 my-4">
-      <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-emerald-600 text-white shadow-sm font-bold text-xs mt-1">
+      <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-navy-900 text-upay-yellow shadow-sm font-bold text-xs mt-1 border border-navy-800">
         <Sparkles className="h-4 w-4" />
       </div>
 
-      <div className="max-w-[90%] sm:max-w-[80%] rounded-2xl border border-slate-200 bg-white p-4 shadow-sm space-y-3">
+      <div className="max-w-[90%] sm:max-w-[80%] rounded-2xl border border-slate-200/80 bg-white p-4 shadow-sm space-y-3">
         {/* Tool Execution Chips */}
         {message.toolCalls && message.toolCalls.length > 0 && (
           <div className="flex flex-wrap gap-1.5 pb-2 border-b border-slate-100">
@@ -101,7 +101,7 @@ export function ChatMessageBubble({ message }: ChatMessageBubbleProps) {
         <div>
           <SafeMarkdown content={message.content} />
           {message.isStreaming && (
-            <span className="inline-block h-3.5 w-1.5 bg-emerald-600 animate-pulse ml-1 align-middle" />
+            <span className="inline-block h-3.5 w-1.5 bg-upay-yellow animate-pulse ml-1 align-middle" />
           )}
         </div>
 
@@ -113,12 +113,12 @@ export function ChatMessageBubble({ message }: ChatMessageBubbleProps) {
         {/* Trust Badges & Footers */}
         <div className="pt-2 border-t border-slate-100 flex flex-wrap items-center justify-between gap-2 text-[11px] text-slate-500">
           <div className="flex items-center gap-2">
-            <span className="inline-flex items-center gap-1 text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full font-medium">
-              <ShieldCheck className="h-3 w-3" />
+            <span className="inline-flex items-center gap-1 text-navy-950 bg-upay-yellow/20 px-2 py-0.5 rounded-full font-bold border border-upay-yellow/40">
+              <ShieldCheck className="h-3 w-3 text-navy-900" />
               Grounded AI
             </span>
             {message.promptVersion && (
-              <span className="text-slate-400">v{message.promptVersion}</span>
+              <span className="text-slate-400 font-mono">v{message.promptVersion}</span>
             )}
           </div>
 
@@ -130,7 +130,7 @@ export function ChatMessageBubble({ message }: ChatMessageBubbleProps) {
                 onClick={() => handleFeedback(1)}
                 disabled={feedback !== null || submittingFeedback}
                 className={`p-1 rounded hover:bg-slate-100 transition-colors ${
-                  feedback === 1 ? "text-emerald-600 font-bold bg-emerald-50" : "text-slate-400"
+                  feedback === 1 ? "text-navy-900 font-bold bg-upay-yellow/30" : "text-slate-400"
                 }`}
                 title="Helpful"
                 aria-label="Thumbs up"
@@ -149,8 +149,8 @@ export function ChatMessageBubble({ message }: ChatMessageBubbleProps) {
                 <ThumbsDown className="h-3.5 w-3.5" />
               </button>
               {feedback !== null && (
-                <span className="text-emerald-600 text-[10px] ml-1 flex items-center gap-0.5">
-                  <Check className="h-3 w-3" /> Recorded
+                <span className="text-navy-900 font-bold text-[10px] ml-1 flex items-center gap-0.5">
+                  <Check className="h-3 w-3 text-upay-yellow" /> Recorded
                 </span>
               )}
             </div>

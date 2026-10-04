@@ -69,6 +69,7 @@ class TransactionService:
             purpose=req.purpose.value if req.purpose else None,
             category=req.category,
             merchant=req.merchant,
+            mfs_provider=req.mfs_provider.value if req.mfs_provider else None,
             description=req.description,
             goal_id=req.goal_id,
             idempotency_key=req.idempotency_key,
@@ -87,6 +88,7 @@ class TransactionService:
             "transaction_type": created_txn.transaction_type,
             "purpose": created_txn.purpose,
             "category": created_txn.category,
+            "mfs_provider": created_txn.mfs_provider,
             "ts": ts.isoformat(),
         }
         await self.outbox_repo.create_event(
@@ -112,6 +114,7 @@ class TransactionService:
             purpose=req.purpose,
             category=req.category or "Cash Out",
             merchant=req.merchant,
+            mfs_provider=req.mfs_provider,
             description=req.description,
             idempotency_key=req.idempotency_key,
             ts=req.ts,

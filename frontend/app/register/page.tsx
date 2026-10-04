@@ -45,19 +45,19 @@ export default function RegisterPage() {
         <div className="text-center">
           <Link
             href="/"
-            className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-600 text-white font-black text-2xl shadow-sm"
+            className="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-navy-900 text-upay-yellow font-black text-2xl shadow-md border border-navy-800 hover:scale-105 transition-transform"
           >
             S
           </Link>
-          <h1 className="mt-4 text-2xl font-extrabold tracking-tight text-slate-900">
+          <h1 className="mt-4 text-2xl font-black tracking-tight text-navy-900">
             Create Sohoj Account
           </h1>
-          <p className="mt-1 text-xs text-slate-500">
+          <p className="mt-1 text-xs text-slate-500 font-medium">
             Intelligent financial coaching grounded in MFS reality
           </p>
         </div>
 
-        <div className="rounded-2xl border border-slate-200 bg-white p-6 sm:p-8 shadow-sm">
+        <div className="rounded-2xl border border-slate-200/80 bg-white p-6 sm:p-8 shadow-sm">
           {error && (
             <div className="mb-5 flex items-center gap-2 rounded-xl bg-rose-50 border border-rose-200 p-3 text-xs text-rose-700">
               <AlertCircle className="h-4 w-4 flex-shrink-0" />
@@ -82,7 +82,7 @@ export default function RegisterPage() {
                   placeholder="Shamima Akhter"
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
-                  className="w-full rounded-xl border border-slate-300 pl-10 pr-4 py-2 text-xs text-slate-900 placeholder-slate-400 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/20"
+                  className="w-full rounded-xl border border-slate-300 pl-10 pr-4 py-2 text-xs text-slate-900 placeholder-slate-400 focus:border-navy-900 focus:outline-none focus:ring-2 focus:ring-navy-900/20 font-medium"
                 />
               </div>
             </div>
@@ -103,7 +103,7 @@ export default function RegisterPage() {
                   placeholder="shamima@example.test"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full rounded-xl border border-slate-300 pl-10 pr-4 py-2 text-xs text-slate-900 placeholder-slate-400 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/20"
+                  className="w-full rounded-xl border border-slate-300 pl-10 pr-4 py-2 text-xs text-slate-900 placeholder-slate-400 focus:border-navy-900 focus:outline-none focus:ring-2 focus:ring-navy-900/20 font-medium"
                 />
               </div>
             </div>
@@ -124,7 +124,7 @@ export default function RegisterPage() {
                   placeholder="+8801712345678"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
-                  className="w-full rounded-xl border border-slate-300 pl-10 pr-4 py-2 text-xs text-slate-900 placeholder-slate-400 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/20"
+                  className="w-full rounded-xl border border-slate-300 pl-10 pr-4 py-2 text-xs text-slate-900 placeholder-slate-400 focus:border-navy-900 focus:outline-none focus:ring-2 focus:ring-navy-900/20 font-medium"
                 />
               </div>
             </div>
@@ -146,7 +146,7 @@ export default function RegisterPage() {
                   placeholder="••••••••••••"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full rounded-xl border border-slate-300 pl-10 pr-4 py-2 text-xs text-slate-900 placeholder-slate-400 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/20"
+                  className="w-full rounded-xl border border-slate-300 pl-10 pr-4 py-2 text-xs text-slate-900 placeholder-slate-400 focus:border-navy-900 focus:outline-none focus:ring-2 focus:ring-navy-900/20 font-medium"
                 />
               </div>
             </div>
@@ -163,7 +163,7 @@ export default function RegisterPage() {
                   id="reg-occ"
                   value={occupation}
                   onChange={(e) => setOccupation(e.target.value)}
-                  className="w-full rounded-xl border border-slate-300 px-3 py-2 text-xs text-slate-900 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 bg-white"
+                  className="w-full rounded-xl border border-slate-300 px-3 py-2 text-xs text-slate-900 focus:border-navy-900 focus:outline-none focus:ring-2 focus:ring-navy-900/20 bg-white font-medium"
                 >
                   <option value="salaried_private">Private Job</option>
                   <option value="salaried_public">Govt Service</option>
@@ -189,25 +189,25 @@ export default function RegisterPage() {
                   min="0"
                   value={startingBalance}
                   onChange={(e) => setStartingBalance(e.target.value)}
-                  className="w-full rounded-xl border border-slate-300 px-3 py-2 text-xs text-slate-900 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/20"
+                  className="w-full rounded-xl border border-slate-300 px-3 py-2 text-xs text-slate-900 focus:border-navy-900 focus:outline-none focus:ring-2 focus:ring-navy-900/20 font-semibold"
                 />
               </div>
             </div>
 
             {/* AI Consent Checkbox */}
-            <div className="rounded-xl bg-emerald-50/60 border border-emerald-100 p-3">
+            <div className="rounded-xl bg-navy-50/70 border border-navy-100 p-3">
               <label className="flex items-start gap-2.5 cursor-pointer">
                 <input
                   type="checkbox"
                   checked={consentAi}
                   onChange={(e) => setConsentAi(e.target.checked)}
-                  className="mt-0.5 h-4 w-4 rounded text-emerald-600 focus:ring-emerald-500"
+                  className="mt-0.5 h-4 w-4 rounded text-navy-900 focus:ring-navy-900 accent-[#0A1C3C]"
                 />
-                <div className="text-xs text-slate-700">
-                  <span className="font-bold text-emerald-950">
+                <div className="text-xs text-slate-700 font-medium">
+                  <span className="font-bold text-navy-950">
                     Consent to AI Coaching (`consent_ai`)
                   </span>
-                  <p className="text-[11px] text-slate-500 mt-0.5">
+                  <p className="text-[11px] text-slate-500 mt-0.5 font-normal">
                     Allow Sohoj to analyze aggregate spending to deliver personalized insights.
                   </p>
                 </div>
@@ -217,7 +217,7 @@ export default function RegisterPage() {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full mt-2 inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-600 px-4 py-2.5 text-xs font-bold text-white shadow-sm hover:bg-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 disabled:opacity-50 transition"
+              className="w-full mt-2 inline-flex items-center justify-center gap-2 rounded-xl bg-navy-900 px-4 py-2.5 text-xs font-bold text-upay-yellow shadow-sm hover:bg-navy-800 focus:outline-none focus:ring-2 focus:ring-navy-900 focus:ring-offset-2 disabled:opacity-50 transition border border-navy-800"
             >
               {isLoading ? "Creating Account..." : "Create Sohoj Account"}
               <ArrowRight className="h-4 w-4" />
@@ -225,9 +225,9 @@ export default function RegisterPage() {
           </form>
         </div>
 
-        <p className="text-center text-xs text-slate-500">
+        <p className="text-center text-xs text-slate-500 font-medium">
           Already have an account?{" "}
-          <Link href="/login" className="font-bold text-emerald-600 hover:text-emerald-500">
+          <Link href="/login" className="font-bold text-navy-900 hover:underline">
             Sign in
           </Link>
         </p>

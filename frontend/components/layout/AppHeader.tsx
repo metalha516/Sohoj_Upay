@@ -29,28 +29,28 @@ export function AppHeader() {
   ];
 
   return (
-    <header className="sticky top-0 z-40 border-b border-slate-200 bg-white/95 backdrop-blur">
+    <header className="sticky top-0 z-40 border-b border-navy-800/80 bg-navy-900/95 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* Brand / Logo */}
         <div className="flex items-center gap-8">
           <Link
             href="/dashboard"
-            className="flex items-center gap-2 text-xl font-bold tracking-tight text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500 rounded"
+            className="flex items-center gap-2.5 text-xl font-bold tracking-tight text-white focus:outline-none focus:ring-2 focus:ring-upay-500 rounded-lg"
             aria-label="Sohoj Home"
           >
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-600 text-white shadow-sm font-black">
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-upay-500 text-navy-950 font-black shadow-md shadow-upay-500/20">
               S
             </div>
-            <span className="flex items-center gap-1.5">
+            <span className="flex items-center gap-2 font-black tracking-tight text-white">
               Sohoj
-              <span className="rounded bg-emerald-100 px-1.5 py-0.5 text-xs font-semibold text-emerald-800">
-                Coach
+              <span className="rounded-md bg-upay-500/15 px-2 py-0.5 text-xs font-bold text-upay-400 border border-upay-500/30">
+                Upay
               </span>
             </span>
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-1" aria-label="Main Navigation">
+          <nav className="hidden md:flex items-center gap-1.5" aria-label="Main Navigation">
             {navLinks.map((item) => {
               const Icon = item.icon;
               const isActive = pathname === item.href;
@@ -58,14 +58,14 @@ export function AppHeader() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                  className={`flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold transition-all ${
                     isActive
-                      ? "bg-emerald-50 text-emerald-700"
-                      : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
+                      ? "bg-navy-800 text-upay-400 border border-navy-700/80 shadow-sm"
+                      : "text-slate-300 hover:bg-navy-800/60 hover:text-white"
                   }`}
                   aria-current={isActive ? "page" : undefined}
                 >
-                  <Icon className="h-4 w-4" aria-hidden="true" />
+                  <Icon className={`h-4 w-4 ${isActive ? "text-upay-500" : "text-slate-400"}`} aria-hidden="true" />
                   {item.label}
                 </Link>
               );
@@ -76,16 +76,16 @@ export function AppHeader() {
         {/* Right Section / User menu */}
         <div className="flex items-center gap-3">
           {user && (
-            <div className="hidden sm:flex items-center gap-2 text-xs font-medium text-slate-600 bg-slate-100 px-2.5 py-1.5 rounded-full">
-              <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-              <span>{user.full_name || user.email}</span>
+            <div className="hidden sm:flex items-center gap-2 text-xs font-medium text-slate-200 bg-navy-800/80 px-3 py-1.5 rounded-full border border-navy-700/60">
+              <span className="h-2 w-2 rounded-full bg-upay-500 ring-2 ring-upay-500/30 animate-pulse" />
+              <span className="truncate max-w-[140px]">{user.full_name || user.email}</span>
             </div>
           )}
 
           <Link
             href="/settings"
-            className={`p-2 rounded-lg text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition-colors ${
-              pathname === "/settings" ? "bg-slate-100 text-slate-900" : ""
+            className={`p-2 rounded-xl text-slate-300 hover:bg-navy-800/80 hover:text-white transition-colors ${
+              pathname === "/settings" ? "bg-navy-800 text-upay-400 border border-navy-700" : ""
             }`}
             aria-label="Account Settings"
           >
@@ -94,8 +94,8 @@ export function AppHeader() {
 
           <Link
             href="/profile"
-            className={`p-2 rounded-lg text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition-colors ${
-              pathname === "/profile" ? "bg-slate-100 text-slate-900" : ""
+            className={`p-2 rounded-xl text-slate-300 hover:bg-navy-800/80 hover:text-white transition-colors ${
+              pathname === "/profile" ? "bg-navy-800 text-upay-400 border border-navy-700" : ""
             }`}
             aria-label="User Profile"
           >
@@ -104,7 +104,7 @@ export function AppHeader() {
 
           <button
             onClick={() => logout()}
-            className="p-2 rounded-lg text-slate-500 hover:bg-rose-50 hover:text-rose-600 transition-colors focus:outline-none focus:ring-2 focus:ring-rose-500"
+            className="p-2 rounded-xl text-slate-400 hover:bg-rose-950/40 hover:text-rose-400 transition-colors focus:outline-none focus:ring-2 focus:ring-rose-500"
             aria-label="Log Out"
             title="Log Out"
           >

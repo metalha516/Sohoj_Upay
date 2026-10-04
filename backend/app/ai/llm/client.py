@@ -15,6 +15,8 @@ class ToolCall:
     name: str = ""
     arguments: dict[str, Any] = field(default_factory=dict)
     function_name: str | None = None
+    thought_signature: str | None = None
+    raw_part: dict[str, Any] | None = None
 
     def __post_init__(self) -> None:
         if self.function_name and not self.name:
@@ -32,6 +34,7 @@ class LLMMessage:
     tool_calls: list[ToolCall] = field(default_factory=list)
     tool_call_id: str | None = None
     name: str | None = None
+    raw_parts: list[dict[str, Any]] = field(default_factory=list)
 
     def to_dict(self) -> dict[str, Any]:
         """Convert message to a dictionary for API consumption."""
@@ -61,6 +64,7 @@ class LLMResponse:
     tokens_in: int = 0
     tokens_out: int = 0
     model: str = "mock-model"
+    raw_parts: list[dict[str, Any]] = field(default_factory=list)
 
 
 @runtime_checkable

@@ -79,7 +79,7 @@ export function BehaviorInsightsList({ insightsData, isLoading }: BehaviorInsigh
 
                   <Link
                     href="/coach"
-                    className="inline-flex items-center gap-1 text-emerald-700 font-semibold hover:text-emerald-800 transition-colors"
+                    className="inline-flex items-center gap-1 text-navy-900 font-bold hover:text-navy-700 transition-colors"
                   >
                     <span>Ask Coach about this</span>
                     <ArrowRight className="h-3.5 w-3.5" />

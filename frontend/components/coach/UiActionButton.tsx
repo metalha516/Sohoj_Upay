@@ -25,7 +25,7 @@ export function UiActionButton({ action, payload }: UiActionButtonProps) {
           href: "/goals",
           label: "View Financial Goals",
           icon: Target,
-          bg: "bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border-emerald-200",
+          bg: "bg-navy-50 hover:bg-navy-100 text-navy-950 border-navy-200",
         };
       case "open_simulator":
         return {
@@ -79,7 +79,7 @@ export function UiActionButton({ action, payload }: UiActionButtonProps) {
     <div className="my-2.5 inline-block">
       <Link
         href={config.href}
-        className={`inline-flex items-center gap-2 rounded-xl border px-3.5 py-2 text-xs font-semibold shadow-sm transition-all hover:shadow focus:outline-none focus:ring-2 focus:ring-emerald-500 ${config.bg}`}
+        className={`inline-flex items-center gap-2 rounded-xl border px-3.5 py-2 text-xs font-semibold shadow-sm transition-all hover:shadow focus:outline-none focus:ring-2 focus:ring-navy-900 ${config.bg}`}
       >
         <Icon className="h-4 w-4 shrink-0" />
         <span>{config.label}</span>

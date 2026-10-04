@@ -6,3 +6,112 @@
   --foreground-rgb: 15, 23, 42;
   --background-rgb: 248, 250, 252;
 }
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom sleek dark/navy scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #061325;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #153A7A;
+  border-radius: 9999px;
+  border: 2px solid #061325;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #FFC709;
+}
+
+/* Firefox scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #153A7A #061325;
+}
+
+/* Modern Fintech SaaS utility classes */
+@layer utilities {
+  /* Glassmorphic card styling (dark navy) */
+  .glass-card {
+    background: rgba(10, 28, 60, 0.72);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .glass-card-hover {
+    transition: all 0.25s ease-in-out;
+  }
+  .glass-card-hover:hover {
+    background: rgba(13, 35, 76, 0.85);
+    border-color: rgba(255, 199, 9, 0.25);
+    transform: translateY(-2px);
+  }
+
+  /* Glassmorphic card styling (light theme) */
+  .glass-card-light {
+    background: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(10, 28, 60, 0.08);
+  }
+
+  /* Upay Golden Glow */
+  .upay-glow {
+    box-shadow: 0 0 25px -4px rgba(255, 199, 9, 0.35);
+  }
+
+  .upay-glow-lg {
+    box-shadow: 0 0 50px -5px rgba(255, 199, 9, 0.5);
+  }
+
+  .upay-glow-hover:hover {
+    box-shadow: 0 0 35px -2px rgba(255, 199, 9, 0.55);
+  }
+
+  /* Upay Badge Glow */
+  .badge-glow {
+    box-shadow: 0 0 14px rgba(255, 199, 9, 0.35);
+  }
+
+  /* Deep Navy & Upay Yellow Mesh Gradient */
+  .mesh-gradient {
+    background:
+      radial-gradient(circle at 50% 0%, rgba(255, 199, 9, 0.12) 0%, transparent 45%),
+      radial-gradient(circle at 85% 25%, rgba(30, 77, 159, 0.25) 0%, transparent 40%),
+      radial-gradient(circle at 15% 35%, rgba(13, 35, 76, 0.5) 0%, transparent 50%),
+      #061325;
+  }
+
+  .mesh-gradient-hero {
+    background-color: #061325;
+    background-image:
+      radial-gradient(at 40% 15%, rgba(255, 199, 9, 0.16) 0px, transparent 55%),
+      radial-gradient(at 80% 0%, rgba(30, 77, 159, 0.3) 0px, transparent 50%),
+      radial-gradient(at 0% 50%, rgba(15, 43, 92, 0.45) 0px, transparent 50%),
+      radial-gradient(at 75% 70%, rgba(255, 199, 9, 0.08) 0px, transparent 40%);
+  }
+
+  /* Grid lines overlay for Linear/Stripe fintech texture */
+  .fintech-grid {
+    background-size: 40px 40px;
+    background-image:
+      linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  }
+
+  .fintech-grid-light {
+    background-size: 40px 40px;
+    background-image:
+      linear-gradient(to right, rgba(10, 28, 60, 0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(10, 28, 60, 0.04) 1px, transparent 1px);
+  }
+}

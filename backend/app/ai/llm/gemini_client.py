@@ -15,6 +15,42 @@ from app.ai.llm.client import LLMClient, LLMMessage, LLMResponse, ToolCall
 logger = logging.getLogger(__name__)
 
 
+def _clean_schema_for_gemini(schema: Any) -> Any:
+    """Sanitize JSON Schema / OpenAPI schema to be compliant with Google Gemini API Schema proto."""
+    if isinstance(schema, dict):
+        cleaned: dict[str, Any] = {}
+        s = dict(schema)
+        if "exclusiveMinimum" in s:
+            s["minimum"] = s["exclusiveMinimum"]
+        if "exclusiveMaximum" in s:
+            s["maximum"] = s["exclusiveMaximum"]
+        if "anyOf" in s:
+            any_of = s["anyOf"]
+            types = [t.get("type") for t in any_of if isinstance(t, dict) and "type" in t]
+            if "null" in types:
+                non_null = [t for t in any_of if t.get("type") != "null"]
+                if len(non_null) == 1:
+                    s.update(non_null[0])
+                    s["nullable"] = True
+                    s.pop("anyOf", None)
+        for k, v in s.items():
+            if k in (
+                "additionalProperties",
+                "exclusiveMinimum",
+                "exclusiveMaximum",
+                "$schema",
+                "$defs",
+                "definitions",
+                "title",
+            ):
+                continue
+            cleaned[k] = _clean_schema_for_gemini(v)
+        return cleaned
+    elif isinstance(schema, list):
+        return [_clean_schema_for_gemini(item) for item in schema]
+    return schema
+
+
 class GeminiLLMClient(LLMClient):
     """Google Gemini API client adapter supporting generateContent and function calling."""
 
@@ -58,25 +94,45 @@ class GeminiLLMClient(LLMClient):
             if msg.role == "system":
                 system_instructions.append(msg.content)
             elif msg.role == "user":
-                contents.append({
-                    "role": "user",
-                    "parts": [{"text": msg.content or " "}],
-                })
-            elif msg.role == "assistant":
-                parts: list[dict[str, Any]] = []
-                if msg.content:
-                    parts.append({"text": msg.content})
-                for tc in msg.tool_calls:
-                    parts.append({
-                        "functionCall": {
-                            "name": tc.name,
-                            "args": tc.arguments,
-                        }
+                part = {"text": msg.content or " "}
+                if contents and contents[-1]["role"] == "user":
+                    contents[-1]["parts"].append(part)
+                else:
+                    contents.append({
+                        "role": "user",
+                        "parts": [part],
                     })
-                contents.append({
-                    "role": "model",
-                    "parts": parts if parts else [{"text": " "}],
-                })
+            elif msg.role == "assistant":
+                if msg.raw_parts:
+                    parts = []
+                    for raw_p in msg.raw_parts:
+                        p_copy = dict(raw_p)
+                        if "functionCall" in p_copy:
+                            if not p_copy.get("thoughtSignature") and not p_copy.get("thought_signature"):
+                                p_copy["thoughtSignature"] = "skip_thought_signature_validator"
+                        parts.append(p_copy)
+                else:
+                    parts = []
+                    if msg.content:
+                        parts.append({"text": msg.content})
+                    for tc in msg.tool_calls:
+                        p_dict: dict[str, Any] = {
+                            "functionCall": {
+                                "name": tc.name,
+                                "args": tc.arguments,
+                            },
+                            "thoughtSignature": tc.thought_signature or "skip_thought_signature_validator",
+                        }
+                        parts.append(p_dict)
+                if not parts:
+                    parts = [{"text": " "}]
+                if contents and contents[-1]["role"] == "model":
+                    contents[-1]["parts"].extend(parts)
+                else:
+                    contents.append({
+                        "role": "model",
+                        "parts": parts,
+                    })
             elif msg.role == "tool":
                 # Function response part
                 try:
@@ -84,15 +140,33 @@ class GeminiLLMClient(LLMClient):
                 except Exception:
                     resp_obj = {"result": msg.content}
 
-                contents.append({
-                    "role": "function",
-                    "parts": [{
-                        "functionResponse": {
-                            "name": msg.name or "tool",
-                            "response": resp_obj if isinstance(resp_obj, dict) else {"result": resp_obj},
-                        }
-                    }],
-                })
+                func_name = msg.name
+                if not func_name and msg.tool_call_id:
+                    for prev_msg in reversed(messages):
+                        if prev_msg.role == "assistant" and prev_msg.tool_calls:
+                            for prev_tc in prev_msg.tool_calls:
+                                if prev_tc.id == msg.tool_call_id:
+                                    func_name = prev_tc.name
+                                    break
+                        if func_name:
+                            break
+                if not func_name:
+                    func_name = "tool"
+
+                func_part = {
+                    "functionResponse": {
+                        "name": func_name,
+                        "response": resp_obj if isinstance(resp_obj, dict) else {"result": resp_obj},
+                    }
+                }
+
+                if contents and contents[-1]["role"] == "user":
+                    contents[-1]["parts"].append(func_part)
+                else:
+                    contents.append({
+                        "role": "user",
+                        "parts": [func_part],
+                    })
 
         payload: dict[str, Any] = {
             "contents": contents if contents else [{"role": "user", "parts": [{"text": "Hello"}]}],
@@ -107,6 +181,8 @@ class GeminiLLMClient(LLMClient):
                 "parts": [{"text": "\n\n".join(system_instructions)}]
             }
 
+
+
         # Convert tool schemas (OpenAI function declaration to Gemini format)
         if tools:
             declarations: list[dict[str, Any]] = []
@@ -115,7 +191,7 @@ class GeminiLLMClient(LLMClient):
                 declarations.append({
                     "name": func.get("name", ""),
                     "description": func.get("description", ""),
-                    "parameters": func.get("parameters", {}),
+                    "parameters": _clean_schema_for_gemini(func.get("parameters", {})),
                 })
             payload["tools"] = [{"functionDeclarations": declarations}]
 
@@ -163,17 +239,27 @@ class GeminiLLMClient(LLMClient):
         tool_calls: list[ToolCall] = []
 
         for part in parts:
-            if "text" in part:
+            if "text" in part and not part.get("thought", False):
                 text_content += part["text"]
             if "functionCall" in part:
                 fc = part["functionCall"]
+                sig = (
+                    part.get("thoughtSignature")
+                    or part.get("thought_signature")
+                    or fc.get("thoughtSignature")
+                    or fc.get("thought_signature")
+                )
                 tool_calls.append(
                     ToolCall(
                         id=f"call_{uuid.uuid4().hex[:8]}",
                         name=fc.get("name", ""),
                         arguments=fc.get("args", {}),
+                        thought_signature=sig,
+                        raw_part=part,
                     )
                 )
+
+        logger.info(f"Gemini returned {len(parts)} parts, tool_calls={len(tool_calls)}")
 
         usage = data.get("usageMetadata", {})
         tokens_in = usage.get("promptTokenCount", 0)
@@ -185,4 +271,5 @@ class GeminiLLMClient(LLMClient):
             tokens_in=tokens_in,
             tokens_out=tokens_out,
             model=self.model,
+            raw_parts=parts,
         )

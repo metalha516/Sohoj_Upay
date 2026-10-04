@@ -223,7 +223,7 @@ export default function CoachPage() {
   if (authLoading) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-slate-50">
-        <div className="h-8 w-8 animate-spin rounded-full border-4 border-emerald-600 border-t-transparent" />
+        <div className="h-8 w-8 animate-spin rounded-full border-4 border-navy-900 border-t-transparent" />
       </div>
     );
   }
@@ -249,20 +249,20 @@ export default function CoachPage() {
       <main className="flex flex-1 overflow-hidden">
         <div className="mx-auto flex h-full w-full max-w-4xl flex-col bg-white border-x border-slate-200">
           {/* Coach Status Header */}
-          <div className="flex items-center justify-between border-b border-slate-200 px-4 py-3 bg-slate-50/50">
+          <div className="flex items-center justify-between border-b border-slate-200 px-4 py-3 bg-slate-50/70">
             <div className="flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-600 text-white shadow-sm font-bold">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-navy-900 text-upay-yellow shadow-sm font-bold border border-navy-800">
                 <Sparkles className="h-5 w-5" />
               </div>
               <div>
                 <div className="flex items-center gap-2">
-                  <h1 className="text-sm font-bold text-slate-900">Sohoj Financial Coach</h1>
-                  <span className="flex items-center gap-1 rounded-full bg-emerald-100 px-2 py-0.5 text-[11px] font-semibold text-emerald-800">
-                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                  <h1 className="text-sm font-black text-navy-900">Sohoj Financial Coach</h1>
+                  <span className="flex items-center gap-1 rounded-full bg-upay-yellow/20 px-2 py-0.5 text-[11px] font-bold text-navy-900 border border-upay-yellow/40">
+                    <span className="h-1.5 w-1.5 rounded-full bg-upay-yellow ring-1 ring-navy-900/20 animate-pulse" />
                     Active & Grounded
                   </span>
                 </div>
-                <p className="text-xs text-slate-500">
+                <p className="text-xs text-slate-500 font-medium">
                   Strictly grounded in your MFS transactions and pure financial calculations
                 </p>
               </div>
@@ -287,13 +287,13 @@ export default function CoachPage() {
           <div className="flex-1 overflow-y-auto px-4 py-4 sm:px-6 space-y-4">
             {messages.length === 0 ? (
               <div className="my-auto flex flex-col items-center justify-center py-12 text-center">
-                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-100 text-emerald-700 mb-4 shadow-sm">
+                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-navy-100 text-navy-900 mb-4 shadow-sm border border-navy-200">
                   <Bot className="h-8 w-8" />
                 </div>
-                <h2 className="text-base font-bold text-slate-900 mb-1">
+                <h2 className="text-base font-bold text-navy-900 mb-1">
                   How can I help with your finances today?
                 </h2>
-                <p className="max-w-md text-xs text-slate-500 mb-6">
+                <p className="max-w-md text-xs text-slate-500 mb-6 font-medium">
                   Ask me about your spending patterns, emergency fund needs, or whether you can
                   safely afford an upcoming expense.
                 </p>
@@ -304,10 +304,10 @@ export default function CoachPage() {
                     <button
                       key={pIdx}
                       onClick={() => handleSendMessage(prompt)}
-                      className="flex items-start gap-2.5 rounded-xl border border-slate-200 bg-slate-50/60 p-3 text-xs text-slate-700 hover:bg-emerald-50 hover:border-emerald-200 hover:text-emerald-900 transition-all text-left group"
+                      className="flex items-start gap-2.5 rounded-xl border border-slate-200 bg-slate-50/70 p-3 text-xs text-slate-700 hover:bg-navy-50/80 hover:border-navy-300 hover:text-navy-950 transition-all text-left group"
                     >
-                      <Lightbulb className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5 group-hover:scale-110 transition-transform" />
-                      <span className="font-medium">{prompt}</span>
+                      <Lightbulb className="h-4 w-4 text-amber-500 shrink-0 mt-0.5 group-hover:scale-110 group-hover:text-upay-yellow transition-transform" />
+                      <span className="font-semibold">{prompt}</span>
                     </button>
                   ))}
                 </div>
@@ -348,7 +348,7 @@ export default function CoachPage() {
                   placeholder="Ask a financial question... (e.g. Can I afford ৳5,000 this month?)"
                   rows={2}
                   disabled={isStreaming}
-                  className="w-full resize-none rounded-xl border border-slate-300 p-3 pr-10 text-sm text-slate-900 placeholder:text-slate-400 focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500 disabled:opacity-60"
+                  className="w-full resize-none rounded-xl border border-slate-300 p-3 pr-10 text-sm text-slate-900 placeholder:text-slate-400 focus:border-navy-900 focus:outline-none focus:ring-1 focus:ring-navy-900 disabled:opacity-60"
                   aria-label="Message to Sohoj Coach"
                 />
               </div>
@@ -356,11 +356,11 @@ export default function CoachPage() {
               <button
                 type="submit"
                 disabled={!input.trim() || isStreaming}
-                className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-emerald-600 text-white shadow-sm hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 disabled:opacity-50 transition-colors shrink-0"
+                className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-navy-900 text-upay-yellow shadow-sm hover:bg-navy-800 focus:outline-none focus:ring-2 focus:ring-navy-900 disabled:opacity-50 transition-colors shrink-0 border border-navy-800"
                 aria-label="Send message"
               >
                 {isStreaming ? (
-                  <span className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
+                  <span className="h-4 w-4 animate-spin rounded-full border-2 border-upay-yellow border-t-transparent" />
                 ) : (
                   <Send className="h-4 w-4" />
                 )}
