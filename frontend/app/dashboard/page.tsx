@@ -18,9 +18,21 @@ import { AnomalyCard } from "@/components/dashboard/AnomalyCard";
 import { AIInsightCard } from "@/components/dashboard/AIInsightCard";
 import { CashOutPurposeModal } from "@/components/transactions/CashOutPurposeModal";
 import { CashOutCreateRequest, TransactionCreateRequest, TransactionType, Purpose, MFSProvider } from "@/types/api";
+import Link from "next/link";
+import { AuthGuard } from "@/components/layout/AuthGuard";
+import { useAuth } from "@/lib/auth-context";
 import { AlertCircle, RefreshCw, Sparkles, X } from "lucide-react";
 
 export default function DashboardPage() {
+  return (
+    <AuthGuard>
+      <DashboardContent />
+    </AuthGuard>
+  );
+}
+
+function DashboardContent() {
+  const { user } = useAuth();
   const queryClient = useQueryClient();
   const [isCashOutModalOpen, setIsCashOutModalOpen] = useState(false);
   const [isAddTxnModalOpen, setIsAddTxnModalOpen] = useState(false);
@@ -39,26 +51,31 @@ export default function DashboardPage() {
   } = useQuery({
     queryKey: ["dashboard-overview"],
     queryFn: () => apiClient.getDashboardOverview(),
+    enabled: !!user,
   });
 
   const { data: forecast, isLoading: isForecastLoading } = useQuery({
     queryKey: ["spending-forecast"],
     queryFn: () => apiClient.getSpendingForecast().catch(() => null),
+    enabled: !!user,
   });
 
   const { data: anomalies, refetch: refetchAnomalies } = useQuery({
     queryKey: ["anomalies"],
     queryFn: () => apiClient.listAnomalies().catch(() => []),
+    enabled: !!user,
   });
 
   const { data: profile } = useQuery({
     queryKey: ["behavior-profile"],
     queryFn: () => apiClient.getBehaviorProfile().catch(() => null),
+    enabled: !!user,
   });
 
   const { data: insights } = useQuery({
     queryKey: ["behavior-insights"],
     queryFn: () => apiClient.getBehaviorInsights().catch(() => null),
+    enabled: !!user,
   });
 
   // Cashout mutation
@@ -140,19 +157,38 @@ export default function DashboardPage() {
           <div className="mb-6 rounded-2xl border border-rose-200 bg-rose-50 p-5 text-rose-800">
             <div className="flex items-center gap-2">
               <AlertCircle className="h-5 w-5 text-rose-600 flex-shrink-0" />
-              <h2 className="text-sm font-bold">Unable to load dashboard data</h2>
+              <h2 className="text-sm font-bold">
+                {(overviewError as any)?.status === 401 ||
+                (overviewError as Error).message?.includes("credentials") ||
+                (overviewError as Error).message?.includes("401")
+                  ? "Authentication Required"
+                  : "Unable to load dashboard data"}
+              </h2>
             </div>
             <p className="mt-1 text-xs text-rose-700">
               {(overviewError as any)?.problem?.detail ||
                 (overviewError as Error).message ||
                 "Failed to communicate with backend."}
             </p>
-            <button
-              onClick={() => refetchOverview()}
-              className="mt-3 rounded-lg bg-rose-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-rose-500"
-            >
-              Try Again
-            </button>
+            <div className="mt-3 flex items-center gap-2">
+              {(overviewError as any)?.status === 401 ||
+              (overviewError as Error).message?.includes("credentials") ||
+              (overviewError as Error).message?.includes("401") ? (
+                <Link
+                  href="/login?redirect=/dashboard"
+                  className="rounded-lg bg-navy-900 px-3.5 py-1.5 text-xs font-bold text-upay-yellow hover:bg-navy-800 shadow-sm"
+                >
+                  Sign In to Sohoj
+                </Link>
+              ) : (
+                <button
+                  onClick={() => refetchOverview()}
+                  className="rounded-lg bg-rose-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-rose-500"
+                >
+                  Try Again
+                </button>
+              )}
+            </div>
           </div>
         )}
 

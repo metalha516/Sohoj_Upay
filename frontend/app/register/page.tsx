@@ -1,12 +1,14 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useAuth } from "@/lib/auth-context";
 import { User, Mail, Lock, Phone, Briefcase, ArrowRight, AlertCircle, Shield } from "lucide-react";
 
 export default function RegisterPage() {
-  const { register } = useAuth();
+  const router = useRouter();
+  const { register, isAuthenticated, isLoading: authLoading } = useAuth();
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -16,6 +18,12 @@ export default function RegisterPage() {
   const [consentAi, setConsentAi] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!authLoading && isAuthenticated) {
+      router.replace("/dashboard");
+    }
+  }, [authLoading, isAuthenticated, router]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

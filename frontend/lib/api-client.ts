@@ -82,15 +82,50 @@ class ApiClient {
     if (typeof window !== "undefined") {
       if (token) {
         localStorage.setItem("sohoj_access_token", token);
+        document.cookie = `sohoj_access_token=${token}; path=/; max-age=${7 * 86400}; SameSite=Lax`;
+        document.cookie = `refresh_token=${token}; path=/; max-age=${7 * 86400}; SameSite=Lax`;
       } else {
         localStorage.removeItem("sohoj_access_token");
+        document.cookie = "sohoj_access_token=; path=/; max-age=0; SameSite=Lax";
+        document.cookie = "refresh_token=; path=/; max-age=0; SameSite=Lax";
       }
     }
   }
 
   getToken(): string | null {
-    if (!this.token && typeof window !== "undefined") {
-      this.token = localStorage.getItem("sohoj_access_token");
+    if (typeof window !== "undefined") {
+      // Primary source of truth in browser: localStorage
+      let token = localStorage.getItem("sohoj_access_token");
+      if (!token) {
+        // Fallback to cookie check if localStorage was cleared
+        const match = document.cookie.match(/(?:^|;\s*)sohoj_access_token=([^;]+)/);
+        if (match && match[1]) {
+          token = match[1];
+        }
+      }
+
+      this.token = token;
+
+      // Invalidate dummy or corrupt tokens
+      if (
+        !this.token ||
+        this.token === "active_session" ||
+        this.token === "null" ||
+        this.token === "undefined" ||
+        this.token.length <= 10
+      ) {
+        this.token = null;
+        return null;
+      }
+
+      // Ensure bidirectional synchronization between cookie and localStorage
+      if (!localStorage.getItem("sohoj_access_token")) {
+        localStorage.setItem("sohoj_access_token", this.token);
+      }
+      if (!document.cookie.includes("sohoj_access_token")) {
+        document.cookie = `sohoj_access_token=${this.token}; path=/; max-age=${7 * 86400}; SameSite=Lax`;
+        document.cookie = `refresh_token=${this.token}; path=/; max-age=${7 * 86400}; SameSite=Lax`;
+      }
     }
     return this.token;
   }
@@ -127,6 +162,18 @@ class ApiClient {
       } catch {
         // Response was not JSON
       }
+
+      // Handle unauthenticated state or expired session gracefully
+      if (response.status === 401 && !endpoint.includes("/auth/")) {
+        this.setToken(null);
+        if (typeof window !== "undefined") {
+          const path = window.location.pathname;
+          if (path !== "/login" && path !== "/register" && path !== "/") {
+            window.location.href = `/login?redirect=${encodeURIComponent(path)}`;
+          }
+        }
+      }
+
       throw new ApiError(response.status, errorMsg, problem);
     }
 
@@ -153,9 +200,6 @@ class ApiClient {
     });
     if (data.access_token) {
       this.setToken(data.access_token);
-      if (typeof document !== "undefined") {
-        document.cookie = `refresh_token=active_session; path=/; max-age=${7 * 86400}; SameSite=Lax`;
-      }
     }
     return data;
   }

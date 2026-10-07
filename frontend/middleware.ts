@@ -39,7 +39,15 @@ export function middleware(request: NextRequest) {
   requestHeaders.set("Content-Security-Policy", cspHeader);
 
   const { pathname } = request.nextUrl;
-  const refreshToken = request.cookies.get("refresh_token")?.value;
+  const token = request.cookies.get("sohoj_access_token")?.value;
+
+  // Validate that access token is present and not an old dummy string
+  const hasValidAuth =
+    !!token &&
+    token !== "active_session" &&
+    token !== "null" &&
+    token !== "undefined" &&
+    token.length > 20;
 
   // Protected application routes
   const protectedPaths = [
@@ -60,15 +68,18 @@ export function middleware(request: NextRequest) {
   const isAuthPath = pathname === "/login" || pathname === "/register";
 
   // Redirection logic
-  if (isProtectedPath && !refreshToken) {
+  if (isProtectedPath && !hasValidAuth) {
     const loginUrl = new URL("/login", request.url);
     loginUrl.searchParams.set("redirect", pathname);
     const response = NextResponse.redirect(loginUrl);
     response.headers.set("Content-Security-Policy", cspHeader);
+    // Clear any stale tokens
+    response.cookies.delete("sohoj_access_token");
+    response.cookies.delete("refresh_token");
     return response;
   }
 
-  if (isAuthPath && refreshToken) {
+  if (isAuthPath && hasValidAuth) {
     const dashboardUrl = new URL("/dashboard", request.url);
     const response = NextResponse.redirect(dashboardUrl);
     response.headers.set("Content-Security-Policy", cspHeader);

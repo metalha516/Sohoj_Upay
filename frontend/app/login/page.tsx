@@ -1,16 +1,24 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useAuth } from "@/lib/auth-context";
-import { Lock, Mail, AlertCircle, ArrowRight } from "lucide-react";
+import { Lock, Mail, AlertCircle, ArrowRight, Sparkles } from "lucide-react";
 
 export default function LoginPage() {
-  const { login } = useAuth();
+  const router = useRouter();
+  const { login, isAuthenticated, isLoading: authLoading } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!authLoading && isAuthenticated) {
+      router.replace("/dashboard");
+    }
+  }, [authLoading, isAuthenticated, router]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -26,9 +34,18 @@ export default function LoginPage() {
     }
   };
 
-  const handleQuickFill = (testEmail: string) => {
+  const handleQuickLogin = async (testEmail: string) => {
     setEmail(testEmail);
     setPassword("SecurePassword123!");
+    setError(null);
+    setIsLoading(true);
+    try {
+      await login({ email: testEmail, password: "SecurePassword123!" });
+    } catch (err: any) {
+      setError(err.problem?.detail || err.message || "Invalid credentials or account locked");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -116,28 +133,32 @@ export default function LoginPage() {
 
           {/* Seed Quick-Fill Helpers */}
           <div className="mt-6 border-t border-slate-100 pt-4">
-            <p className="text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-2">
-              Quick Test Seed Personas:
+            <p className="text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-2 flex items-center justify-between">
+              <span>Quick Test Personas (1-Click Sign In):</span>
+              <span className="text-[10px] text-amber-600 font-normal">Pre-seeded Demo</span>
             </p>
             <div className="flex flex-wrap gap-2">
               <button
                 type="button"
-                onClick={() => handleQuickFill("sumaiya.talukder.26dafe@example.com")}
-                className="rounded-lg bg-navy-50/80 border border-navy-100 px-2.5 py-1.5 text-[11px] font-bold text-navy-900 hover:bg-navy-900 hover:text-upay-yellow hover:border-navy-900 transition-all duration-300 hover:-translate-y-0.5 shadow-sm hover:shadow-md"
+                disabled={isLoading}
+                onClick={() => handleQuickLogin("sumaiya.talukder.26dafe@example.com")}
+                className="rounded-lg bg-navy-50/80 border border-navy-100 px-2.5 py-1.5 text-[11px] font-bold text-navy-900 hover:bg-navy-900 hover:text-upay-yellow hover:border-navy-900 transition-all duration-300 hover:-translate-y-0.5 shadow-sm hover:shadow-md disabled:opacity-50"
               >
                 Sumaiya (Driver)
               </button>
               <button
                 type="button"
-                onClick={() => handleQuickFill("roksana.khan.71141c@example.test")}
-                className="rounded-lg bg-navy-50/80 border border-navy-100 px-2.5 py-1.5 text-[11px] font-bold text-navy-900 hover:bg-navy-900 hover:text-upay-yellow hover:border-navy-900 transition-all duration-300 hover:-translate-y-0.5 shadow-sm hover:shadow-md"
+                disabled={isLoading}
+                onClick={() => handleQuickLogin("roksana.khan.71141c@example.com")}
+                className="rounded-lg bg-navy-50/80 border border-navy-100 px-2.5 py-1.5 text-[11px] font-bold text-navy-900 hover:bg-navy-900 hover:text-upay-yellow hover:border-navy-900 transition-all duration-300 hover:-translate-y-0.5 shadow-sm hover:shadow-md disabled:opacity-50"
               >
                 Roksana (Student)
               </button>
               <button
                 type="button"
-                onClick={() => handleQuickFill("kamrul.akter.8d6ed3@example.test")}
-                className="rounded-lg bg-navy-50/80 border border-navy-100 px-2.5 py-1.5 text-[11px] font-bold text-navy-900 hover:bg-navy-900 hover:text-upay-yellow hover:border-navy-900 transition-all duration-300 hover:-translate-y-0.5 shadow-sm hover:shadow-md"
+                disabled={isLoading}
+                onClick={() => handleQuickLogin("kamrul.akter.8d6ed3@example.com")}
+                className="rounded-lg bg-navy-50/80 border border-navy-100 px-2.5 py-1.5 text-[11px] font-bold text-navy-900 hover:bg-navy-900 hover:text-upay-yellow hover:border-navy-900 transition-all duration-300 hover:-translate-y-0.5 shadow-sm hover:shadow-md disabled:opacity-50"
               >
                 Kamrul (Remittance)
               </button>

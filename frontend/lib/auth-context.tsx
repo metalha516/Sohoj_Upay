@@ -42,17 +42,34 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     initAuth();
   }, []);
 
+  const sanitizeRedirectPath = (path: string | null | undefined): string => {
+    if (!path) return "/dashboard";
+    // Must be a relative path starting with a single '/'
+    if (!path.startsWith("/") || path.startsWith("//") || path.includes("://")) {
+      return "/dashboard";
+    }
+    // Prevent redirect loops
+    if (path === "/login" || path === "/register") {
+      return "/dashboard";
+    }
+    return path;
+  };
+
   const login = async (req: LoginRequest) => {
     await apiClient.login(req);
     const currentUser = await apiClient.getCurrentUser();
     setUser(currentUser);
-    router.push("/dashboard");
+    const searchParams = typeof window !== "undefined" ? new URLSearchParams(window.location.search) : null;
+    const redirectPath = sanitizeRedirectPath(searchParams?.get("redirect"));
+    router.push(redirectPath);
   };
 
   const register = async (req: RegisterRequest) => {
     const newUser = await apiClient.register(req);
     setUser(newUser);
-    router.push("/dashboard");
+    const searchParams = typeof window !== "undefined" ? new URLSearchParams(window.location.search) : null;
+    const redirectPath = sanitizeRedirectPath(searchParams?.get("redirect"));
+    router.push(redirectPath);
   };
 
   const logout = async () => {
@@ -61,6 +78,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     } catch {
       // Even if network fails, clear local state
     } finally {
+      apiClient.setToken(null);
       setUser(null);
       router.push("/login");
     }

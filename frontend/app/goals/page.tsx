@@ -7,6 +7,8 @@ import { AppHeader } from "@/components/layout/AppHeader";
 import { AppBottomNav } from "@/components/layout/AppBottomNav";
 import { Goal, GoalCreateRequest, GoalContributionRequest } from "@/types/api";
 import { formatBDT, formatPercent, formatDate } from "@/lib/formatters";
+import { AuthGuard } from "@/components/layout/AuthGuard";
+import { useAuth } from "@/lib/auth-context";
 import {
   Target,
   Plus,
@@ -19,6 +21,15 @@ import {
 } from "lucide-react";
 
 export default function GoalsPage() {
+  return (
+    <AuthGuard>
+      <GoalsContent />
+    </AuthGuard>
+  );
+}
+
+function GoalsContent() {
+  const { user } = useAuth();
   const queryClient = useQueryClient();
   const [isCreateOpen, setIsCreateOpen] = useState(false);
   const [selectedGoalForFund, setSelectedGoalForFund] = useState<Goal | null>(null);
@@ -37,6 +48,7 @@ export default function GoalsPage() {
   const { data: goals, isLoading, error } = useQuery({
     queryKey: ["goals"],
     queryFn: () => apiClient.listGoals(),
+    enabled: !!user,
   });
 
   const createGoalMutation = useMutation({

@@ -5,6 +5,7 @@ import { useAuth } from "@/lib/auth-context";
 import { apiClient } from "@/lib/api-client";
 import { AppHeader } from "@/components/layout/AppHeader";
 import { AppBottomNav } from "@/components/layout/AppBottomNav";
+import { AuthGuard } from "@/components/layout/AuthGuard";
 import {
   Shield,
   Download,
@@ -15,6 +16,14 @@ import {
 } from "lucide-react";
 
 export default function SettingsPage() {
+  return (
+    <AuthGuard>
+      <SettingsContent />
+    </AuthGuard>
+  );
+}
+
+function SettingsContent() {
   const { user, updateUser, logout } = useAuth();
   const [consentAi, setConsentAi] = useState<boolean>(user?.consent_ai ?? true);
   const [isUpdatingConsent, setIsUpdatingConsent] = useState(false);

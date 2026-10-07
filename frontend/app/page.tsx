@@ -33,8 +33,11 @@ import { BorderBeam } from "@/components/ui/BorderBeam";
 import { RollingOdometer } from "@/components/ui/RollingOdometer";
 import { MagneticButton } from "@/components/ui/MagneticButton";
 import { CurrencyAmount } from "@/components/ui/CurrencyAmount";
+import { useAuth } from "@/lib/auth-context";
 
 export default function Home() {
+  const { user, isAuthenticated } = useAuth();
+
   // Simulator State
   const [activeWidgetTab, setActiveWidgetTab] = useState<"compound" | "tariff">("compound");
 
@@ -190,19 +193,37 @@ export default function Home() {
 
           {/* Action CTAs */}
           <div className="flex items-center gap-3">
-            <Link
-              href="/login"
-              className="hidden sm:inline-flex items-center px-4 py-2.5 rounded-xl text-sm font-semibold text-slate-700 hover:text-slate-900 hover:bg-slate-100 transition-all border border-slate-300/80 shadow-sm"
-            >
-              Sign In
-            </Link>
-            <Link
-              href="/dashboard"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-upay-500 text-navy-950 font-bold text-sm shadow-md hover:bg-upay-400 hover:scale-[1.02] active:scale-[0.98] transition-all upay-glow"
-            >
-              Launch App
-              <ArrowRight className="h-4 w-4" />
-            </Link>
+            {isAuthenticated ? (
+              <>
+                <div className="hidden sm:flex items-center gap-2 text-xs font-semibold text-slate-700 bg-slate-100 px-3 py-1.5 rounded-xl border border-slate-200">
+                  <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+                  <span className="truncate max-w-[120px]">{user?.full_name?.split(" ")[0] || "User"}</span>
+                </div>
+                <Link
+                  href="/dashboard"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-upay-500 text-navy-950 font-bold text-sm shadow-md hover:bg-upay-400 hover:scale-[1.02] active:scale-[0.98] transition-all upay-glow"
+                >
+                  Dashboard
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
+              </>
+            ) : (
+              <>
+                <Link
+                  href="/login"
+                  className="hidden sm:inline-flex items-center px-4 py-2.5 rounded-xl text-sm font-semibold text-slate-700 hover:text-slate-900 hover:bg-slate-100 transition-all border border-slate-300/80 shadow-sm"
+                >
+                  Sign In
+                </Link>
+                <Link
+                  href="/login?redirect=/dashboard"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-upay-500 text-navy-950 font-bold text-sm shadow-md hover:bg-upay-400 hover:scale-[1.02] active:scale-[0.98] transition-all upay-glow"
+                >
+                  Launch App
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
+              </>
+            )}
           </div>
         </div>
       </header>
@@ -256,12 +277,12 @@ export default function Home() {
                 className="pt-2 flex flex-wrap items-center gap-4 animate-fade-in-up"
                 style={{ "--stagger": 3 } as React.CSSProperties}
               >
-                <Link href="/dashboard">
+                <Link href={isAuthenticated ? "/dashboard" : "/login?redirect=/dashboard"}>
                   <MagneticButton
                     variant="primary"
                     icon={<ArrowRight className="h-4 w-4" />}
                   >
-                    Launch Dashboard
+                    {isAuthenticated ? "Open Dashboard" : "Launch Dashboard"}
                   </MagneticButton>
                 </Link>
                 <a href="#simulator">
@@ -941,17 +962,17 @@ export default function Home() {
           </p>
 
           <div className="mt-8 flex flex-wrap justify-center gap-4">
-            <Link href="/dashboard">
+            <Link href={isAuthenticated ? "/dashboard" : "/login?redirect=/dashboard"}>
               <MagneticButton
                 variant="primary"
                 icon={<ArrowRight className="h-5 w-5" />}
               >
-                Launch Sohoj Copilot
+                {isAuthenticated ? "Open Sohoj Dashboard" : "Launch Sohoj Copilot"}
               </MagneticButton>
             </Link>
-            <Link href="/register">
+            <Link href={isAuthenticated ? "/dashboard" : "/register"}>
               <MagneticButton variant="secondary">
-                Create Free Account
+                {isAuthenticated ? "View Telemetry" : "Create Free Account"}
               </MagneticButton>
             </Link>
           </div>
@@ -985,22 +1006,22 @@ export default function Home() {
               </div>
               <ul className="space-y-2">
                 <li>
-                  <Link href="/dashboard" className="hover:text-amber-600 transition-colors">
+                  <Link href={isAuthenticated ? "/dashboard" : "/login?redirect=/dashboard"} className="hover:text-amber-600 transition-colors">
                     Dashboard Overview
                   </Link>
                 </li>
                 <li>
-                  <Link href="/simulator" className="hover:text-amber-600 transition-colors">
+                  <Link href={isAuthenticated ? "/simulator" : "/login?redirect=/simulator"} className="hover:text-amber-600 transition-colors">
                     Wealth Simulator
                   </Link>
                 </li>
                 <li>
-                  <Link href="/transactions" className="hover:text-amber-600 transition-colors">
+                  <Link href={isAuthenticated ? "/transactions" : "/login?redirect=/transactions"} className="hover:text-amber-600 transition-colors">
                     Transaction Telemetry
                   </Link>
                 </li>
                 <li>
-                  <Link href="/coach" className="hover:text-amber-600 transition-colors">
+                  <Link href={isAuthenticated ? "/coach" : "/login?redirect=/coach"} className="hover:text-amber-600 transition-colors">
                     Grounded AI Coach
                   </Link>
                 </li>
