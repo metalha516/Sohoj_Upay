@@ -2,6 +2,17 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 export function middleware(request: NextRequest) {
+  const { pathname } = request.nextUrl;
+
+  // Bypass middleware for _next static assets, images, and static files
+  if (
+    pathname.startsWith("/_next") ||
+    pathname.startsWith("/api") ||
+    pathname.includes(".")
+  ) {
+    return NextResponse.next();
+  }
+
   const nonce = Buffer.from(crypto.randomUUID()).toString("base64");
   const isDev = process.env.NODE_ENV === "development";
 
@@ -38,7 +49,6 @@ export function middleware(request: NextRequest) {
   requestHeaders.set("x-nonce", nonce);
   requestHeaders.set("Content-Security-Policy", cspHeader);
 
-  const { pathname } = request.nextUrl;
   const refreshToken = request.cookies.get("refresh_token")?.value;
 
   // Protected application routes
@@ -68,7 +78,7 @@ export function middleware(request: NextRequest) {
     return response;
   }
 
-  if (isAuthPath && refreshToken) {
+  if (isAuthPath && refreshToken && !request.nextUrl.searchParams.has("redirect") && !request.nextUrl.searchParams.has("error")) {
     const dashboardUrl = new URL("/dashboard", request.url);
     const response = NextResponse.redirect(dashboardUrl);
     response.headers.set("Content-Security-Policy", cspHeader);

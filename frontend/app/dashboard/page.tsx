@@ -140,19 +140,34 @@ export default function DashboardPage() {
           <div className="mb-6 rounded-2xl border border-rose-200 bg-rose-50 p-5 text-rose-800">
             <div className="flex items-center gap-2">
               <AlertCircle className="h-5 w-5 text-rose-600 flex-shrink-0" />
-              <h2 className="text-sm font-bold">Unable to load dashboard data</h2>
+              <h2 className="text-sm font-bold">
+                {(overviewError as any)?.status === 401
+                  ? "Authentication Required"
+                  : "Unable to load dashboard data"}
+              </h2>
             </div>
             <p className="mt-1 text-xs text-rose-700">
-              {(overviewError as any)?.problem?.detail ||
-                (overviewError as Error).message ||
-                "Failed to communicate with backend."}
+              {(overviewError as any)?.status === 401
+                ? "Please sign in with a demo account to access your financial dashboard and insights."
+                : (overviewError as any)?.problem?.detail ||
+                  (overviewError as Error).message ||
+                  "Failed to communicate with backend."}
             </p>
-            <button
-              onClick={() => refetchOverview()}
-              className="mt-3 rounded-lg bg-rose-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-rose-500"
-            >
-              Try Again
-            </button>
+            {(overviewError as any)?.status === 401 ? (
+              <a
+                href="/login?redirect=/dashboard"
+                className="mt-3 inline-flex items-center gap-1.5 rounded-xl bg-navy-900 px-4 py-2 text-xs font-bold text-upay-yellow hover:bg-navy-800 shadow-sm transition-all border border-navy-800"
+              >
+                Sign In to Demo Account
+              </a>
+            ) : (
+              <button
+                onClick={() => refetchOverview()}
+                className="mt-3 rounded-lg bg-rose-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-rose-500"
+              >
+                Try Again
+              </button>
+            )}
           </div>
         )}
 

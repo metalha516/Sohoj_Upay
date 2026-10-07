@@ -26,9 +26,20 @@ export default function LoginPage() {
     }
   };
 
-  const handleQuickFill = (testEmail: string) => {
-    setEmail(testEmail);
+  // One-click demo login — auto-submits without touching the form
+  const handleQuickLogin = async (demoEmail: string) => {
+    setError(null);
+    setIsLoading(true);
+    setEmail(demoEmail);
     setPassword("SecurePassword123!");
+
+    try {
+      await login({ email: demoEmail, password: "SecurePassword123!" });
+    } catch (err: any) {
+      setError(err.problem?.detail || err.message || "Login failed. Please try manually.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -114,34 +125,32 @@ export default function LoginPage() {
             </button>
           </form>
 
-          {/* Seed Quick-Fill Helpers */}
+          {/* One-Click Demo Login */}
           <div className="mt-6 border-t border-slate-100 pt-4">
             <p className="text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-2">
-              Quick Test Seed Personas:
+              ⚡ One-Click Demo Login:
             </p>
             <div className="flex flex-wrap gap-2">
               <button
+                id="demo-sumaiya"
                 type="button"
-                onClick={() => handleQuickFill("sumaiya.talukder.26dafe@example.com")}
-                className="rounded-lg bg-navy-50/80 border border-navy-100 px-2.5 py-1.5 text-[11px] font-bold text-navy-900 hover:bg-navy-900 hover:text-upay-yellow hover:border-navy-900 transition-all duration-300 hover:-translate-y-0.5 shadow-sm hover:shadow-md"
+                disabled={isLoading}
+                onClick={() => handleQuickLogin("sumaiya.talukder.26dafe@example.com")}
+                className="rounded-lg bg-navy-50/80 border border-navy-100 px-3 py-2 text-[11px] font-bold text-navy-900 hover:bg-navy-900 hover:text-upay-yellow hover:border-navy-900 transition-all duration-300 hover:-translate-y-0.5 shadow-sm hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                Sumaiya (Driver)
+                {isLoading ? "Signing in..." : "Sumaiya (Driver)"}
               </button>
               <button
+                id="demo-roksana"
                 type="button"
-                onClick={() => handleQuickFill("roksana.khan.71141c@example.test")}
-                className="rounded-lg bg-navy-50/80 border border-navy-100 px-2.5 py-1.5 text-[11px] font-bold text-navy-900 hover:bg-navy-900 hover:text-upay-yellow hover:border-navy-900 transition-all duration-300 hover:-translate-y-0.5 shadow-sm hover:shadow-md"
+                disabled={isLoading}
+                onClick={() => handleQuickLogin("roksana.khan.71141c@example.test")}
+                className="rounded-lg bg-navy-50/80 border border-navy-100 px-3 py-2 text-[11px] font-bold text-navy-900 hover:bg-navy-900 hover:text-upay-yellow hover:border-navy-900 transition-all duration-300 hover:-translate-y-0.5 shadow-sm hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                Roksana (Student)
-              </button>
-              <button
-                type="button"
-                onClick={() => handleQuickFill("kamrul.akter.8d6ed3@example.test")}
-                className="rounded-lg bg-navy-50/80 border border-navy-100 px-2.5 py-1.5 text-[11px] font-bold text-navy-900 hover:bg-navy-900 hover:text-upay-yellow hover:border-navy-900 transition-all duration-300 hover:-translate-y-0.5 shadow-sm hover:shadow-md"
-              >
-                Kamrul (Remittance)
+                {isLoading ? "Signing in..." : "Roksana (Student)"}
               </button>
             </div>
+            <p className="mt-1.5 text-[10px] text-slate-400">Click once to instantly sign in as a demo user</p>
           </div>
         </div>
 

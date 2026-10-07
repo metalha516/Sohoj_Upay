@@ -1,13 +1,19 @@
 "use client";
 
 import React, { useRef } from "react";
-import { motion, useMotionValue, useSpring, type HTMLMotionProps } from "framer-motion";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { motion, useMotionValue, useSpring } from "framer-motion";
 
-interface MagneticButtonProps extends Omit<HTMLMotionProps<"button">, "icon"> {
+interface MagneticButtonProps {
   children: React.ReactNode;
   icon?: React.ReactNode;
   variant?: "primary" | "secondary" | "ghost";
   className?: string;
+  href?: string;
+  onClick?: (e: React.MouseEvent<HTMLElement>) => void;
+  type?: "button" | "submit" | "reset";
+  disabled?: boolean;
 }
 
 export function MagneticButton({
@@ -15,10 +21,12 @@ export function MagneticButton({
   icon,
   variant = "primary",
   className = "",
+  href,
   onClick,
   ...props
 }: MagneticButtonProps) {
-  const ref = useRef<HTMLButtonElement>(null);
+  const ref = useRef<HTMLInputElement & HTMLAnchorElement & HTMLButtonElement>(null);
+  const router = useRouter();
 
   const x = useMotionValue(0);
   const y = useMotionValue(0);
@@ -42,7 +50,7 @@ export function MagneticButton({
 
     x.set(deltaX);
     y.set(deltaY);
-    iconX.set(deltaX * 1.5); // Internal icon parallax
+    iconX.set(deltaX * 1.5);
     iconY.set(deltaY * 1.5);
   };
 
@@ -62,17 +70,10 @@ export function MagneticButton({
       "bg-navy-950/60 text-slate-300 font-semibold hover:text-white hover:bg-navy-900 border border-navy-800/80",
   };
 
-  return (
-    <motion.button
-      ref={ref}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      onClick={onClick}
-      style={{ x: smoothX, y: smoothY }}
-      whileTap={{ scale: 0.96 }}
-      className={`group relative inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-2xl text-sm transition-colors select-none ${variantStyles[variant]} ${className}`}
-      {...props}
-    >
+  const combinedClassName = `group relative inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-2xl text-sm transition-colors select-none cursor-pointer ${variantStyles[variant]} ${className}`;
+
+  const content = (
+    <>
       <span>{children}</span>
       {icon && (
         <motion.span
@@ -82,6 +83,52 @@ export function MagneticButton({
           {icon}
         </motion.span>
       )}
+    </>
+  );
+
+  if (href) {
+    const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+      if (onClick) onClick(e);
+      if (href.startsWith("#")) {
+        e.preventDefault();
+        const element = document.querySelector(href);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth" });
+        }
+      } else {
+        e.preventDefault();
+        router.push(href);
+      }
+    };
+
+    return (
+      <motion.a
+        ref={ref}
+        href={href}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+        onClick={handleClick}
+        style={{ x: smoothX, y: smoothY }}
+        whileTap={{ scale: 0.96 }}
+        className={combinedClassName}
+      >
+        {content}
+      </motion.a>
+    );
+  }
+
+  return (
+    <motion.button
+      ref={ref}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      onClick={onClick as any}
+      style={{ x: smoothX, y: smoothY }}
+      whileTap={{ scale: 0.96 }}
+      className={combinedClassName}
+    >
+      {content}
     </motion.button>
   );
 }
+

@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import logging
 import uuid
 from datetime import UTC, datetime
 
@@ -9,6 +10,8 @@ from fastapi import HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.cache import cache_manager
+
+logger = logging.getLogger("app.services.transaction")
 from app.financial.rounding import round_currency
 from app.models.transaction import Transaction
 from app.repositories.goal_repo import GoalRepository
@@ -91,13 +94,25 @@ class TransactionService:
             "mfs_provider": created_txn.mfs_provider,
             "ts": ts.isoformat(),
         }
-        await self.outbox_repo.create_event(
+        event = await self.outbox_repo.create_event(
             aggregate_id=created_txn.id,
             event_type="transaction.created",
             payload=payload,
         )
 
-        # 5. Invalidate Dashboard Cache
+        # 5. Immediate inline feature update & outbox processing
+        try:
+            from app.worker.outbox_worker import process_single_outbox_event
+            await process_single_outbox_event(self.session, event)
+        except Exception as exc:
+            logger.warning(
+                "Inline outbox processing failed for transaction %s: %s",
+                created_txn.id,
+                exc,
+                exc_info=True,
+            )
+
+        # 6. Invalidate Dashboard Cache (always, even if outbox processing failed)
         await cache_manager.delete_pattern(f"dashboard:{user_id}:*")
 
         return created_txn, True
@@ -142,7 +157,7 @@ class TransactionService:
             "transaction_id": str(txn_id),
             "month": month_str,
         }
-        await self.outbox_repo.create_event(
+        event = await self.outbox_repo.create_event(
             aggregate_id=txn_id,
             event_type="transaction.deleted",
             payload=payload,
@@ -151,7 +166,19 @@ class TransactionService:
         # Delete
         await self.txn_repo.delete_for_user(txn_id, user_id)
 
-        # Invalidate cache
+        # Immediate inline feature update & outbox processing
+        try:
+            from app.worker.outbox_worker import process_single_outbox_event
+            await process_single_outbox_event(self.session, event)
+        except Exception as exc:
+            logger.warning(
+                "Inline outbox processing failed for delete of transaction %s: %s",
+                txn_id,
+                exc,
+                exc_info=True,
+            )
+
+        # Invalidate cache (always)
         await cache_manager.delete_pattern(f"dashboard:{user_id}:*")
 
     async def list_transactions(

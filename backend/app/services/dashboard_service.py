@@ -51,8 +51,16 @@ class DashboardService:
 
         income = feature.income if feature else Decimal("0.00")
         expense = feature.expense if feature else Decimal("0.00")
-        savings = feature.savings if feature else Decimal("0.00")
-        savings_rate = feature.savings_rate if feature else None
+        # savings = income - expense is the correct net savings for the month.
+        # The feature engine only sets savings for savings_goal transactions,
+        # so we always derive it as income - expense.
+        raw_savings = feature.savings if feature else Decimal("0.00")
+        savings = (income - expense) if (raw_savings == Decimal("0.00") and income > Decimal("0.00")) else raw_savings
+        savings_rate = (
+            feature.savings_rate
+            if feature and feature.savings_rate is not None
+            else (round(float(savings / income), 4) if income > Decimal("0.00") else None)
+        )
 
         # Emergency fund tier
         user = await self.user_repo.get_by_id(user_id)

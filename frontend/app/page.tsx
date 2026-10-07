@@ -256,22 +256,20 @@ export default function Home() {
                 className="pt-2 flex flex-wrap items-center gap-4 animate-fade-in-up"
                 style={{ "--stagger": 3 } as React.CSSProperties}
               >
-                <Link href="/dashboard">
-                  <MagneticButton
-                    variant="primary"
-                    icon={<ArrowRight className="h-4 w-4" />}
-                  >
-                    Launch Dashboard
-                  </MagneticButton>
-                </Link>
-                <a href="#simulator">
-                  <MagneticButton
-                    variant="secondary"
-                    icon={<Calculator className="h-4 w-4 text-upay-400" />}
-                  >
-                    Try Live Simulator
-                  </MagneticButton>
-                </a>
+                <MagneticButton
+                  href="/dashboard"
+                  variant="primary"
+                  icon={<ArrowRight className="h-4 w-4" />}
+                >
+                  Launch Dashboard
+                </MagneticButton>
+                <MagneticButton
+                  href="#simulator"
+                  variant="secondary"
+                  icon={<Calculator className="h-4 w-4 text-upay-400" />}
+                >
+                  Try Live Simulator
+                </MagneticButton>
               </div>
             </div>
 

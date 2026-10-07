@@ -84,6 +84,7 @@ class ApiClient {
         localStorage.setItem("sohoj_access_token", token);
       } else {
         localStorage.removeItem("sohoj_access_token");
+        document.cookie = "refresh_token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
       }
     }
   }
@@ -118,6 +119,9 @@ class ApiClient {
     });
 
     if (!response.ok) {
+      if (response.status === 401) {
+        this.setToken(null);
+      }
       let problem: ProblemDetails | undefined;
       let errorMsg = `HTTP Error ${response.status}`;
       try {
