@@ -5,6 +5,7 @@ import { useAuth } from "@/lib/auth-context";
 import { AppHeader } from "@/components/layout/AppHeader";
 import { AppBottomNav } from "@/components/layout/AppBottomNav";
 import { formatBDT, formatDate } from "@/lib/formatters";
+import { AuthGuard } from "@/components/layout/AuthGuard";
 import {
   User as UserIcon,
   Mail,
@@ -17,6 +18,14 @@ import {
 } from "lucide-react";
 
 export default function ProfilePage() {
+  return (
+    <AuthGuard>
+      <ProfileContent />
+    </AuthGuard>
+  );
+}
+
+function ProfileContent() {
   const { user, updateUser } = useAuth();
   const [fullName, setFullName] = useState(user?.full_name || "");
   const [occupation, setOccupation] = useState(user?.occupation || "salaried_private");

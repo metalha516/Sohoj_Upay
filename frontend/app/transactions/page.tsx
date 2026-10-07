@@ -13,6 +13,8 @@ import {
   Purpose,
 } from "@/types/api";
 import { formatBDT, formatDateTime } from "@/lib/formatters";
+import { AuthGuard } from "@/components/layout/AuthGuard";
+import { useAuth } from "@/lib/auth-context";
 import {
   Receipt,
   ArrowDownLeft,
@@ -24,6 +26,15 @@ import {
 } from "lucide-react";
 
 export default function TransactionsPage() {
+  return (
+    <AuthGuard>
+      <TransactionsContent />
+    </AuthGuard>
+  );
+}
+
+function TransactionsContent() {
+  const { user } = useAuth();
   const queryClient = useQueryClient();
   const [filterType, setFilterType] = useState<string>("all");
   const [isCashOutModalOpen, setIsCashOutModalOpen] = useState<boolean>(false);
@@ -44,6 +55,7 @@ export default function TransactionsPage() {
         transaction_type: filterType === "all" ? undefined : filterType,
         limit: 50,
       }),
+    enabled: !!user,
   });
 
   const cashOutMutation = useMutation({

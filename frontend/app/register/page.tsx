@@ -1,12 +1,14 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useAuth } from "@/lib/auth-context";
 import { User, Mail, Lock, Phone, Briefcase, ArrowRight, AlertCircle, Shield } from "lucide-react";
 
 export default function RegisterPage() {
-  const { register } = useAuth();
+  const router = useRouter();
+  const { register, isAuthenticated, isLoading: authLoading } = useAuth();
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -16,6 +18,12 @@ export default function RegisterPage() {
   const [consentAi, setConsentAi] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!authLoading && isAuthenticated) {
+      router.replace("/dashboard");
+    }
+  }, [authLoading, isAuthenticated, router]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -100,7 +108,7 @@ export default function RegisterPage() {
                   id="reg-email"
                   type="email"
                   required
-                  placeholder="shamima@example.test"
+                  placeholder="shamima@example.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="w-full rounded-xl border border-slate-300 pl-10 pr-4 py-2 text-xs text-slate-900 placeholder-slate-400 focus:border-navy-900 focus:outline-none focus:ring-2 focus:ring-navy-900/20 font-medium"
@@ -130,22 +138,22 @@ export default function RegisterPage() {
             </div>
 
             <div>
-              <label
-                htmlFor="reg-password"
-                className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1"
-              >
-                Password (min 8 chars)
-              </label>
-              <div className="relative">
-                <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
-                <input
-                  id="reg-password"
-                  type="password"
-                  required
-                  minLength={8}
-                  placeholder="••••••••••••"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                <label
+                  htmlFor="reg-password"
+                  className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1"
+                >
+                  Password (min 12 chars)
+                </label>
+                <div className="relative">
+                  <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
+                  <input
+                    id="reg-password"
+                    type="password"
+                    required
+                    minLength={12}
+                    placeholder="••••••••••••"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                   className="w-full rounded-xl border border-slate-300 pl-10 pr-4 py-2 text-xs text-slate-900 placeholder-slate-400 focus:border-navy-900 focus:outline-none focus:ring-2 focus:ring-navy-900/20 font-medium"
                 />
               </div>

@@ -11,9 +11,18 @@ import { BehaviorTrendChart } from "@/components/behavior/BehaviorTrendChart";
 import { AnomalyListTable } from "@/components/behavior/AnomalyListTable";
 import { BehaviorInsightsList } from "@/components/behavior/BehaviorInsightsList";
 import { apiClient } from "@/lib/api-client";
+import { AuthGuard } from "@/components/layout/AuthGuard";
 import { Sparkles, Brain, AlertTriangle } from "lucide-react";
 
 export default function BehaviorPage() {
+  return (
+    <AuthGuard>
+      <BehaviorContent />
+    </AuthGuard>
+  );
+}
+
+function BehaviorContent() {
   const { user, isAuthenticated, isLoading: authLoading } = useAuth();
 
   const { data: profile, isLoading: profileLoading } = useQuery({

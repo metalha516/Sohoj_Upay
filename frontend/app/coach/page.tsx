@@ -20,6 +20,8 @@ import {
   Lightbulb,
 } from "lucide-react";
 
+import { AuthGuard } from "@/components/layout/AuthGuard";
+
 const SUGGESTED_PROMPTS = [
   "Can I afford a ৳5,000 expense this month?",
   "How is my savings rate doing compared to targets?",
@@ -28,6 +30,14 @@ const SUGGESTED_PROMPTS = [
 ];
 
 export default function CoachPage() {
+  return (
+    <AuthGuard>
+      <CoachContent />
+    </AuthGuard>
+  );
+}
+
+function CoachContent() {
   const { user, isAuthenticated, isLoading: authLoading } = useAuth();
   const [messages, setMessages] = useState<MessageBubbleData[]>([]);
   const [input, setInput] = useState("");

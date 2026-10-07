@@ -11,7 +11,12 @@ export function Providers({ children }: { children: React.ReactNode }) {
         defaultOptions: {
           queries: {
             staleTime: 60 * 1000, // 1 minute
-            retry: 1,
+            retry: (failureCount, error: any) => {
+              if (error?.status === 401 || error?.message?.includes("401") || error?.message?.includes("credentials")) {
+                return false;
+              }
+              return failureCount < 1;
+            },
             refetchOnWindowFocus: false,
           },
         },

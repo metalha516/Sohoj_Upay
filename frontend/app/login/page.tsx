@@ -1,16 +1,24 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useAuth } from "@/lib/auth-context";
-import { Lock, Mail, AlertCircle, ArrowRight } from "lucide-react";
+import { Lock, Mail, AlertCircle, ArrowRight, Sparkles } from "lucide-react";
 
 export default function LoginPage() {
-  const { login } = useAuth();
+  const router = useRouter();
+  const { login, isAuthenticated, isLoading: authLoading } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!authLoading && isAuthenticated) {
+      router.replace("/dashboard");
+    }
+  }, [authLoading, isAuthenticated, router]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -26,6 +34,7 @@ export default function LoginPage() {
     }
   };
 
+<<<<<<< HEAD
   // One-click demo login — auto-submits without touching the form
   const handleQuickLogin = async (demoEmail: string) => {
     setError(null);
@@ -37,6 +46,17 @@ export default function LoginPage() {
       await login({ email: demoEmail, password: "SecurePassword123!" });
     } catch (err: any) {
       setError(err.problem?.detail || err.message || "Login failed. Please try manually.");
+=======
+  const handleQuickLogin = async (testEmail: string) => {
+    setEmail(testEmail);
+    setPassword("SecurePassword123!");
+    setError(null);
+    setIsLoading(true);
+    try {
+      await login({ email: testEmail, password: "SecurePassword123!" });
+    } catch (err: any) {
+      setError(err.problem?.detail || err.message || "Invalid credentials or account locked");
+>>>>>>> 403f1465fb12a87eb6b261ec98469af2e03dd5ba
     } finally {
       setIsLoading(false);
     }
@@ -127,8 +147,14 @@ export default function LoginPage() {
 
           {/* One-Click Demo Login */}
           <div className="mt-6 border-t border-slate-100 pt-4">
+<<<<<<< HEAD
             <p className="text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-2">
               ⚡ One-Click Demo Login:
+=======
+            <p className="text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-2 flex items-center justify-between">
+              <span>Quick Test Personas (1-Click Sign In):</span>
+              <span className="text-[10px] text-amber-600 font-normal">Pre-seeded Demo</span>
+>>>>>>> 403f1465fb12a87eb6b261ec98469af2e03dd5ba
             </p>
             <div className="flex flex-wrap gap-2">
               <button
@@ -136,7 +162,11 @@ export default function LoginPage() {
                 type="button"
                 disabled={isLoading}
                 onClick={() => handleQuickLogin("sumaiya.talukder.26dafe@example.com")}
+<<<<<<< HEAD
                 className="rounded-lg bg-navy-50/80 border border-navy-100 px-3 py-2 text-[11px] font-bold text-navy-900 hover:bg-navy-900 hover:text-upay-yellow hover:border-navy-900 transition-all duration-300 hover:-translate-y-0.5 shadow-sm hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
+=======
+                className="rounded-lg bg-navy-50/80 border border-navy-100 px-2.5 py-1.5 text-[11px] font-bold text-navy-900 hover:bg-navy-900 hover:text-upay-yellow hover:border-navy-900 transition-all duration-300 hover:-translate-y-0.5 shadow-sm hover:shadow-md disabled:opacity-50"
+>>>>>>> 403f1465fb12a87eb6b261ec98469af2e03dd5ba
               >
                 {isLoading ? "Signing in..." : "Sumaiya (Driver)"}
               </button>
@@ -144,10 +174,25 @@ export default function LoginPage() {
                 id="demo-roksana"
                 type="button"
                 disabled={isLoading}
+<<<<<<< HEAD
                 onClick={() => handleQuickLogin("roksana.khan.71141c@example.test")}
                 className="rounded-lg bg-navy-50/80 border border-navy-100 px-3 py-2 text-[11px] font-bold text-navy-900 hover:bg-navy-900 hover:text-upay-yellow hover:border-navy-900 transition-all duration-300 hover:-translate-y-0.5 shadow-sm hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {isLoading ? "Signing in..." : "Roksana (Student)"}
+=======
+                onClick={() => handleQuickLogin("roksana.khan.71141c@example.com")}
+                className="rounded-lg bg-navy-50/80 border border-navy-100 px-2.5 py-1.5 text-[11px] font-bold text-navy-900 hover:bg-navy-900 hover:text-upay-yellow hover:border-navy-900 transition-all duration-300 hover:-translate-y-0.5 shadow-sm hover:shadow-md disabled:opacity-50"
+              >
+                Roksana (Student)
+              </button>
+              <button
+                type="button"
+                disabled={isLoading}
+                onClick={() => handleQuickLogin("kamrul.akter.8d6ed3@example.com")}
+                className="rounded-lg bg-navy-50/80 border border-navy-100 px-2.5 py-1.5 text-[11px] font-bold text-navy-900 hover:bg-navy-900 hover:text-upay-yellow hover:border-navy-900 transition-all duration-300 hover:-translate-y-0.5 shadow-sm hover:shadow-md disabled:opacity-50"
+              >
+                Kamrul (Remittance)
+>>>>>>> 403f1465fb12a87eb6b261ec98469af2e03dd5ba
               </button>
             </div>
             <p className="mt-1.5 text-[10px] text-slate-400">Click once to instantly sign in as a demo user</p>

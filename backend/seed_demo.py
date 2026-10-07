@@ -321,7 +321,7 @@ async def seed() -> None:
             session=session,
             user_id=roksana_id,
             name="Roksana Khan",
-            email="roksana.khan.71141c@example.test",
+            email="roksana.khan.71141c@example.com",
             monthly_income=Decimal("16637.74"),
             persona_type="mixed_drifting",
             months_data=roksana_months,
@@ -332,6 +332,72 @@ async def seed() -> None:
             recommendation_data=roksana_rec,
         )
 
+<<<<<<< HEAD
+=======
+        # ---------------------------------------------------------------------
+        # PERSONA 3: Kamrul Akter (Homemaker / Remittance Recipient)
+        # ---------------------------------------------------------------------
+        kamrul_id = uuid.UUID("8d6ed34b-12ac-2c7b-7b64-b69cccba9263")
+        kamrul_months = [
+            ("2026-05-01", Decimal("58000.00"), Decimal("45500.00"), Decimal("12500.00"), Decimal("0.2155"), Decimal("34000.00"), Decimal("11500.00"), 25, {"groceries": 15300.0, "rent": 13600.0, "education": 5100.0, "dining_out": 4600.0, "shopping": 6900.0}),
+            ("2026-06-01", Decimal("62000.00"), Decimal("48000.00"), Decimal("14000.00"), Decimal("0.2258"), Decimal("36000.00"), Decimal("12000.00"), 27, {"groceries": 16200.0, "rent": 14400.0, "education": 5400.0, "dining_out": 4800.0, "shopping": 7200.0}),
+            ("2026-07-01", Decimal("59000.00"), Decimal("45000.00"), Decimal("14000.00"), Decimal("0.2373"), Decimal("33750.00"), Decimal("11250.00"), 24, {"groceries": 15187.0, "rent": 13500.0, "education": 5063.0, "dining_out": 4500.0, "shopping": 6750.0}),
+            ("2026-08-01", Decimal("61000.00"), Decimal("47200.00"), Decimal("13800.00"), Decimal("0.2262"), Decimal("35400.00"), Decimal("11800.00"), 26, {"groceries": 15930.0, "rent": 14160.0, "education": 5310.0, "dining_out": 4720.0, "shopping": 7080.0}),
+            ("2026-09-01", Decimal("60500.00"), Decimal("46800.00"), Decimal("13700.00"), Decimal("0.2264"), Decimal("35100.00"), Decimal("11700.00"), 25, {"groceries": 15795.0, "rent": 14040.0, "education": 5265.0, "dining_out": 4680.0, "shopping": 7020.0}),
+            ("2026-10-01", Decimal("63000.00"), Decimal("48500.00"), Decimal("14500.00"), Decimal("0.2302"), Decimal("36375.00"), Decimal("12125.00"), 22, {"groceries": 16368.0, "rent": 14550.0, "education": 5457.0, "dining_out": 4850.0, "shopping": 7275.0}),
+        ]
+        kamrul_txns = [
+            ("2026-10-01T08:45:00Z", Decimal("45000.00"), "cash_in", "necessity", "remittance_received", "Upay Remittance", "upay", "Expatriate Remittance Disbursed directly via Upay"),
+            ("2026-10-02T10:30:00Z", Decimal("18000.00"), "cash_out", "necessity", "rent", "bKash Agent", "bkash", "Family Flat Rent Cash-Out"),
+            ("2026-10-03T12:00:00Z", Decimal("2850.00"), "expense", "necessity", "utilities", "Upay BillPay - NESCO", "upay", "NESCO Electricity Bill via Upay"),
+            ("2026-10-04T15:00:00Z", Decimal("10000.00"), "cash_out", "necessity", "groceries", "Upay Agent", "upay", "Monthly Bazaar Raw Market Cash-Out via Upay Agent (1.4% Tariff - ৳140 fee)"),
+            ("2026-10-05T17:15:00Z", Decimal("5000.00"), "expense", "savings_goal", "dps_deposit", "Dutch-Bangla Bank DPS", "rocket", "Monthly Family Shariah DPS Installment via Rocket"),
+            ("2026-10-06T11:20:00Z", Decimal("6500.00"), "expense", "necessity", "education", "Ideal School & College", "nagad", "Children School Term Tuition via Nagad"),
+            ("2026-10-08T14:40:00Z", Decimal("3400.00"), "expense", "necessity", "healthcare", "Tamanna Pharmacy", "bkash", "Family Health Check & Medication"),
+            ("2026-10-10T09:15:00Z", Decimal("15000.00"), "cash_in", "necessity", "remittance_received", "Upay Remittance", "upay", "Secondary Family Support Remittance via Upay"),
+            ("2026-10-12T16:50:00Z", Decimal("4200.00"), "expense", "discretionary", "shopping", "Apex Footwear Outlet", "bkash", "Children Winter Shoes at Apex"),
+            ("2026-10-13T19:00:00Z", Decimal("950.00"), "expense", "necessity", "utilities", "Titas Gas Bill", "bkash", "Residential Piped Gas Bill via bKash"),
+        ]
+        kamrul_goals = [
+            ("Semester Tuition Savings", Decimal("109400.00"), Decimal("65000.00"), date(2027, 4, 25)),
+            ("Family Emergency Reserve", Decimal("150000.00"), Decimal("80000.00"), date(2027, 11, 30)),
+            ("10-Year Shariah DPS", Decimal("500000.00"), Decimal("160000.00"), date(2036, 1, 1)),
+        ]
+        kamrul_anomaly = {
+            "scope": "category_month",
+            "category": "healthcare",
+            "score": Decimal("0.8500"),
+            "observed": Decimal("6800.00"),
+            "baseline": Decimal("2500.00"),
+            "deviation": Decimal("1.72"),
+            "explanation": {"message": "Higher family healthcare and specialist physician consultation costs"},
+        }
+        kamrul_factors = [
+            {"factor": "structured_remittance", "impact": "High (predictable monthly remittance inflows)"},
+            {"factor": "upay_fee_efficiency", "impact": "Saving ৳45 per ৳10,000 cash-out using Upay's 1.4% tariff"},
+        ]
+        kamrul_rec = {
+            "title": "Remittance Retention & Tariff Efficiency",
+            "content": "Receiving remittance via Upay and taking advantage of the 1.4% tariff saves up to ৳650 in withdrawal fees compared to standard 1.85% MFS channels.",
+            "type": "cashout_reduction",
+        }
+
+        await seed_user_dataset(
+            session=session,
+            user_id=kamrul_id,
+            name="Kamrul Akter",
+            email="kamrul.akter.8d6ed3@example.com",
+            monthly_income=Decimal("60272.91"),
+            persona_type="tight_budgeter",
+            months_data=kamrul_months,
+            txns_data=kamrul_txns,
+            goals_data=kamrul_goals,
+            anomaly_data=kamrul_anomaly,
+            behavior_factors=kamrul_factors,
+            recommendation_data=kamrul_rec,
+        )
+
+>>>>>>> 403f1465fb12a87eb6b261ec98469af2e03dd5ba
         await session.commit()
         print("Successfully seeded 2 demo users (Sumaiya, Roksana) with Upay transactions into sohoj_demo.db!")
 

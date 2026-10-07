@@ -18,9 +18,21 @@ import { AnomalyCard } from "@/components/dashboard/AnomalyCard";
 import { AIInsightCard } from "@/components/dashboard/AIInsightCard";
 import { CashOutPurposeModal } from "@/components/transactions/CashOutPurposeModal";
 import { CashOutCreateRequest, TransactionCreateRequest, TransactionType, Purpose, MFSProvider } from "@/types/api";
+import Link from "next/link";
+import { AuthGuard } from "@/components/layout/AuthGuard";
+import { useAuth } from "@/lib/auth-context";
 import { AlertCircle, RefreshCw, Sparkles, X } from "lucide-react";
 
 export default function DashboardPage() {
+  return (
+    <AuthGuard>
+      <DashboardContent />
+    </AuthGuard>
+  );
+}
+
+function DashboardContent() {
+  const { user } = useAuth();
   const queryClient = useQueryClient();
   const [isCashOutModalOpen, setIsCashOutModalOpen] = useState(false);
   const [isAddTxnModalOpen, setIsAddTxnModalOpen] = useState(false);
@@ -39,26 +51,31 @@ export default function DashboardPage() {
   } = useQuery({
     queryKey: ["dashboard-overview"],
     queryFn: () => apiClient.getDashboardOverview(),
+    enabled: !!user,
   });
 
   const { data: forecast, isLoading: isForecastLoading } = useQuery({
     queryKey: ["spending-forecast"],
     queryFn: () => apiClient.getSpendingForecast().catch(() => null),
+    enabled: !!user,
   });
 
   const { data: anomalies, refetch: refetchAnomalies } = useQuery({
     queryKey: ["anomalies"],
     queryFn: () => apiClient.listAnomalies().catch(() => []),
+    enabled: !!user,
   });
 
   const { data: profile } = useQuery({
     queryKey: ["behavior-profile"],
     queryFn: () => apiClient.getBehaviorProfile().catch(() => null),
+    enabled: !!user,
   });
 
   const { data: insights } = useQuery({
     queryKey: ["behavior-insights"],
     queryFn: () => apiClient.getBehaviorInsights().catch(() => null),
+    enabled: !!user,
   });
 
   // Cashout mutation
@@ -141,7 +158,13 @@ export default function DashboardPage() {
             <div className="flex items-center gap-2">
               <AlertCircle className="h-5 w-5 text-rose-600 flex-shrink-0" />
               <h2 className="text-sm font-bold">
+<<<<<<< HEAD
                 {(overviewError as any)?.status === 401
+=======
+                {(overviewError as any)?.status === 401 ||
+                (overviewError as Error).message?.includes("credentials") ||
+                (overviewError as Error).message?.includes("401")
+>>>>>>> 403f1465fb12a87eb6b261ec98469af2e03dd5ba
                   ? "Authentication Required"
                   : "Unable to load dashboard data"}
               </h2>
@@ -153,6 +176,7 @@ export default function DashboardPage() {
                   (overviewError as Error).message ||
                   "Failed to communicate with backend."}
             </p>
+<<<<<<< HEAD
             {(overviewError as any)?.status === 401 ? (
               <a
                 href="/login?redirect=/dashboard"
@@ -168,6 +192,27 @@ export default function DashboardPage() {
                 Try Again
               </button>
             )}
+=======
+            <div className="mt-3 flex items-center gap-2">
+              {(overviewError as any)?.status === 401 ||
+              (overviewError as Error).message?.includes("credentials") ||
+              (overviewError as Error).message?.includes("401") ? (
+                <Link
+                  href="/login?redirect=/dashboard"
+                  className="rounded-lg bg-navy-900 px-3.5 py-1.5 text-xs font-bold text-upay-yellow hover:bg-navy-800 shadow-sm"
+                >
+                  Sign In to Sohoj
+                </Link>
+              ) : (
+                <button
+                  onClick={() => refetchOverview()}
+                  className="rounded-lg bg-rose-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-rose-500"
+                >
+                  Try Again
+                </button>
+              )}
+            </div>
+>>>>>>> 403f1465fb12a87eb6b261ec98469af2e03dd5ba
           </div>
         )}
 
