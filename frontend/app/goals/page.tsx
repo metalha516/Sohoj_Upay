@@ -178,11 +178,14 @@ export default function GoalsPage() {
                         {isAchieved ? (
                           <CheckCircle2 className="h-3.5 w-3.5 text-upay-yellow" />
                         ) : g.is_feasible ? (
-                          "Feasible"
+                          "Feasible • "
                         ) : (
-                          <AlertCircle className="h-3.5 w-3.5" />
+                          <>
+                            <AlertCircle className="h-3.5 w-3.5" />
+                            <span className="ml-1">At Risk • </span>
+                          </>
                         )}
-                        {formatPercent(g.progress_pct, 0)}
+                        <span>{formatPercent(g.progress_pct, 0)}</span>
                       </span>
                     </div>
 

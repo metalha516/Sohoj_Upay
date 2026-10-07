@@ -18,30 +18,30 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Custom sleek dark/navy scrollbars */
+/* Custom sleek light scrollbars */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #061325;
+  background: #F8FAFC;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #153A7A;
+  background: #CBD5E1;
   border-radius: 9999px;
-  border: 2px solid #061325;
+  border: 2px solid #F8FAFC;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #FFC709;
+  background: #94A3B8;
 }
 
 /* Firefox scrollbar */
 * {
   scrollbar-width: thin;
-  scrollbar-color: #153A7A #061325;
+  scrollbar-color: #CBD5E1 #F8FAFC;
 }
 
 /* Modern Fintech SaaS utility classes */
@@ -89,22 +89,22 @@ html {
     box-shadow: 0 0 14px rgba(255, 199, 9, 0.35);
   }
 
-  /* Deep Navy & Upay Yellow Mesh Gradient */
+  /* Clean Light Theme Gradients */
   .mesh-gradient {
     background:
-      radial-gradient(circle at 50% 0%, rgba(255, 199, 9, 0.12) 0%, transparent 45%),
-      radial-gradient(circle at 85% 25%, rgba(30, 77, 159, 0.25) 0%, transparent 40%),
-      radial-gradient(circle at 15% 35%, rgba(13, 35, 76, 0.5) 0%, transparent 50%),
-      #061325;
+      radial-gradient(circle at 50% 0%, rgba(255, 199, 9, 0.08) 0%, transparent 45%),
+      radial-gradient(circle at 85% 25%, rgba(100, 116, 139, 0.1) 0%, transparent 40%),
+      radial-gradient(circle at 15% 35%, rgba(203, 213, 225, 0.3) 0%, transparent 50%),
+      #F8FAFC;
   }
 
   .mesh-gradient-hero {
-    background-color: #061325;
+    background-color: #FFFFFF;
     background-image:
-      radial-gradient(at 40% 15%, rgba(255, 199, 9, 0.16) 0px, transparent 55%),
-      radial-gradient(at 80% 0%, rgba(30, 77, 159, 0.3) 0px, transparent 50%),
-      radial-gradient(at 0% 50%, rgba(15, 43, 92, 0.45) 0px, transparent 50%),
-      radial-gradient(at 75% 70%, rgba(255, 199, 9, 0.08) 0px, transparent 40%);
+      radial-gradient(at 40% 15%, rgba(255, 199, 9, 0.1) 0px, transparent 55%),
+      radial-gradient(at 80% 0%, rgba(148, 163, 184, 0.15) 0px, transparent 50%),
+      radial-gradient(at 0% 50%, rgba(226, 232, 240, 0.4) 0px, transparent 50%),
+      radial-gradient(at 75% 70%, rgba(255, 199, 9, 0.05) 0px, transparent 40%);
   }
 
   /* Grid lines overlay for Linear/Stripe fintech texture */

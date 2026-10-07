@@ -217,8 +217,8 @@ class ApiClient {
   async exportUserData(): Promise<Blob> {
     const url = `${getApiBaseUrl()}${API_V1_PREFIX}/users/me/export`;
     const token = this.getToken();
-    const headers = new Headers();
-    if (token) headers.set("Authorization", `Bearer ${token}`);
+    const headers: Record<string, string> = {};
+    if (token) headers["Authorization"] = `Bearer ${token}`;
 
     const res = await fetch(url, {
       method: "GET",
@@ -721,11 +721,11 @@ class ApiClient {
   ): Promise<void> {
     const url = `${getApiBaseUrl()}${API_V1_PREFIX}/chat`;
     const token = this.getToken();
-    const headers = new Headers({
+    const headers: Record<string, string> = {
       "Content-Type": "application/json",
-      Accept: "text/event-stream",
-    });
-    if (token) headers.set("Authorization", `Bearer ${token}`);
+      "Accept": "text/event-stream",
+    };
+    if (token) headers["Authorization"] = `Bearer ${token}`;
 
     try {
       const response = await fetch(url, {

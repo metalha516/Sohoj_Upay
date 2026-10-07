@@ -270,7 +270,6 @@ class ChatService:
         for i in range(0, len(words), 3):
             chunk = " ".join(words[i : i + 3]) + (" " if i + 3 < len(words) else "")
             yield "event: token\ndata: " + json.dumps({"text": chunk}) + "\n\n"
-            await asyncio.sleep(0.005)
 
         # 10. Emit ui_action if present
         if agent_res.ui_action:

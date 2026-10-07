@@ -8,6 +8,7 @@ interface SpotlightCardProps extends React.HTMLAttributes<HTMLDivElement> {
   className?: string;
   innerClassName?: string;
   withDoubleBezel?: boolean;
+  variant?: "light" | "dark";
 }
 
 export function SpotlightCard({
@@ -16,6 +17,7 @@ export function SpotlightCard({
   className = "",
   innerClassName = "",
   withDoubleBezel = true,
+  variant = "light",
   ...props
 }: SpotlightCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
@@ -28,6 +30,8 @@ export function SpotlightCard({
     setPosition({ x: e.clientX - rect.left, y: e.clientY - rect.top });
   };
 
+  const isLight = variant === "light";
+
   if (!withDoubleBezel) {
     return (
       <div
@@ -35,7 +39,11 @@ export function SpotlightCard({
         onMouseMove={handleMouseMove}
         onMouseEnter={() => setOpacity(1)}
         onMouseLeave={() => setOpacity(0)}
-        className={`relative overflow-hidden rounded-3xl border border-navy-700/60 bg-navy-900/80 p-6 backdrop-blur-xl transition-all duration-300 hover:border-upay-500/40 hover:shadow-2xl ${className}`}
+        className={`relative overflow-hidden rounded-3xl transition-all duration-300 ${
+          isLight
+            ? "border border-slate-200/90 bg-white shadow-sm hover:border-upay-500/50 hover:shadow-xl"
+            : "border border-navy-700/60 bg-navy-900/80 hover:border-upay-500/40 hover:shadow-2xl"
+        } p-6 backdrop-blur-xl ${className}`}
         {...props}
       >
         <div
@@ -57,7 +65,11 @@ export function SpotlightCard({
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setOpacity(1)}
       onMouseLeave={() => setOpacity(0)}
-      className={`group relative rounded-[2rem] p-1.5 bg-gradient-to-b from-white/[0.08] to-transparent ring-1 ring-white/[0.08] shadow-2xl backdrop-blur-xl transition-all duration-300 hover:ring-upay-500/40 ${className}`}
+      className={`group relative rounded-[2rem] p-1.5 transition-all duration-300 ${
+        isLight
+          ? "bg-gradient-to-b from-slate-200/80 via-slate-100/60 to-transparent ring-1 ring-slate-200 shadow-xl hover:ring-upay-500/50"
+          : "bg-gradient-to-b from-white/[0.08] to-transparent ring-1 ring-white/[0.08] shadow-2xl hover:ring-upay-500/40"
+      } backdrop-blur-xl ${className}`}
       {...props}
     >
       {/* Radial Spotlight Overlay */}
@@ -71,7 +83,11 @@ export function SpotlightCard({
 
       {/* Inner Core Glass Container */}
       <div
-        className={`relative rounded-[calc(2rem-6px)] bg-navy-900/90 p-6 shadow-[inset_0_1px_1px_rgba(255,255,255,0.12)] border border-navy-800/80 transition-colors duration-300 group-hover:border-navy-700 ${innerClassName}`}
+        className={`relative rounded-[calc(2rem-6px)] p-6 transition-colors duration-300 ${
+          isLight
+            ? "bg-white shadow-sm border border-slate-200/70 group-hover:border-slate-300"
+            : "bg-navy-900/90 shadow-[inset_0_1px_1px_rgba(255,255,255,0.12)] border border-navy-800/80 group-hover:border-navy-700"
+        } ${innerClassName}`}
       >
         {children}
       </div>
