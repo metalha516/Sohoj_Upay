@@ -204,6 +204,312 @@
       "sourceType": "github",
       "skillPath": "skills/xlsx/SKILL.md",
       "computedHash": "cbaaabead69c5e03643f116cde6a396ad53f6da058da6eaa7bad6c4fbafe6026"
+    },
+    "accessible-forms-dialogs": {
+      "source": "Skill_Master",
+      "sourceType": "local",
+      "skillPath": "skills/accessible-forms-dialogs/SKILL.md",
+      "computedHash": "bbf9de649c7ee7d16e4e1832c48dfc0e2407f8ba35e16325580887a7b57916ba"
+    },
+    "antigravity-skills-manager": {
+      "source": "Skill_Master",
+      "sourceType": "local",
+      "skillPath": "skills/antigravity-skills-manager/SKILL.md",
+      "computedHash": "ab19b95e70b40171f8ce1f49a8b70eb75c10695d6e05e9fbe01e366d86ad1eed"
+    },
+    "api-and-interface-design": {
+      "source": "Skill_Master",
+      "sourceType": "local",
+      "skillPath": "skills/api-and-interface-design/SKILL.md",
+      "computedHash": "e83d34f52ff12dd8a7c5134cd7e8140ea4541ec65e204f8a1e4cd366e30c4192"
+    },
+    "api-engineering": {
+      "source": "Skill_Master",
+      "sourceType": "local",
+      "skillPath": "skills/api-engineering/SKILL.md",
+      "computedHash": "495890f47f69351d02c6e0b5587b6ac6d40d0f5dad5471f60ed71832fe39ddfa"
+    },
+    "architect-review": {
+      "source": "Skill_Master",
+      "sourceType": "local",
+      "skillPath": "skills/architect-review/SKILL.md",
+      "computedHash": "9df18bf906a46dc090d6f2756e6892ff17fa5fc4a0eeb7b9eea81593db229331"
+    },
+    "brainstorming-ideas": {
+      "source": "Skill_Master",
+      "sourceType": "local",
+      "skillPath": "skills/brainstorming-ideas/SKILL.md",
+      "computedHash": "07ea6729546a62f88e16a1714cbb19ac6372c64a356e69b144bb73c5cbfcb120"
+    },
+    "brand-identity": {
+      "source": "Skill_Master",
+      "sourceType": "local",
+      "skillPath": "skills/brand-identity/SKILL.md",
+      "computedHash": "95f059d767a33a29f8842e7b65a5bf900aeda5ced88e08ea6c61dff4397cf709"
+    },
+    "browser-testing-with-devtools": {
+      "source": "Skill_Master",
+      "sourceType": "local",
+      "skillPath": "skills/browser-testing-with-devtools/SKILL.md",
+      "computedHash": "4e3aacd6a380cd25bc6c2d67fdd1c926a9b22535b8a62109ecd33cefd909e3d9"
+    },
+    "ci-cd-and-automation": {
+      "source": "Skill_Master",
+      "sourceType": "local",
+      "skillPath": "skills/ci-cd-and-automation/SKILL.md",
+      "computedHash": "a6ed8ed56456b01ff8314c44eefc69897d9905ae4e06bb2b7036286efb79b5f0"
+    },
+    "clean-code-frontend-audit": {
+      "source": "Skill_Master",
+      "sourceType": "local",
+      "skillPath": "skills/clean-code-frontend-audit/SKILL.md",
+      "computedHash": "188dd133675fe80406e2773428e6dd18f3811fade76c3d587a128a424714e927"
+    },
+    "code-review-and-quality": {
+      "source": "Skill_Master",
+      "sourceType": "local",
+      "skillPath": "skills/code-review-and-quality/SKILL.md",
+      "computedHash": "2db1e850379f255fd3091ef278cde24cd6c7d2ba23e360cc52ea522c40d4396e"
+    },
+    "code-review-excellence": {
+      "source": "Skill_Master",
+      "sourceType": "local",
+      "skillPath": "skills/code-review-excellence/SKILL.md",
+      "computedHash": "d041816e66c973a452db2a9c058b8147e8bc904ecd28b137bf0c00e59632c62b"
+    },
+    "code-simplification": {
+      "source": "Skill_Master",
+      "sourceType": "local",
+      "skillPath": "skills/code-simplification/SKILL.md",
+      "computedHash": "f0c5ed754057eb0c1e027e2587f59de816651feb5e837242296c43ea21cf621d"
+    },
+    "conductor-implement": {
+      "source": "Skill_Master",
+      "sourceType": "local",
+      "skillPath": "skills/conductor-implement/SKILL.md",
+      "computedHash": "294661267d1bbe524a547ecf537b9a86e3c892f8fdda4792a4558ba98c22f997"
+    },
+    "conductor-manage": {
+      "source": "Skill_Master",
+      "sourceType": "local",
+      "skillPath": "skills/conductor-manage/SKILL.md",
+      "computedHash": "64d37c842cdf759e9b200e27b977294b69c94e84acc61d60b52e2aacb2794f26"
+    },
+    "conductor-new-track": {
+      "source": "Skill_Master",
+      "sourceType": "local",
+      "skillPath": "skills/conductor-new-track/SKILL.md",
+      "computedHash": "c8c8d3260b87a306fb49fc351074d2796dd2efedee1a6e317456f8c8f295ac1c"
+    },
+    "conductor-revert": {
+      "source": "Skill_Master",
+      "sourceType": "local",
+      "skillPath": "skills/conductor-revert/SKILL.md",
+      "computedHash": "69fddb581a4868dc3299955dff3208c3cece364dc66158fda8c3dbb656d5de04"
+    },
+    "conductor-setup": {
+      "source": "Skill_Master",
+      "sourceType": "local",
+      "skillPath": "skills/conductor-setup/SKILL.md",
+      "computedHash": "5722a2b31687677cd5e14242e38164c33b3d8a5da26fcd570e1b3b16c8dd3e10"
+    },
+    "conductor-status": {
+      "source": "Skill_Master",
+      "sourceType": "local",
+      "skillPath": "skills/conductor-status/SKILL.md",
+      "computedHash": "6e2c7994a99266ff92f1b787a71c99f9aed2b6feb674f35fd0c54d3e85c91f69"
+    },
+    "conductor-validator": {
+      "source": "Skill_Master",
+      "sourceType": "local",
+      "skillPath": "skills/conductor-validator/SKILL.md",
+      "computedHash": "504e95144b3d0b52a21e43a729a7601e78fa888eef4061deb4f58f18610aceef"
+    },
+    "constraint-driven-development": {
+      "source": "Skill_Master",
+      "sourceType": "local",
+      "skillPath": "skills/constraint-driven-development/SKILL.md",
+      "computedHash": "06479d4305f286d23cfb99f5dc85695896785269664e1f6a8d800e3b71e70c10"
+    },
+    "context-engineering": {
+      "source": "Skill_Master",
+      "sourceType": "local",
+      "skillPath": "skills/context-engineering/SKILL.md",
+      "computedHash": "8b736cb9e55b82b265ab6ff78349c0e826e8a6df550deddf665b7fb3ff858b63"
+    },
+    "database-engineering": {
+      "source": "Skill_Master",
+      "sourceType": "local",
+      "skillPath": "skills/database-engineering/SKILL.md",
+      "computedHash": "01b494ee16a3f9f9c7e551774f2564dcf8d6c8194fab108c55fc882a2b3d787f"
+    },
+    "dataviz-recharts-analytics": {
+      "source": "Skill_Master",
+      "sourceType": "local",
+      "skillPath": "skills/dataviz-recharts-analytics/SKILL.md",
+      "computedHash": "fffa66c226072fdbd92599cf9edc367a33fe74877107497f2992662c9b8a8012"
+    },
+    "debugging-and-error-recovery": {
+      "source": "Skill_Master",
+      "sourceType": "local",
+      "skillPath": "skills/debugging-and-error-recovery/SKILL.md",
+      "computedHash": "21f3960f5d7ae2cc95c40896545004dbbcbbd752ea65fc2d53962554d4174220"
+    },
+    "deprecation-and-migration": {
+      "source": "Skill_Master",
+      "sourceType": "local",
+      "skillPath": "skills/deprecation-and-migration/SKILL.md",
+      "computedHash": "6a624f942e09c69863a4219b9bd5d56975026b67b0c70bc83385ffd2120b6142"
+    },
+    "documentation-and-adrs": {
+      "source": "Skill_Master",
+      "sourceType": "local",
+      "skillPath": "skills/documentation-and-adrs/SKILL.md",
+      "computedHash": "359b22460045583b0233ec3f80223459c4096b0fa513f5c29ade9c3985207d65"
+    },
+    "doubt-driven-development": {
+      "source": "Skill_Master",
+      "sourceType": "local",
+      "skillPath": "skills/doubt-driven-development/SKILL.md",
+      "computedHash": "6fa1fcd8420c28daf7e53c5b08b0f20b907911efd2a6d9bce0b9740da20a4008"
+    },
+    "fintech-mfs-patterns": {
+      "source": "Skill_Master",
+      "sourceType": "local",
+      "skillPath": "skills/fintech-mfs-patterns/SKILL.md",
+      "computedHash": "593b43da3aad4de7f252b7a5808b2d852d4c377b891283d14fa8ce1fc07af93e"
+    },
+    "frontend-ui-engineering": {
+      "source": "Skill_Master",
+      "sourceType": "local",
+      "skillPath": "skills/frontend-ui-engineering/SKILL.md",
+      "computedHash": "549044e9bd8d7fe993ce8e5c0d2b0f5465650676dc15805329973f936179eb1e"
+    },
+    "full-stack-orchestration": {
+      "source": "Skill_Master",
+      "sourceType": "local",
+      "skillPath": "skills/full-stack-orchestration/SKILL.md",
+      "computedHash": "da268e482a56173645981415e9774f7e28b179bc01fbc504d2e06be15588dc89"
+    },
+    "git-advanced-workflows": {
+      "source": "Skill_Master",
+      "sourceType": "local",
+      "skillPath": "skills/git-advanced-workflows/SKILL.md",
+      "computedHash": "29bfb11354f03263e37f91116da8eb80a7a73c671bad744d449dfffc440f0231"
+    },
+    "git-pr-workflows-git-workflow": {
+      "source": "Skill_Master",
+      "sourceType": "local",
+      "skillPath": "skills/git-pr-workflows-git-workflow/SKILL.md",
+      "computedHash": "5d88c89faeb85fdd7853721a215ea400758f2a900cdf540e17a1b31e4133d4bf"
+    },
+    "git-workflow-and-versioning": {
+      "source": "Skill_Master",
+      "sourceType": "local",
+      "skillPath": "skills/git-workflow-and-versioning/SKILL.md",
+      "computedHash": "b7465d187935c52546d39fdc7bd6ac36d94eda25a9500ef8c18b767d2eb116ea"
+    },
+    "idea-refine": {
+      "source": "Skill_Master",
+      "sourceType": "local",
+      "skillPath": "skills/idea-refine/SKILL.md",
+      "computedHash": "79e773058963adc7646b0115b4f8a4afc974c5ff95843e4ef1cafff3cb51899e"
+    },
+    "incremental-implementation": {
+      "source": "Skill_Master",
+      "sourceType": "local",
+      "skillPath": "skills/incremental-implementation/SKILL.md",
+      "computedHash": "df66536610071727feae1ca95f3c391c248ad828041750ccd3699cce763aa00b"
+    },
+    "interview-me": {
+      "source": "Skill_Master",
+      "sourceType": "local",
+      "skillPath": "skills/interview-me/SKILL.md",
+      "computedHash": "ace4b675999bb504593d572e0f73f3d7e803ad6fddf318445598c82c11939db2"
+    },
+    "observability-and-instrumentation": {
+      "source": "Skill_Master",
+      "sourceType": "local",
+      "skillPath": "skills/observability-and-instrumentation/SKILL.md",
+      "computedHash": "e7fcb0820306d46268de9594d676ad98e35040858926c412b7000faa52a61f87"
+    },
+    "performance-optimization": {
+      "source": "Skill_Master",
+      "sourceType": "local",
+      "skillPath": "skills/performance-optimization/SKILL.md",
+      "computedHash": "665a83a7218d6aebd02ca329a7b2422cf28f7c55cb56f870c05e12047770245c"
+    },
+    "planning-and-task-breakdown": {
+      "source": "Skill_Master",
+      "sourceType": "local",
+      "skillPath": "skills/planning-and-task-breakdown/SKILL.md",
+      "computedHash": "ed0f90cc5951ddd4bcab7f871f64efec93a49af9279ef93bc470da77ad8da3f7"
+    },
+    "security-and-hardening": {
+      "source": "Skill_Master",
+      "sourceType": "local",
+      "skillPath": "skills/security-and-hardening/SKILL.md",
+      "computedHash": "2e3fc60eed5aba97fe416f3f3c9317fdb014a682925ec70a733c3ff99e4b9858"
+    },
+    "shipping-and-launch": {
+      "source": "Skill_Master",
+      "sourceType": "local",
+      "skillPath": "skills/shipping-and-launch/SKILL.md",
+      "computedHash": "1055d25dfe6cfeb6ae31eba3e2328fd0e7c66b285f0e44c40f67c77a59813281"
+    },
+    "source-driven-development": {
+      "source": "Skill_Master",
+      "sourceType": "local",
+      "skillPath": "skills/source-driven-development/SKILL.md",
+      "computedHash": "c59faf851377f0eeda45306398d16eb96d77ab1c2fd3e1a7fb58e9a0af33c1e9"
+    },
+    "spec-driven-development": {
+      "source": "Skill_Master",
+      "sourceType": "local",
+      "skillPath": "skills/spec-driven-development/SKILL.md",
+      "computedHash": "c4b97ce3d7f24be0e67fd612c7595f65504872e3a9f8d338d098b2363fdb66ef"
+    },
+    "test-driven-development": {
+      "source": "Skill_Master",
+      "sourceType": "local",
+      "skillPath": "skills/test-driven-development/SKILL.md",
+      "computedHash": "7c0c6ac057c19d7f8be65d9f49c3a638703b868f4625c78b70da5439d5d74fca"
+    },
+    "troubleshooting-applications": {
+      "source": "Skill_Master",
+      "sourceType": "local",
+      "skillPath": "skills/troubleshooting-applications/SKILL.md",
+      "computedHash": "f26f11e688fcd6b6eec4324ff01d81747d925d59ebe097f2a696f6ff2800ba95"
+    },
+    "ui-ux-design-system": {
+      "source": "Skill_Master",
+      "sourceType": "local",
+      "skillPath": "skills/ui-ux-design-system/SKILL.md",
+      "computedHash": "6d65fa4105e8364d34ac38e117d9367ce8db9d17840ffc60686ca471041988cd"
+    },
+    "unit-testing-test-generate": {
+      "source": "Skill_Master",
+      "sourceType": "local",
+      "skillPath": "skills/unit-testing-test-generate/SKILL.md",
+      "computedHash": "f00dd5b360c00e3d4e6abfb1efb06f49979adc621c74d5f7b31a79051447d0f8"
+    },
+    "using-agent-skills": {
+      "source": "Skill_Master",
+      "sourceType": "local",
+      "skillPath": "skills/using-agent-skills/SKILL.md",
+      "computedHash": "30787ef2c77bf1a4729fffed0f6523ba6fcbe81bdc436b36371b78c21394d3c3"
+    },
+    "verifying-before-completion": {
+      "source": "Skill_Master",
+      "sourceType": "local",
+      "skillPath": "skills/verifying-before-completion/SKILL.md",
+      "computedHash": "77cc106e8c622e4f490248a8438c3efe1e6e8583c5f03ce67b9f008c59714150"
+    },
+    "writing-plans": {
+      "source": "Skill_Master",
+      "sourceType": "local",
+      "skillPath": "skills/writing-plans/SKILL.md",
+      "computedHash": "341c7959808ed7dfa38c3698039a61b60ac8e06a187d8c5e60b647ae7c723ad2"
     }
   }
 }
