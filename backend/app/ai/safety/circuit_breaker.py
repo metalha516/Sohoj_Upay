@@ -18,7 +18,7 @@ CIRCUIT_RECOVERY_TIMEOUT_SECONDS = 30.0
 GRACEFUL_FALLBACK_TEXT = (
     "Our AI coaching assistant is temporarily unavailable. "
     "Your dashboard, transactions, and financial simulators remain fully operational. "
-    "Please check your Sohoj dashboard for your latest financial insights."
+    "Please check your Shohoj Upay dashboard for your latest financial insights."
 )
 
 
