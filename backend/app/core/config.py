@@ -10,7 +10,7 @@ class Settings(BaseSettings):
     """Application settings loaded from environment variables."""
 
     # Application
-    app_name: str = Field(default="AI Financial Coach", alias="APP_NAME")
+    app_name: str = Field(default="Shohoj Upay", alias="APP_NAME")
     environment: str = Field(default="local", alias="ENVIRONMENT")
     debug: bool = Field(default=False, alias="DEBUG")
     api_v1_prefix: str = Field(default="/api/v1", alias="API_V1_PREFIX")

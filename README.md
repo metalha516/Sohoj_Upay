@@ -1,4 +1,4 @@
-# Sohoj (সহজ) — AI-Powered Financial Coach
+# Shohoj Upay (সহজ উপায়) — AI-Powered Financial Coach
 
 [![CI Pipeline](https://github.com/metalha516/Sohoj/actions/workflows/ci.yml/badge.svg)](https://github.com/metalha516/Sohoj/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/License-Proprietary-blue.svg)](LICENSE)
@@ -6,7 +6,7 @@
 [![Next.js](https://img.shields.io/badge/Next.js-14.2%20App%20Router-black.svg)](https://nextjs.org)
 [![Security](https://img.shields.io/badge/OWASP-ASVS%20Level%202-green.svg)](docs/security/checklist-results.md)
 
-**Sohoj** is an intelligent, privacy-first personal financial coach engineered specifically for Bangladesh's economic landscape. It unifies Mobile Financial Services (bKash, Nagad), bank savings schemes (DPS/FDR), and cultural seasonal patterns (Eid-ul-Fitr, Eid-ul-Adha, Durga Puja) into an actionable, conversational, and mathematically grounded financial guidance platform.
+**Shohoj Upay** is an intelligent, privacy-first personal financial coach engineered specifically for Bangladesh's economic landscape. It unifies Mobile Financial Services (bKash, Nagad), bank savings schemes (DPS/FDR), and cultural seasonal patterns (Eid-ul-Fitr, Eid-ul-Adha, Durga Puja) into an actionable, conversational, and mathematically grounded financial guidance platform.
 
 ---
 

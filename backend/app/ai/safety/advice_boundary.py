@@ -10,7 +10,7 @@ logger = logging.getLogger(__name__)
 
 STANDARD_PROJECTION_DISCLAIMER = (
     "\n\n*Disclaimer: Projections are illustrative estimates based on stated assumptions "
-    "and are not guaranteed. Sohoj does not provide licensed investment or tax advice.*"
+    "and are not guaranteed. Shohoj Upay does not provide licensed investment or tax advice.*"
 )
 
 # Prohibited patterns
@@ -84,7 +84,7 @@ class AdviceBoundaryValidator:
             logger.warning("Advice boundary violation(s): %s", violations)
             # Safe refusal replacement
             replacement_text = (
-                "I am Sohoj's financial coach. I provide educational guidance, budget analysis, "
+                "I am Shohoj Upay's financial coach. I provide educational guidance, budget analysis, "
                 "and scenario planning based on your recorded transactions. I cannot recommend specific stocks, "
                 "guarantee investment returns, or execute money transfers on your behalf."
             )
